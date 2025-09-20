@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desarrollo de Aplicaciones</title>
+    <!-- Hoja de estilos CSS -->
+    <link rel="stylesheet" href="css.css">
+    <!-- Iconos de Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Incluimos Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Estilos personalizados para el cuerpo y fuentes */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-white text-black flex flex-col min-h-screen">
+
+    <!-- Sección de Encabezado -->
+    <header class="bg-black text-white shadow-lg py-6 sm:py-8">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <i class="fas fa-mobile-alt text-3xl text-white"></i>
+                <h1 class="text-xl sm:text-2xl font-extrabold tracking-tight">Desarrollo de Aplicaciones</h1>
+            </div>
+            <div class="flex items-center space-x-6">
+                 <h2 class="text-lg">Raul A. Calderon Palacios</h2>
+                 <nav class="hidden md:block">
+                     <ul class="flex space-x-6">
+                         <li><a href="index.html" class="hover:underline transition-colors duration-300 font-semibold"><i class="fas fa-home mr-2"></i>Inicio</a></li>
+                         <li><a href="proyectos.html" class="hover:underline transition-colors duration-300 font-semibold"><i class="fas fa-tasks mr-2"></i>Tareas por Semanas</a></li>
+                     </ul>
+                 </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contenedor de contenido principal -->
+    <main class="flex-grow container mx-auto px-4 py-10 sm:py-16">
+        
+        <!-- Sección de Introducción -->
+        <section id="introduccion" class="p-8 sm:p-12 rounded-2xl shadow-xl mb-8 content-card">
+            <div class="animated-bg"></div>
+            <div class="relative z-10">
+                <div class="flex items-center space-x-4 mb-4">
+                    <i class="fas fa-info-circle text-2xl text-black"></i>
+                    <h2 class="text-2xl font-bold">Introducción</h2>
+                </div>
+                <p class="text-lg leading-relaxed text-gray-700">
+                    La asignatura de Desarrollo de Aplicaciones Móviles Web es la base para que los estudiantes adquieran las habilidades necesarias para crear soluciones web. Nos enfocamos en la experiencia de usuario y el diseño moderno, utilizando las herramientas y tecnologías más actuales del mercado.
+                </p>
+            </div>
+        </section>
+
+        <!-- Sección de Objetivos -->
+        <section id="objetivos" class="p-8 sm:p-12 rounded-2xl shadow-xl mb-8 content-card">
+            <div class="animated-bg"></div>
+            <div class="relative z-10">
+                <div class="flex items-center space-x-4 mb-4">
+                    <i class="fas fa-bullseye text-2xl text-black"></i>
+                    <h2 class="text-2xl font-bold">Objetivos</h2>
+                </div>
+                <ul class="list-disc pl-6 text-lg space-y-2 text-gray-700">
+                    <li>Conocer los conceptos fundamentales del desarrollo web.</li>
+                    <li>Aprender a diseñar y desarrollar interfaces de usuario.</li>
+                    <li>Entender la importancia de la experiencia del usuario.</li>
+                    <li>Desarrollar habilidades para resolver problemas y depurar código en entornos de desarrollo integrados (IDEs).</li>
+                </ul>
+            </div>
+        </section>
+        
+        <!-- Sección de Contenidos -->
+        <section id="contenidos" class="p-8 sm:p-12 rounded-2xl shadow-xl mb-8 content-card">
+            <div class="animated-bg"></div>
+            <div class="relative z-10">
+                <div class="flex items-center space-x-4 mb-4">
+                    <i class="fas fa-list text-2xl text-black"></i>
+                    <h2 class="text-2xl font-bold">Contenidos</h2>
+                </div>
+                <ul class="list-disc pl-6 text-lg space-y-2 text-gray-700">
+                    <li>Introducción al desarrollo web.</li>
+                    <li>Lenguajes de programación para web (HTML, CSS, JavaScript).</li>
+                    <li>Frameworks para desarrollo web (React, Vue, Angular).</li>
+                    <li>Diseño de interfaces de usuario para aplicaciones web.</li>
+                    <li>Desarrollo de aplicaciones web utilizando APIs y bases de datos.</li>
+                    <li>Pruebas y depuración de aplicaciones web.</li>
+                    <li>Publicación y distribución de aplicaciones web.</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <!-- Sección de Pie de página -->
+    <footer class="bg-black text-white py-6">
+        <div class="container mx-auto px-4 flex flex-col sm:flex-row justify-between items-center text-center sm:text-left">
+            <p class="text-sm">© 2024 Desarrollo de Aplicaciones</p>
+        </div>
+    </footer>
+    
+</body>
+</html>
+    <script>
+        function toggleAccordion(id) {
+            const content = document.getElementById(id);
+            const icon = content.previousElementSibling.querySelector('i');
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                icon.classList.add('rotate-180');
+            } else {
+                content.classList.add('hidden');
+                icon.classList.remove('rotate-180');
+            }
+        }
+    </script>
