@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tareas por Semanas</title>
+    <!-- Hoja de estilos CSS: vinculamos el archivo css.css -->
+    <link rel="stylesheet" href="css.css">
+    <!-- Iconos de Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Incluimos Tailwind CSS para el diseño -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Estilos personalizados para el cuerpo y fuentes */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #121212;
+            color: #E0E0E0;
+        }
+        .content-card {
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background-color: #1E1E1E;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 flex flex-col min-h-screen">
+
+    <!-- Sección de Encabezado -->
+    <header class="bg-blue-800 text-white shadow-lg py-6 sm:py-8">
+        <div class="container mx-auto px-4 flex flex-col items-center text-center">
+            <div class="flex items-center space-x-4">
+                <i class="fas fa-tasks text-3xl"></i>
+                <h1 class="text-xl sm:text-2xl font-extrabold tracking-tight">Tareas por Semanas</h1>
+            </div>
+            <h2 class="text-lg mt-2">Raul A. Calderon Palacios</h2>
+            <nav class="mt-4">
+                <a href="index.html" class="hover:underline transition-colors duration-300 font-semibold"><i class="fas fa-arrow-left mr-2"></i>Volver a la página principal</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Contenedor de contenido principal -->
+    <main class="flex-grow container mx-auto px-4 py-10 sm:py-16">
+        
+        <!-- Acordeón de Semanas -->
+        <div class="space-y-4">
+            <!-- Semana 1 -->
+            <div class="bg-blue-800 text-white rounded-lg p-4 cursor-pointer flex justify-between items-center transition-all duration-300" onclick="toggleAccordion('semana1-content')">
+                <span>Semana 1</span>
+                <i class="fas fa-chevron-down transform transition-transform duration-300"></i>
+            </div>
+            <div id="semana1-content" class="p-4 bg-gray-800 rounded-lg hidden">
+                <h3 class="font-bold mb-2">Las Aplicaciones</h3>
+                <p class="text-sm leading-relaxed text-gray-400">
+                    Realiza una infografía sobre un tema realizado en la semana 01 – Fundamentos de Apps Móviles.
+                    Tiene en cuenta que los textos a mostrar en cada diapositiva deben ser cortos y puntuales.
+                    Investigar y presentar un informe sobre los diferentes tipos de aplicaciones móviles: nativas, híbridas y web. Incluir ventajas y desventajas de cada tipo.
+                </p>
+                <div class="mt-4 flex flex-wrap space-x-2">
+                    <a href="#" class="bg-blue-600 text-white font-bold py-2 px-4 rounded-full text-sm hover:bg-blue-700 transition-colors duration-300">
+                        Ver contenido
+                    </a>
+                    <a href="#" class="bg-green-600 text-white font-bold py-2 px-4 rounded-full text-sm hover:bg-green-700 transition-colors duration-300">
+                        Descargar
+                    </a>
+                    <a href="https://github.com/RaulCalderon11/primer-repositorio" target="_blank" class="bg-gray-700 text-white font-bold py-2 px-4 rounded-full text-sm hover:bg-gray-600 transition-colors duration-300">
+                        Ver en GitHub
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Semana 2 -->
+            <div class="bg-blue-800 text-white rounded-lg p-4 cursor-pointer flex justify-between items-center transition-all duration-300" onclick="toggleAccordion('semana2-content')">
+                <span>Semana 2</span>
+                <i class="fas fa-chevron-down transform transition-transform duration-300"></i>
+            </div>
+            <div id="semana2-content" class="p-4 bg-gray-800 rounded-lg hidden">
+                <!-- Contenido de la Semana 2 -->
+                <p class="text-gray-400">Agrega el contenido de la Semana 2 aquí.</p>
+            </div>
+
+            <!-- Semana 3 -->
+            <div class="bg-blue-800 text-white rounded-lg p-4 cursor-pointer flex justify-between items-center transition-all duration-300" onclick="toggleAccordion('semana3-content')">
+                <span>Semana 3</span>
+                <i class="fas fa-chevron-down transform transition-transform duration-300"></i>
+            </div>
+            <div id="semana3-content" class="p-4 bg-gray-800 rounded-lg hidden">
+                <!-- Contenido de la Semana 3 -->
+                <p class="text-gray-400">Agrega el contenido de la Semana 3 aquí.</p>
+            </div>
+
+            <!-- Semana 4 -->
+            <div class="bg-blue-800 text-white rounded-lg p-4 cursor-pointer flex justify-between items-center transition-all duration-300" onclick="toggleAccordion('semana4-content')">
+                <span>Semana 4</span>
+                <i class="fas fa-chevron-down transform transition-transform duration-300"></i>
+            </div>
+            <div id="semana4-content" class="p-4 bg-gray-800 rounded-lg hidden">
+                <!-- Contenido de la Semana 4 -->
+                <p class="text-gray-400">Agrega el contenido de la Semana 4 aquí.</p>
+            </div>
+            
+            <!-- Semana 5 -->
+            <div class="bg-blue-800 text-white rounded-lg p-4 cursor-pointer flex justify-between items-center transition-all duration-300" onclick="toggleAccordion('semana5-content')">
+                <span>Semana 5</span>
+                <i class="fas fa-chevron-down transform transition-transform duration-300"></i>
+            </div>
+            <div id="semana5-content" class="p-4 bg-gray-800 rounded-lg hidden">
+                <!-- Contenido de la Semana 5 -->
+                <p class="text-gray-400">Agrega el contenido de la Semana 5 aquí.</p>
+            </div>
+            
+            <!-- Semana 6 -->
+            <div class="bg-blue-800 text-white rounded-lg p-4 cursor-pointer flex justify-between items-center transition-all duration-300" onclick="toggleAccordion('semana6-content')">
+                <span>Semana 6</span>
+                <i class="fas fa-chevron-down transform transition-transform duration-300"></i>
+            </div>
+            <div id="semana6-content" class="p-4 bg-gray-800 rounded-lg hidden">
+                <!-- Contenido de la Semana 6 -->
+                <p class="text-gray-400">Agrega el contenido de la Semana 6 aquí.</p>
+            </div>
+            
+            <!-- Semana 7 -->
+            <div class="bg-blue-800 text-white rounded-lg p-4 cursor-pointer flex justify-between items-center transition-all duration-300" onclick="toggleAccordion('semana7-content')">
+                <span>Semana 7</span>
+                <i class="fas fa-chevron-down transform transition-transform duration-300"></i>
+            </div>
+            <div id="semana7-content" class="p-4 bg-gray-800 rounded-lg hidden">
+                <!-- Contenido de la Semana 7 -->
+                <p class="text-gray-400">Agrega el contenido de la Semana 7 aquí.</p>
+            </div>
+            
+        </div>
+    </main>
+
+    <!-- Sección de Pie de página -->
+    <footer class="bg-gray-800 text-white py-6">
+        <div class="container mx-auto px-4 flex flex-col sm:flex-row justify-between items-center text-center sm:text-left">
+            <p class="text-sm">© 2024 Programación de Aplicaciones Móviles Web</p>
+        </div>
+    </footer>
+    
+    <!-- JavaScript para la interactividad del acordeón -->
+    <script>
+        function toggleAccordion(id) {
+            const content = document.getElementById(id);
+            const icon = content.previousElementSibling.querySelector('i');
+            
+            // Oculta todos los otros acordeones abiertos
+            const allAccordions = document.querySelectorAll('.bg-gray-800.rounded-lg');
+            allAccordions.forEach(item => {
+                if (item.id !== id && !item.classList.contains('hidden')) {
+                    item.classList.add('hidden');
+                    item.previousElementSibling.querySelector('i').classList.remove('rotate-180');
+                }
+            });
+
+            // Muestra u oculta el acordeón actual
+            content.classList.toggle('hidden');
+            icon.classList.toggle('rotate-180');
+        }
+    </script>
+
+</body>
+</html>

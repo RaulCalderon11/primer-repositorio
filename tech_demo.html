@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demostración Técnica</title>
+    <!-- Incluimos Tailwind CSS para el diseño -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /*
+         * ESTILOS CSS - ESTA PARTE SERÍA EL ARCHIVO styles.css
+         * Aquí se definen los estilos para el diseño de la página.
+         */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.3s ease;
+        }
+        .page-header {
+            background-color: #1d4ed8;
+            color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+        }
+        .page-footer {
+            background-color: #1f2937;
+            color: white;
+            padding: 1.5rem;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 flex flex-col min-h-screen text-gray-800">
+
+    <!-- Sección de Encabezado -->
+    <header class="bg-blue-600 text-white shadow-lg py-6 sm:py-8">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <!-- Título principal -->
+            <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight">Bienvenidos a Mi Sitio Web</h1>
+            <!-- Enlaces de navegación -->
+            <nav class="hidden md:block">
+                <ul class="flex space-x-6">
+                    <li><a href="index.html" class="hover:underline transition-colors duration-300 font-semibold">Inicio</a></li>
+                    <li><a href="projects.html" class="hover:underline transition-colors duration-300 font-semibold">Proyectos</a></li>
+                    <li><a href="tech_demo.html" class="hover:underline transition-colors duration-300 font-semibold">Demo de JS</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Contenedor de contenido principal -->
+    <main class="flex-grow container mx-auto px-4 py-10 sm:py-16">
+        
+        <!-- Sección de CSS y JavaScript -->
+        <section id="tech-demo" class="bg-white p-8 sm:p-12 rounded-2xl shadow-xl text-center">
+            <h2 class="text-3xl font-bold mb-4 text-blue-600">CSS y JavaScript en Acción</h2>
+            <p id="js-text" class="text-lg text-gray-700 leading-relaxed mb-6 transition-colors duration-300">
+                Observa cómo **JavaScript** manipula los estilos de esta página. ¡Haz clic en los botones de abajo!
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4">
+                <!-- Botón para cambiar el color del texto -->
+                <button id="text-color-btn" class="inline-block bg-blue-500 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-blue-600 transition-colors duration-300">
+                    Cambiar Color de Texto
+                </button>
+                <!-- Botón para cambiar el color de fondo -->
+                <button id="bg-color-btn" class="inline-block bg-purple-500 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-purple-600 transition-colors duration-300">
+                    Cambiar Color de Fondo
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Sección de Pie de página -->
+    <footer class="bg-gray-800 text-white py-6">
+        <div class="container mx-auto px-4 flex flex-col sm:flex-row justify-between items-center text-center sm:text-left">
+            <!-- Nombre del estudiante y su información -->
+            <p class="text-sm">Soy el estudiante Calderon Palacios</p>
+            <!-- Información del curso alineada a la derecha en pantallas grandes -->
+            <p class="text-sm mt-2 sm:mt-0 sm:ml-auto">de ING de Sistemas para el curso de desarrollo de aplicaciones</p>
+        </div>
+    </footer>
+
+    <!--
+     * SCRIPT JAVASCRIPT - ESTA PARTE SERÍA EL ARCHIVO script.js
+     * Aquí se maneja la interactividad de los botones.
+     -->
+    <script>
+        // Obtenemos los elementos de la página que necesitamos
+        const textColorBtn = document.getElementById('text-color-btn');
+        const bgColorBtn = document.getElementById('bg-color-btn');
+        const jsText = document.getElementById('js-text');
+        const mainSection = document.querySelector('main');
+
+        // Escuchamos el clic en el botón de color de texto
+        textColorBtn.addEventListener('click', () => {
+            // Array de colores de texto de Tailwind
+            const colors = ['text-blue-600', 'text-green-600', 'text-red-600', 'text-yellow-600', 'text-purple-600'];
+            // Elimina todas las clases de color existentes del texto
+            jsText.classList.remove(...colors);
+            // Agrega una nueva clase de color al azar
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            jsText.classList.add(randomColor);
+        });
+
+        // Escuchamos el clic en el botón de color de fondo
+        bgColorBtn.addEventListener('click', () => {
+            // Array de colores de fondo de Tailwind
+            const bgColors = ['bg-gray-200', 'bg-blue-200', 'bg-green-200', 'bg-red-200', 'bg-yellow-200', 'bg-purple-200'];
+            // Elimina todas las clases de color de fondo existentes del body
+            mainSection.classList.remove(...bgColors);
+            // Agrega una nueva clase de color de fondo al azar
+            const randomBgColor = bgColors[Math.floor(Math.random() * bgColors.length)];
+            mainSection.classList.add(randomBgColor);
+        });
+    </script>
+
+</body>
+</html>
