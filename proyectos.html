@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tareas por Semanas</title>
+    <!-- Hoja de estilos CSS -->
+    <link rel="stylesheet" href="css.css">
+    <!-- Iconos de Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Incluimos Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Estilos personalizados para el cuerpo y fuentes */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-white text-black flex flex-col min-h-screen">
+
+    <!-- Sección de Encabezado -->
+    <header class="bg-black text-white shadow-lg py-6 sm:py-8">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <i class="fas fa-tasks text-3xl text-white"></i>
+                <h1 class="text-xl sm:text-2xl font-extrabold tracking-tight">Tareas por Semanas</h1>
+            </div>
+            <div class="flex items-center space-x-6">
+                 <h2 class="text-lg">Raul A. Calderon Palacios</h2>
+                 <nav class="hidden md:block">
+                     <ul class="flex space-x-6">
+                         <li><a href="index.html" class="hover:underline transition-colors duration-300 font-semibold"><i class="fas fa-home mr-2"></i>Inicio</a></li>
+                         <li><a href="proyectos.html" class="hover:underline transition-colors duration-300 font-semibold"><i class="fas fa-tasks mr-2"></i>Tareas por Semanas</a></li>
+                     </ul>
+                 </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- VIDEO DE FONDO - INICIO -->
+    <div class="fixed inset-0 -z-10 w-full h-full overflow-hidden">
+        <video class="w-full h-full object-cover" autoplay loop muted playsinline>
+            <source src="video-fondo-proyectos.mp4" type="video/mp4">
+        </video>
+        <div class="absolute inset-0 bg-white opacity-75"></div>
+    </div>
+    <!-- VIDEO DE FONDO - FIN -->
+
+    <!-- Contenedor de contenido principal -->
+    <main class="flex-grow container mx-auto px-4 py-10 sm:py-16">
+        
+        <!-- Sección de Tareas por Semanas -->
+        <section id="tareas" class="mb-8 max-w-6xl mx-auto">
+            <h2 class="text-3xl font-bold mb-6 text-center">Tareas por Semanas</h2>
+            
+            <!-- Contenedor de las tarjetas de las semanas en una cuadrícula de 3 columnas -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <!-- Tarjeta para cada semana -->
+                <div class="task-card-item rounded-lg accordion-item" data-id="semana1" style="background-image: url('c++.jpeg');">
+                    <div class="accordion-header cursor-pointer flex justify-between items-center p-6">
+                        <h3 class="text-xl font-semibold">Semana 1</h3>
+                        <i class="fas fa-chevron-down transform transition-transform duration-300 text-white"></i>
+                    </div>
+                    <div class="accordion-content p-6 pt-0">
+                        <p class="text-white">
+                            **Tarea de la Semana:** Realiza los ejercicios de la clase usando lo aprendido.
+                        </p>
+                        <div class="mt-4 space-x-4">
+                            <!-- Enlace para ver en GitHub -->
+                            <a href="https://github.com/RaulCalderon11/trabajos_de_semanas.git" class="inline-block bg-black text-white font-bold py-2 px-4 rounded-full hover:bg-gray-800 transition-colors duration-300">
+                                Ver en GitHub
+                            </a>
+                            <!-- Enlace para descargar el archivo -->
+                            <a href="Semana 01.rar" download class="inline-block bg-gray-200 text-black font-bold py-2 px-4 rounded-full hover:bg-gray-300 transition-colors duration-300">
+                                Descargar Tarea 1
+                            </a>
+                            <a href="Semana 0102.rar" download class="inline-block bg-gray-200 text-black font-bold py-2 px-4 rounded-full hover:bg-gray-300 transition-colors duration-300">
+                                Descargar Tarea 2
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="task-card-item rounded-lg accordion-item" data-id="semana2" style="background-image: url('pyhton.jpeg');">
+                    <div class="accordion-header cursor-pointer flex justify-between items-center p-6">
+                        <h3 class="text-xl font-semibold">Semana 2</h3>
+                        <i class="fas fa-chevron-down transform transition-transform duration-300 text-white"></i>
+                    </div>
+                    <div class="accordion-content p-6 pt-0">
+                        <p class="text-white">
+                            **Tarea de la Semana:** Completa el ejercicio sobre interfaces de usuario.
+                        </p>
+                        <div class="mt-4 space-x-4">
+                            <a href="https://github.com/RaulCalderon11/trabajos_de_semanas.git" class="inline-block bg-black text-white font-bold py-2 px-4 rounded-full hover:bg-gray-800 transition-colors duration-300">
+                                Ver en GitHub
+                            </a>
+                            
+                            <a href="Semana 02.rar" download class="inline-block bg-gray-200 text-black font-bold py-2 px-4 rounded-full hover:bg-gray-300 transition-colors duration-300">
+                                Descargar Tarea 1
+                            </a>
+                            <a href="Semana 0202.rar" download class="inline-block bg-gray-200 text-black font-bold py-2 px-4 rounded-full hover:bg-gray-300 transition-colors duration-300">
+                                Descargar Tarea 2
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="task-card-item rounded-lg accordion-item" data-id="semana3" style="background-image: url('java\ script.jpeg');">
+                    <div class="accordion-header cursor-pointer flex justify-between items-center p-6">
+                        <h3 class="text-xl font-semibold">Semana 3</h3>
+                        <i class="fas fa-chevron-down transform transition-transform duration-300 text-white"></i>
+                    </div>
+                    <div class="accordion-content p-6 pt-0">
+                        <p class="text-white">
+                            **Tarea de la Semana:** Desarrolla un prototipo de aplicación con Figma.
+                        </p>
+                        <div class="mt-4 space-x-4">
+                            <a href="https://github.com/RaulCalderon11/trabajos_de_semanas.git" class="inline-block bg-black text-white font-bold py-2 px-4 rounded-full hover:bg-gray-800 transition-colors duration-300">
+                                Ver en GitHub
+                            </a>
+                            <a href="Semana 03.rar" download class="inline-block bg-gray-200 text-black font-bold py-2 px-4 rounded-full hover:bg-gray-300 transition-colors duration-300">
+                                Descargar Tarea 1
+                            </a>
+                            <a href="Semana 0302.rar" download class="inline-block bg-gray-200 text-black font-bold py-2 px-4 rounded-full hover:bg-gray-300 transition-colors duration-300">
+                                Descargar Tarea 2
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Más semanas aquí... -->
+                <div class="task-card-item rounded-lg accordion-item" data-id="semana4" style="background-image: url('htmlp\ .jpeg');">
+                    <div class="accordion-header cursor-pointer flex justify-between items-center p-6">
+                        <h3 class="text-xl font-semibold">Semana 4</h3>
+                        <i class="fas fa-chevron-down transform transition-transform duration-300 text-white"></i>
+                    </div>
+                    <div class="accordion-content p-6 pt-0">
+                        <p class="text-white">
+                            **Tarea de la Semana:** Crea un sitio web responsive usando HTML y CSS.
+                        </p>
+                        <div class="mt-4 space-x-4">
+                            <a href="https://github.com/RaulCalderon11/trabajos_de_semanas.git" class="inline-block bg-black text-white font-bold py-2 px-4 rounded-full hover:bg-gray-800 transition-colors duration-300">
+                                Ver en GitHub
+                            </a>
+                            <a href="Semana 0401.rar" download class="inline-block bg-gray-200 text-black font-bold py-2 px-4 rounded-full hover:bg-gray-300 transition-colors duration-300">
+                                Descargar Tarea 1
+                            </a>
+                            <a href="Semana 0402.rar" download class="inline-block bg-gray-200 text-black font-bold py-2 px-4 rounded-full hover:bg-gray-300 transition-colors duration-300">
+                                Descargar Tarea 2
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="task-card-item rounded-lg accordion-item" data-id="semana5" style="background-image: url('javaa.jpeg');">
+                    <div class="accordion-header cursor-pointer flex justify-between items-center p-6">
+                        <h3 class="text-xl font-semibold">Semana 5</h3>
+                        <i class="fas fa-chevron-down transform transition-transform duration-300 text-white"></i>
+                    </div>
+                    <div class="accordion-content p-6 pt-0">
+                        <p class="text-white">
+                            **Tarea de la Semana:** Implementa funcionalidad con JavaScript.
+                        </p>
+                        <div class="mt-4 space-x-4">
+                            <a href="https://github.com/RaulCalderon11/trabajos_de_semanas.git" class="inline-block bg-black text-white font-bold py-2 px-4 rounded-full hover:bg-gray-800 transition-colors duration-300">
+                                Ver en GitHub
+                            </a>
+                            <a href="#" download class="inline-block bg-gray-200 text-black font-bold py-2 px-4 rounded-full hover:bg-gray-300 transition-colors duration-300">
+                                Descargar Tarea 1
+                            </a>
+                            <a href="#" download class="inline-block bg-gray-200 text-black font-bold py-2 px-4 rounded-full hover:bg-gray-300 transition-colors duration-300">
+                                Descargar Tarea 2
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="task-card-item rounded-lg accordion-item" data-id="semana6" style="background-image: url('py2.jpeg');">
+                    <div class="accordion-header cursor-pointer flex justify-between items-center p-6">
+                        <h3 class="text-xl font-semibold">Semana 6</h3>
+                        <i class="fas fa-chevron-down transform transition-transform duration-300 text-white"></i>
+                    </div>
+                    <div class="accordion-content p-6 pt-0">
+                        <p class="text-white">
+                            **Tarea de la Semana:** Trabaja con APIs externas para obtener datos.
+                        </p>
+                        <div class="mt-4 space-x-4">
+                            <a href="https://github.com/RaulCalderon11/trabajos_de_semanas.git" class="inline-block bg-black text-white font-bold py-2 px-4 rounded-full hover:bg-gray-800 transition-colors duration-300">
+                                Ver en GitHub
+                            </a>
+                            <a href="#" download class="inline-block bg-gray-200 text-black font-bold py-2 px-4 rounded-full hover:bg-gray-300 transition-colors duration-300">
+                                Descargar Tarea 1
+                            </a>
+                            <a href="#" download class="inline-block bg-gray-200 text-black font-bold py-2 px-4 rounded-full hover:bg-gray-300 transition-colors duration-300">
+                                Descargar Tarea 2
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="task-card-item rounded-lg accordion-item" data-id="semana7" style="background-image: url('codeimagen.jpeg');">
+                    <div class="accordion-header cursor-pointer flex justify-between items-center p-6">
+                        <h3 class="text-xl font-semibold">Semana 7</h3>
+                        <i class="fas fa-chevron-down transform transition-transform duration-300 text-white"></i>
+                    </div>
+                    <div class="accordion-content p-6 pt-0">
+                        <p class="text-white">
+                            **Tarea de la Semana:** Crea un CRUD (Crear, Leer, Actualizar, Borrar) con una base de datos.
+                        </p>
+                        <div class="mt-4 space-x-4">
+                            <a href="https://github.com/RaulCalderon11/trabajos_de_semanas.git" class="inline-block bg-black text-white font-bold py-2 px-4 rounded-full hover:bg-gray-800 transition-colors duration-300">
+                                Ver en GitHub
+                            </a>
+                            <a href="#" download class="inline-block bg-gray-200 text-black font-bold py-2 px-4 rounded-full hover:bg-gray-300 transition-colors duration-300">
+                                Descargar Tarea 1
+                            </a>
+                            <a href="#" download class="inline-block bg-gray-200 text-black font-bold py-2 px-4 rounded-full hover:bg-gray-300 transition-colors duration-300">
+                                Descargar Tarea 2
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="task-card-item rounded-lg accordion-item" data-id="semana8" style="background-image: url('por\ quesi.jpeg');">
+                    <div class="accordion-header cursor-pointer flex justify-between items-center p-6">
+                        <h3 class="text-xl font-semibold">Semana 8</h3>
+                        <i class="fas fa-chevron-down transform transition-transform duration-300 text-white"></i>
+                    </div>
+                    <div class="accordion-content p-6 pt-0">
+                        <p class="text-white">
+                            **Tarea de la Semana:** Proyecto intermedio de desarrollo de una aplicación web.
+                        </p>
+                        <div class="mt-4 space-x-4">
+                            <a href="https://github.com/RaulCalderon11/trabajos_de_semanas.git" class="inline-block bg-black text-white font-bold py-2 px-4 rounded-full hover:bg-gray-800 transition-colors duration-300">
+                                Ver en GitHub
+                            </a>
+                            <a href="#" download class="inline-block bg-gray-200 text-black font-bold py-2 px-4 rounded-full hover:bg-gray-300 transition-colors duration-300">
+                                Descargar Tarea 1
+                            </a>
+                            <a href="#" download class="inline-block bg-gray-200 text-black font-bold py-2 px-4 rounded-full hover:bg-gray-300 transition-colors duration-300">
+                                Descargar Tarea 2
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="task-card-item rounded-lg accordion-item" data-id="semana9" style="background-image: url('todojunto.jpeg');">
+                    <div class="accordion-header cursor-pointer flex justify-between items-center p-6">
+                        <h3 class="text-xl font-semibold">Semana 9</h3>
+                        <i class="fas fa-chevron-down transform transition-transform duration-300 text-white"></i>
+                    </div>
+                    <div class="accordion-content p-6 pt-0">
+                        <p class="text-white">
+                            **Tarea de la Semana:** Introducción a frameworks avanzados como React o Vue.
+                        </p>
+                        <div class="mt-4 space-x-4">
+                            <a href="https://github.com/RaulCalderon11/trabajos_de_semanas.git" class="inline-block bg-black text-white font-bold py-2 px-4 rounded-full hover:bg-gray-800 transition-colors duration-300">
+                                Ver en GitHub
+                            </a>
+                            <a href="#" download class="inline-block bg-gray-200 text-black font-bold py-2 px-4 rounded-full hover:bg-gray-300 transition-colors duration-300">
+                                Descargar Tarea 1
+                            </a>
+                            <a href="#" download class="inline-block bg-gray-200 text-black font-bold py-2 px-4 rounded-full hover:bg-gray-300 transition-colors duration-300">
+                                Descargar Tarea 2
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>   
+
+        <!-- Sección de Recursos -->
+        <section id="recursos" class="p-8 sm:p-12 rounded-2xl shadow-xl mb-8 content-card">
+            <div class="flex items-center space-x-4">
+                <i class="fas fa-book-open text-2xl text-black"></i>
+                <h2 class="text-2xl font-bold">Recursos</h2>
+            </div>
+            <div class="pt-4 text-gray-700">
+                <ul class="list-disc pl-6 text-lg space-y-2">
+                    <li>**"Mobile Web Development"** de John Wiley & Sons.</li>
+                    <li>**"React Native in Action"** de Manning Publications.</li>
+                    <li>Documentación oficial de React Native y Ionic.</li>
+                    <li>Cursos en línea en plataformas como Udemy, Coursera, edX.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Sección de Información Personal -->
+        <section id="informacion-personal" class="p-8 sm:p-12 rounded-2xl shadow-xl mb-8 content-card">
+            <div class="flex items-center space-x-4">
+                <i class="fas fa-address-card text-2xl text-black"></i>
+                <h2 class="text-2xl font-bold">Información Personal</h2>
+            </div>
+            <div class="pt-4 text-gray-700">
+                <p class="text-lg">
+                    **Nombre:** Raúl A. Calderón Palacios<br>
+                    **Carrera:** Ingeniería de Sistemas<br>
+                    **Curso:** Desarrollo de Aplicaciones <br>
+                </p>
+                <div class="mt-4 space-x-4">
+                    <a href="https://github.com/RaulCalderon11" class="inline-block bg-black text-white font-bold py-2 px-4 rounded-full hover:bg-gray-800 transition-colors duration-300">
+                        <i class="fab fa-github mr-2"></i>Mi GitHub
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Sección de Pie de página -->
+    <footer class="bg-black text-white py-6">
+        <div class="container mx-auto px-4 flex flex-col sm:flex-row justify-between items-center text-center sm:text-left">
+            <p class="text-sm">© 2024 Desarrollo de Aplicaciones</p>
+        </div>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const accordionItems = document.querySelectorAll('.accordion-item');
+
+            accordionItems.forEach(item => {
+                const header = item.querySelector('.accordion-header');
+                const content = item.querySelector('.accordion-content');
+                const icon = item.querySelector('i.fa-chevron-down');
+
+                header.addEventListener('click', () => {
+                    const isExpanded = content.style.display === 'block';
+                    
+                    // Colapsa todos los demás elementos
+                    accordionItems.forEach(otherItem => {
+                        const otherContent = otherItem.querySelector('.accordion-content');
+                        const otherIcon = otherItem.querySelector('i.fa-chevron-down');
+                        if (otherContent !== content) {
+                            otherContent.style.display = 'none';
+                            otherIcon.style.transform = 'rotate(0deg)';
+                        }
+                    });
+
+                    // Expande o colapsa el elemento actual
+                    if (isExpanded) {
+                        content.style.display = 'none';
+                        icon.style.transform = 'rotate(0deg)';
+                    } else {
+                        content.style.display = 'block';
+                        icon.style.transform = 'rotate(180deg)';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
