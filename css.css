@@ -1,0 +1,131 @@
+/*
+ * Hoja de estilos CSS para un diseño en cuadrícula.
+ * Este CSS complementa a Tailwind, añadiendo estilos personalizados.
+*/
+
+/* ESTILOS AGREGADOS PARA EL VIDEO DE FONDO (Aplicable en tarjetas de Proyectos) */
+/* Posiciona un elemento <video> para que ocupe completamente el contenedor de su tarjeta padre, sirviendo como fondo. */
+.video-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1; /* Coloca el video detrás del contenido */
+}
+
+/* Agrega una capa oscura semitransparente sobre el video para mejorar el contraste y la legibilidad del texto. */
+.task-card-item::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); /* Capa semitransparente para mejor contraste */
+    z-index: 2; /* Coloca la capa oscura sobre el video */
+}
+
+/* Asegura que el contenido del acordeón se muestre por encima del video y de la capa oscura. */
+.accordion-header, .accordion-content {
+    position: relative;
+    z-index: 3;
+}
+
+/* ESTILOS GENERALES */
+/* Establece el color de fondo y de texto por defecto para toda la web. */
+body {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+/* ESTILOS PARA TARJETAS DE TAREAS (Página de Proyectos) */
+/* Define el estilo base para las tarjetas de proyectos. */
+.task-card-item {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    overflow: hidden;
+    color: #ffffff;
+    height: 300px; /* Altura fija para hacerlos cuadrados, o usa 'aspect-ratio' */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Añade un efecto de sombra al pasar el cursor sobre la tarjeta. */
+.task-card-item:hover {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Crea una superposición blanca semitransparente sobre la imagen de fondo de la tarjeta. */
+.task-card-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(20, 20, 20, 0.555); /* Superposición más clara */
+    transition: background 0.3s ease;
+    z-index: 1;
+}
+
+/* Aumenta la opacidad de la superposición al pasar el cursor. */
+.task-card-item:hover::before {
+    background: rgba(255, 255, 255, 0.6); /* Se vuelve un poco más opaco al pasar el mouse */
+}
+
+/* ESTILOS PARA ACORDEÓN (Componente reutilizable en Proyectos) */
+/* Define el color del texto y los iconos dentro del encabezado del acordeón. */
+.accordion-header h3, .accordion-header i {
+    color: #000000; /* Color de texto negro en el encabezado */
+}
+
+/* Cambia el color del texto y los iconos al pasar el cursor para indicar interactividad. */
+.accordion-header:hover h3, .accordion-header:hover i {
+    color: #4B5563; /* Color de texto gris oscuro en el hover del encabezado */
+}
+
+/* Oculta el contenido del acordeón por defecto (controlado por JS). */
+.accordion-content {
+    display: none;
+    position: relative;
+}
+
+/* ESTILOS PARA SECCIONES PRINCIPALES (Página de Inicio/Index) */
+/* Estilo para los bloques de contenido principales (ej. "Sobre mí", "Habilidades"). */
+.content-card {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background-color: #f5f5f5;
+    transition: all 0.3s ease-in-out;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Aplica un efecto de sombra al pasar el cursor sobre estas secciones. */
+.content-card:hover {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Define el color de los títulos dentro de las secciones de contenido. */
+.content-card h2 {
+    color: #000000;
+}
+
+/* ESTILOS PARA ENCABEZADO Y PIE DE PÁGINA (Global) */
+/* Define el color de fondo y de texto del pie de página. */
+footer {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+/* Define el color de los iconos en el encabezado de la página. */
+header i {
+    color: #ffffff;
+}
