@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tareas por Semanas</title>
+    <link rel="stylesheet" href="css.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Estilos personalizados para el cuerpo y fuentes */
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #000000; /* fondo negro */
+            color: #ffffff;      /* texto por defecto blanco */
+        }
+        
+        /* Mejoras estéticas para las tarjetas */
+        .task-card-item {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+            height: 200px;
+            transition: all 0.5s ease;
+            border-radius: 0.75rem;
+        }
+
+        .task-card-item::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(45deg, rgba(0,0,0,0.72), rgba(0,0,0,0.35));
+            z-index: 1;
+            pointer-events: none;
+            border-radius: inherit;
+        }
+
+        .task-card-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .accordion-header, .accordion-content {
+            position: relative;
+            z-index: 3;
+        }
+
+        .accordion-header h3 {
+            color: white;
+            font-size: 1.125rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            margin: 0;
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.45s ease, opacity 0.35s ease, transform 0.35s ease;
+            opacity: 0;
+            transform: translateY(6px);
+            background: rgba(0,0,0,0.55);
+            border-radius: 0.5rem;
+            margin: 0.5rem;
+            padding: 0.75rem;
+            box-sizing: border-box;
+            color: #fff;
+        }
+
+        .accordion-content.active {
+            max-height: 600px;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .task-card-item.expanded {
+            height: 480px;
+        }
+
+        .task-card-item .card-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.95), rgba(0,0,0,0.45), transparent);
+            z-index: 1;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            border-radius: inherit;
+        }
+
+        .task-card-item:hover .card-overlay {
+            opacity: 0.95;
+        }
+
+        .task-card-item .card-content {
+            position: relative;
+            z-index: 3;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding-bottom: 0.75rem;
+            box-sizing: border-box;
+        }
+
+        .btn-actions {
+            margin-top: 0.75rem;
+            display: flex;
+            gap: 1rem; /* más espacio entre botones */
+            flex-wrap: wrap;
+        }
+
+        .btn-actions a {
+            padding: 0.5rem 1.25rem;
+            border-radius: 9999px;
+            font-weight: 700;
+            display: inline-block;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            text-decoration: none;
+        }
+
+        .btn-actions a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+        }
+
+        .content-card {
+            background: #ffffff;     /* tarjeta blanca */
+            color: #0f172a;          /* texto negro dentro de la tarjeta */
+            backdrop-filter: none;   /* no necesitamos desenfoque en fondo negro */
+            transition: transform 0.3s ease;
+        }
+
+        .content-card:hover {
+            transform: translateY(-3px);
+        }
+
+        /* Small screens: reduce overlay height to keep buttons visible */
+        @media (max-width: 640px) {
+            .task-card-item .card-overlay { height: 50%; }
+            .task-card-item.expanded { height: 560px; } /* dar más altura en móvil cuando expande */
+        }
+
+        /* Cabecera: aseguramos contraste */
+        header { background: linear-gradient(90deg,#000000 0%, #111827 100%); }
+        header h1, header a { color: #fff; }
+
+        /* Mantener botones visibles sobre tarjeta blanca */
+        .content-card .pt-4, .content-card ul { color: #0f172a; }
+
+        /* Asegurar que el texto dentro de las tarjetas (acordeón) sea legible */
+        .accordion-header h3, .accordion-content { color: #ffffff; }
+
+        /* Video de fondo: overlay oscuro (antes era blanco) */
+    </style>
+</head>
+<body class="bg-black text-white flex flex-col min-h-screen">
+
+    <!-- Sección de Encabezado -->
+    <header class="bg-black text-white shadow-lg py-6 sm:py-8">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <i class="fas fa-tasks text-3xl text-white"></i>
+                <h1 class="text-xl sm:text-2xl font-extrabold tracking-tight">Tareas por Semanas</h1>
+            </div>
+            <div class="flex items-center space-x-6">
+                 <h2 class="text-lg">Raul A. Calderon Palacios</h2>
+                 <nav class="hidden md:block">
+                     <ul class="flex space-x-6">
+                         <li><a href="index.html" class="hover:underline transition-colors duration-300 font-semibold"><i class="fas fa-home mr-2"></i>Inicio</a></li>
+                         <li><a href="proyectos.html" class="hover:underline transition-colors duration-300 font-semibold"><i class="fas fa-tasks mr-2"></i>Tareas por Semanas</a></li>
+                     </ul>
+                 </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- VIDEO DE FONDO - INICIO -->
+    <div class="fixed inset-0 -z-10 w-full h-full overflow-hidden">
+        <video class="w-full h-full object-cover" autoplay loop muted playsinline>
+            <source src="video-fondo-proyectos.mp4" type="video/mp4">
+        </video>
+        <!-- Overlay oscuro en vez de blanco para mantener tema oscuro y dejar el video visible -->
+        <div class="absolute inset-0 bg-black opacity-60"></div>
+    </div>
+    <!-- VIDEO DE FONDO - FIN -->
+
+    <!-- Contenedor de contenido principal -->
+    <main class="flex-grow container mx-auto px-4 py-10 sm:py-16">
+        
+        <!-- Sección de Tareas por Semanas -->
+        <section id="tareas" class="mb-8 max-w-6xl mx-auto">
+            <h2 class="text-3xl font-bold mb-6 text-center">Tareas por Semanas</h2>
+            
+            <!-- Contenedor de las tarjetas de las semanas en una cuadrícula -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+
+                <!-- Tarjeta para cada semana -->
+                <div class="task-card-item rounded-lg accordion-item" data-id="semana1" style="background-image: url('c++.jpeg');">
+                    <div class="card-overlay" aria-hidden="true"></div>
+                    <div class="card-content">
+                        <button class="accordion-header cursor-pointer flex justify-between items-center p-6" aria-expanded="false" aria-controls="content-semana1">
+                            <h3 class="semana-1">Semana 1</h3>
+                            <i class="fas fa-chevron-down transition-transform duration-300 text-white" aria-hidden="true"></i>
+                        </button>
+                        <div id="content-semana1" class="accordion-content" role="region" aria-hidden="true">
+                            <p>
+                                <strong>Tarea de la Semana:</strong> Realiza los ejercicios de la clase usando lo aprendido.
+                            </p>
+                            <div class="btn-actions">
+                                <a href="https://github.com/RaulCalderon11/trabajos_de_semanas/tree/main/semana1" class="bg-black text-white">
+                                    Ver en GitHub
+                                </a>
+                                <a href="QGIT.pdf" download class="bg-gray-200 text-black">
+                                    Descargar que es Git
+                                </a>
+                                <a href="TRABAJO1.pdf" download class="bg-gray-200 text-black">
+                                    Descargar Tarea 1
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Semana 2 -->
+                <div class="task-card-item rounded-lg accordion-item" data-id="semana2" style="background-image: url('pyhton.jpeg');">
+                    <div class="card-overlay" aria-hidden="true"></div>
+                    <div class="card-content">
+                        <button class="accordion-header cursor-pointer flex justify-between items-center p-6" aria-expanded="false" aria-controls="content-semana2">
+                            <h3 class="semana-2">Semana 2</h3>
+                            <i class="fas fa-chevron-down transition-transform duration-300 text-white" aria-hidden="true"></i>
+                        </button>
+                        <div id="content-semana2" class="accordion-content" role="region" aria-hidden="true">
+                            <p><strong>Tarea de la Semana:</strong> Realiza los ejercicios de la clase usando lo aprendido.</p>
+                            <div class="btn-actions">
+                                <a href="https://github.com/RaulCalderon11/trabajos_de_semanas/tree/main/semana2" class="bg-black text-white">Ver en GitHub</a>
+                                <a href="TRABAJO2.pdf" download class="bg-gray-200 text-black">Descargar Tarea 1</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Semana 3 -->
+                <div class="task-card-item rounded-lg accordion-item" data-id="semana3" style="background-image: url('java script.jpeg');">
+                    <div class="card-overlay" aria-hidden="true"></div>
+                    <div class="card-content">
+                        <button class="accordion-header cursor-pointer flex justify-between items-center p-6" aria-expanded="false" aria-controls="content-semana3">
+                            <h3 class="semana-3">Semana 3</h3>
+                            <i class="fas fa-chevron-down transition-transform duration-300 text-white" aria-hidden="true"></i>
+                        </button>
+                        <div id="content-semana3" class="accordion-content" role="region" aria-hidden="true">
+                            <p><strong>Tarea de la Semana:</strong> Realiza los ejercicios de la clase usando lo aprendido.</p>
+                            <div class="btn-actions">
+                                <a href="https://github.com/RaulCalderon11/trabajos_de_semanas/tree/main/semana3" class="bg-black text-white">Ver en GitHub</a>
+                                <a href="TRABAJO3.pdf" download class="bg-gray-200 text-black">Descargar Tarea 1</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Semana 4 -->
+                <div class="task-card-item rounded-lg accordion-item" data-id="semana4" style="background-image: url('htmlp .jpeg');">
+                    <div class="card-overlay" aria-hidden="true"></div>
+                    <div class="card-content">
+                        <button class="accordion-header cursor-pointer flex justify-between items-center p-6" aria-expanded="false" aria-controls="content-semana4">
+                            <h3 class="semana-4">Semana 4</h3>
+                            <i class="fas fa-chevron-down transition-transform duration-300 text-white" aria-hidden="true"></i>
+                        </button>
+                        <div id="content-semana4" class="accordion-content" role="region" aria-hidden="true">
+                            <p><strong>Tarea de la Semana:</strong> Realiza los ejercicios de la clase usando lo aprendido.</p>
+                            <div class="btn-actions">
+                                <a href="https://github.com/RaulCalderon11/trabajos_de_semanas/tree/main/semana4" class="bg-black text-white">Ver en GitHub</a>
+                                <a href="TRABAJO4.pdf" download class="bg-gray-200 text-black">Descargar Tarea 1</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Semana 5 -->
+                <div class="task-card-item rounded-lg accordion-item" data-id="semana5" style="background-image: url('py2.jpeg');">
+                    <div class="card-overlay" aria-hidden="true"></div>
+                    <div class="card-content">
+                        <button class="accordion-header cursor-pointer flex justify-between items-center p-6" aria-expanded="false" aria-controls="content-semana5">
+                            <h3 class="semana-5">Semana 5</h3>
+                            <i class="fas fa-chevron-down transition-transform duration-300 text-white" aria-hidden="true"></i>
+                        </button>
+                        <div id="content-semana5" class="accordion-content" role="region" aria-hidden="true">
+                            <p><strong>Tarea de la Semana:</strong> login con un problema a resolver.</p>
+                            <div class="btn-actions">
+                                <a href="https://github.com/RaulCalderon11/trabajos_de_semanas/tree/main/semana5" class="bg-black text-white">Ver en GitHub</a>
+                                <a href="TRABAJO5.pdf" download class="bg-gray-200 text-black">Descargar Tarea 1</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Semana 6 -->
+                <div class="task-card-item rounded-lg accordion-item" data-id="semana6" style="background-image: url('java.jpeg');">
+                    <div class="card-overlay" aria-hidden="true"></div>
+                    <div class="card-content">
+                        <button class="accordion-header cursor-pointer flex justify-between items-center p-6" aria-expanded="false" aria-controls="content-semana6">
+                            <h3 class="semana-6">Semana 6</h3>
+                            <i class="fas fa-chevron-down transition-transform duration-300 text-white" aria-hidden="true"></i>
+                        </button>
+                        <div id="content-semana6" class="accordion-content" role="region" aria-hidden="true">
+                            <p><strong>Tarea de la Semana:</strong> base de datos para login.</p>
+                            <div class="btn-actions">
+                                <a href="https://github.com/RaulCalderon11/trabajos_de_semanas/tree/main/semana6" class="bg-black text-white">Ver en GitHub</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Semana 7 -->
+                <div class="task-card-item rounded-lg accordion-item" data-id="semana7" style="background-image: url('codeimagen.jpeg');">
+                    <div class="card-overlay" aria-hidden="true"></div>
+                    <div class="card-content">
+                        <button class="accordion-header cursor-pointer flex justify-between items-center p-6" aria-expanded="false" aria-controls="content-semana7">
+                            <h3 class="semana-7">Semana 7</h3>
+                            <i class="fas fa-chevron-down transition-transform duration-300 text-white" aria-hidden="true"></i>
+                        </button>
+                        <div id="content-semana7" class="accordion-content" role="region" aria-hidden="true">
+                            <p><strong>Tarea de la Semana:</strong> base de datos para login ya todo junto y completo con la especificación.</p>
+                            <div class="btn-actions">
+                                <a href="https://github.com/RaulCalderon11/trabajos_de_semanas/tree/main/semana7" class="bg-black text-white">Ver en GitHub</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Semana 8 -->
+                <div class="task-card-item rounded-lg accordion-item" data-id="semana8" style="background-image: url('por quesi.jpeg');">
+                    <div class="card-overlay" aria-hidden="true"></div>
+                    <div class="card-content">
+                        <button class="accordion-header cursor-pointer flex justify-between items-center p-6" aria-expanded="false" aria-controls="content-semana8">
+                            <h3 class="semana-8">Semana 8</h3>
+                            <i class="fas fa-chevron-down transition-transform duration-300 text-white" aria-hidden="true"></i>
+                        </button>
+                        <div id="content-semana8" class="accordion-content" role="region" aria-hidden="true">
+                            <p><strong>Examen/Trabajo final:</strong> todo completo del trabajo.</p>
+                            <div class="btn-actions">
+                                <a href="https://github.com/RaulCalderon11/trabajos_de_semanas/tree/main/semana8" class="bg-black text-white">Ver en GitHub</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Recursos e información personal (sin cambios estructurales) -->
+        <section id="recursos" class="p-8 sm:p-12 rounded-2xl shadow-xl mb-8 content-card">
+            <div class="flex items-center space-x-4">
+                <i class="fas fa-book-open text-2xl text-black"></i>
+                <h2 class="text-2xl font-bold">Recursos</h2>
+            </div>
+            <div class="pt-4 text-gray-700">
+                <ul class="list-disc pl-6 text-lg space-y-2">
+                    <li>"Mobile Web Development" de John Wiley & Sons.</li>
+                    <li>"React Native in Action" de Manning Publications.</li>
+                    <li>Documentación oficial de React Native y Ionic.</li>
+                    <li>Cursos en línea en plataformas como Udemy, Coursera, edX.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="informacion-personal" class="p-8 sm:p-12 rounded-2xl shadow-xl mb-8 content-card">
+            <div class="flex items-center space-x-4">
+                <i class="fas fa-address-card text-2xl text-black"></i>
+                <h2 class="text-2xl font-bold">Información Personal</h2>
+            </div>
+            <div class="pt-4 text-gray-700">
+                <p class="text-lg">
+                    <strong>Nombre:</strong> Raúl A. Calderón Palacios<br>
+                    <strong>Carrera:</strong> Ingeniería de Sistemas<br>
+                    <strong>Curso:</strong> Desarrollo de Aplicaciones
+                </p>
+                <div class="mt-4 space-x-4">
+                    <a href="https://github.com/RaulCalderon11" class="inline-block bg-black text-white font-bold py-2 px-4 rounded-full hover:bg-gray-800 transition-colors duration-300">
+                        <i class="fab fa-github mr-2"></i>Mi GitHub
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-black text-white py-6">
+        <div class="container mx-auto px-4 flex flex-col sm:flex-row justify-between items-center text-center sm:text-left">
+            <p class="text-sm">© 2024 Desarrollo de Aplicaciones</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const accordionItems = document.querySelectorAll('.accordion-item');
+
+            accordionItems.forEach(item => {
+                const headerBtn = item.querySelector('.accordion-header');
+                const content = item.querySelector('.accordion-content');
+                const icon = headerBtn.querySelector('i.fas');
+
+                headerBtn.addEventListener('click', () => {
+                    const isExpanded = item.classList.contains('expanded');
+
+                    // Cerrar los demás
+                    accordionItems.forEach(other => {
+                        if (other !== item) {
+                            other.classList.remove('expanded');
+                            const otherBtn = other.querySelector('.accordion-header');
+                            const otherContent = other.querySelector('.accordion-content');
+                            const otherIcon = otherBtn.querySelector('i.fas');
+                            otherContent.classList.remove('active');
+                            otherContent.setAttribute('aria-hidden', 'true');
+                            otherBtn.setAttribute('aria-expanded', 'false');
+                            if (otherIcon) otherIcon.style.transform = 'rotate(0deg)';
+                        }
+                    });
+
+                    // Alternar el actual
+                    if (isExpanded) {
+                        item.classList.remove('expanded');
+                        content.classList.remove('active');
+                        content.setAttribute('aria-hidden', 'true');
+                        headerBtn.setAttribute('aria-expanded', 'false');
+                        if (icon) icon.style.transform = 'rotate(0deg)';
+                    } else {
+                        item.classList.add('expanded');
+                        content.classList.add('active');
+                        content.setAttribute('aria-hidden', 'false');
+                        headerBtn.setAttribute('aria-expanded', 'true');
+                        if (icon) icon.style.transform = 'rotate(180deg)';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
