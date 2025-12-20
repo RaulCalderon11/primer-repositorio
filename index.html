@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desarrollo de Aplicaciones</title>
+    <!-- Hoja de estilos CSS -->
+    <link rel="stylesheet" href="css.css">
+    <!-- Iconos de Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Incluimos Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Estilos personalizados para el cuerpo y fuentes */
+        body {
+            font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+            background: transparent; /* dejar el video como fondo */
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            color: #ffffff; /* texto por defecto blanco */
+            min-height: 100vh;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(90deg,#000000 0%, #111827 100%);
+        }
+        header h1 { color: #fff; }
+        header .container { align-items: center; }
+        nav a { color: rgba(255,255,255,0.95); }
+        nav a:hover { color: #fff; text-decoration: underline; }
+
+        /* Hero (oscuro) */
+        .hero {
+            background: linear-gradient(135deg, rgba(255,255,255,0.03), rgba(99,102,241,0.04));
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 1rem;
+            align-items: center;
+        }
+        .hero h2 {
+            font-size: 1.75rem;
+            color: #ffffff;
+            margin: 0 0 0.5rem 0;
+        }
+        .hero p { color: #d1d5db; margin: 0; }
+
+        .hero .cta { display: inline-flex; gap: .5rem; align-items: center; }
+        .btn-primary {
+            background: linear-gradient(90deg,#111827,#222433);
+            color: #fff;
+            padding: .6rem 1rem;
+            border-radius: .75rem;
+            font-weight: 700;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.6);
+            text-decoration: none;
+        }
+        .btn-secondary {
+            background: #111827;
+            color: #fff;
+            padding: .5rem .9rem;
+            border-radius: .75rem;
+            font-weight: 700;
+            text-decoration: none;
+            border: 1px solid rgba(255,255,255,0.04);
+        }
+
+        /* Tarjetas / secciones: fondo blanco (solo las partes blancas) */
+        .content-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 1rem;
+            background: #ffffff; /* tarjeta blanca */
+            color: #0f172a; /* texto negro dentro de tarjetas */
+            box-shadow: 0 10px 30px rgba(2,6,23,0.6);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+        .content-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 50px rgba(2,6,23,0.6);
+        }
+
+        .animated-bg {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, rgba(0,0,0,0.03), rgba(0,0,0,0.01));
+            mix-blend-mode: overlay;
+            opacity: 0.6;
+            z-index: 0;
+            pointer-events: none;
+            transition: opacity 0.4s;
+        }
+
+        .content-card > .relative { position: relative; z-index: 1; }
+
+        /* Texto de las tarjetas (negro) */
+        .content-card h2 { color: #0f172a; margin-bottom: .5rem; }
+        .content-card p, .content-card li { color: #0f172a; }
+
+        /* Layout grid para main: centrado y con padding */
+        main.container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+        .grid-main {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+        @media(min-width: 1024px) {
+            .grid-main { grid-template-columns: 2fr 1fr; gap: 2rem; align-items: start; }
+        }
+
+        .sections-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.25rem;
+        }
+        @media(min-width: 1024px) {
+            .sections-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        /* Ajustes de imagen y avatar en header */
+        header img { border: 2px solid rgba(255,255,255,0.06); }
+
+        /* List items spacing */
+        ul li { margin-bottom: .4rem; line-height: 1.5; color: #0f172a; }
+
+        /* Footer texto en blanco */
+        footer { color: #fff; }
+    </style>
+</head>
+<body class="bg-transparent text-white flex flex-col min-h-screen">
+
+    <!-- Sección de Encabezado -->
+    <header class="bg-black text-white shadow-lg py-6 sm:py-8">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <i class="fas fa-mobile-alt text-3xl text-white"></i>
+                <h1 class="text-xl sm:text-2xl font-extrabold tracking-tight">Desarrollo de Aplicaciones</h1>
+            </div>
+            <div class="flex items-center space-x-6">
+                 <div class="flex items-center space-x-3">
+                    <!-- Espacio para la imagen -->
+                    <img src="logoupla.png" alt="Logo de la Universidad Peruana Los Andes" class="w-12 h-12 rounded-full bg-gray-500 object-cover">
+                    <h2 class="text-lg">Raul A. Calderon Palacios</h2>
+                 </div>
+                 <nav class="hidden md:block">
+                     <ul class="flex space-x-6">
+                         <li><a href="index.html" class="hover:underline transition-colors duration-300 font-semibold"><i class="fas fa-home mr-2"></i>Inicio</a></li>
+                         <li><a href="proyectos.html" class="hover:underline transition-colors duration-300 font-semibold"><i class="fas fa-tasks mr-2"></i>Tareas por Semanas</a></li>
+                     </ul>
+                 </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- VIDEO DE FONDO - INICIO -->
+    <div class="fixed inset-0 -z-10 w-full h-full overflow-hidden">
+        <video class="w-full h-full object-cover" autoplay loop muted playsinline>
+            <source src="video-fondo-proyectos.mp4" type="video/mp4">
+        </video>
+        <!-- overlay eliminado: el video será el fondo visible -->
+    </div>
+    <!-- VIDEO DE FONDO - FIN -->
+
+        <main class="flex-grow container mx-auto px-4 py-10 sm:py-16">
+            <div class="grid-main">
+                <!-- Columna principal: secciones  -->
+                <div>
+                    <div class="sections-grid">
+                        <!-- Sección de Introducción -->
+                        <section id="introduccion" class="p-6 content-card">
+                            <div class="animated-bg" aria-hidden="true"></div>
+                            <div class="relative z-10">
+                                <div class="flex items-center space-x-4 mb-4">
+                                    <i class="fas fa-info-circle text-2xl text-indigo-600"></i>
+                                    <h2 class="text-2xl font-bold">Introducción: ¿qué es Git?</h2>
+                                </div>
+                                <p class="text-lg leading-relaxed">
+                                    Git es un sistema de control de versiones distribuido que funciona esencialmente como un historial de cambios avanzado para cualquier tipo de proyecto, aunque es especialmente popular en el desarrollo de software. Su principal utilidad es llevar un registro detallado de todas las modificaciones que se realizan en los archivos a lo largo del tiempo, permitiéndote saber exactamente quién cambió qué y cuándo. Esto te da la poderosa capacidad de volver atrás en el tiempo a una versión anterior si algo sale mal, de forma similar a tener infinitos puntos de guardado. Además, es fundamental para el trabajo en equipo, ya que permite que múltiples personas trabajen simultáneamente en el mismo proyecto sin interferir entre sí. Esto se logra mediante la creación de "ramas" o líneas de desarrollo paralelas, que son perfectas para experimentar con nuevas funciones sin afectar la versión principal y estable; una vez que la nueva función está lista, simplemente se fusiona. En definitiva, Git es una herramienta esencial que facilita un flujo de trabajo organizado, seguro y colaborativo, y es la tecnología sobre la que se construyen plataformas populares como GitHub y GitLab.
+                                </p>
+                            </div>
+                        </section>
+
+                        <!-- Sección de Objetivos -->
+                        <section id="objetivos" class="p-6 content-card">
+                            <div class="animated-bg" aria-hidden="true"></div>
+                            <div class="relative z-10">
+                                <div class="flex items-center space-x-4 mb-4">
+                                    <i class="fas fa-bullseye text-2xl text-indigo-600"></i>
+                                    <h2 class="text-2xl font-bold">Cómo creé mi cuenta en GitHub</h2>
+                                </div>
+                                <ul class="list-disc pl-6 text-lg space-y-2">
+                                    <li>aparte de la indicacion fui a ver un video de mauro que explicaba todo esto de Git y GitHub, y me quedé enganchado. Antes pensaba que era súper complicado, pero. Me animé y me creé una cuenta:</li>
+                                    <li>Bueno, lo primero que hice fue ir a la página. que era github.com en el navegador. Apenas carga, se ve un botón grande que dice Sign up. Le di clic ahí.</li>
+                                    <li>Luego, me pidió mi correo electrónico. Puse el correo estudiantil que nos dijo quepusieramos. Después, me hizo crear una contraseña segura y el nombrede usuario.</li>
+                                    <li>Así que abrí mi correo, copié el código que me llegó y lo pegué en la página de GitHub. </li>
+                                    <li>Al final me hicieron un par de preguntas, como para qué iba a usar la cuenta, si era para un equipo o solo para mí. </li>
+                                    <li> Te dan a elegir entre un plan gratis y uno de pago, pero el video decía que con el gratis vas sobrado para empezar, y es verdad, tiene todo lo que necesitas.</li>
+                                    <li>Y ya está, con eso ya tenía mi perfil creado. Fue más fácil de lo que pensaba, la verdad. Ahora a ver si empiezo a subir mi repositorio donde hice los trabajos </li>
+                                </ul>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+
+                <!-- Columna secundaria: info breve / contacto -->
+                <aside class="space-y-6">
+                    <div class="p-6 content-card">
+                        <div class="animated-bg" aria-hidden="true"></div>
+                        <div class="relative z-10">
+                            <div class="flex items-center space-x-4 mb-4">
+                                <i class="fas fa-user text-2xl text-indigo-600"></i>
+                                <h2 class="text-2xl font-bold">Quién soy</h2>
+                            </div>
+                            <ul class="list-disc pl-6 text-lg space-y-2">
+                                <li>soy Calderon palacios Lazo Raul A.</li>
+                                <li>Estudio en la universidad Peruana los Andes el la carrara de ing Sistemas</li>
+                                <li>Me gusta aprender sobre nuevas tecnologías y su aplicación en el desarrollo de software.</li>
+                                <li>tengo mas habilidades con los numeros y la logica me gusta aprende de todo y siempre suelo estuduar de todo un poco</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="p-6 content-card">
+                        <div class="relative z-10">
+                            <h3 class="text-lg font-semibold mb-3">Recursos rápidos</h3>
+                            <a href="https://github.com/RaulCalderon11" class="btn-secondary inline-block">Mi GitHub</a>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </main>
+
+    <!-- Sección de Pie de página -->
+    <footer class="bg-black text-white py-6">
+        <div class="container mx-auto px-4 flex flex-col sm:flex-row justify-between items-center text-center sm:text-left">
+            <p class="text-sm">© 2024 Desarrollo de Aplicaciones</p>
+        </div>
+    </footer>
+
+    <!-- Mover script aquí y mantenerlo limpio (si no se usa, puede eliminarse) -->
+    <script>
+        // Pequeño script para enlaces suaves y efectos (opcional)
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', function(e) {
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
