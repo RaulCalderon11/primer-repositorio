@@ -379,8 +379,11 @@
                     
                 if (error && error.code !== 'PGRST116') {
                     console.error('Error fetching data from Supabase:', error);
-                } else if (appData && appData.data) {
+                } else if (appData && appData.data && appData.data.units) {
+                    // Validar que el JSON realmente contenga units
                     data = appData.data;
+                } else if (appData && (!appData.data || !appData.data.units)) {
+                    console.warn('Datos en Supabase incompletos o vacíos. Usando plantilla local por defecto.');
                 }
             } catch (err) {
                 console.error('Unexpected error loading data:', err);
