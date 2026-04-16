@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel Administrativo - Gestor de Tareas</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         * {
             margin: 0;
@@ -592,7 +593,12 @@
             return true;
         }
 
-        // Data structure
+        // Cliente Supabase
+        const supabaseUrl = 'https://nilgysffiuyjuguqcuij.supabase.co';
+        const supabaseKey = 'sb_publishable_WhpTZyUFLdZhaqY54cEPew_VAuZMsSA';
+        const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+        // Data structure initial
         let currentUnit = 1;
         let data = {
             units: {
@@ -603,15 +609,38 @@
             }
         };
 
-        // Load data from localStorage
-        function loadData() {
-            const saved = localStorage.getItem('tasksData');
-            if (saved) data = JSON.parse(saved);
+        // Load data from Supabase
+        async function loadData() {
+            try {
+                const { data: appData, error } = await supabase
+                    .from('app_state')
+                    .select('data')
+                    .eq('id', 1)
+                    .single();
+                    
+                if (error && error.code !== 'PGRST116') {
+                    console.error('Error fetching data from Supabase:', error);
+                } else if (appData && appData.data) {
+                    data = appData.data;
+                }
+            } catch (err) {
+                console.error('Unexpected error loading data:', err);
+            }
         }
 
-        // Save data to localStorage
-        function saveData() {
-            localStorage.setItem('tasksData', JSON.stringify(data));
+        // Save data to Supabase
+        async function saveData() {
+            try {
+                const { error } = await supabase
+                    .from('app_state')
+                    .upsert({ id: 1, data: data });
+                
+                if (error) {
+                    console.error('Error saving data to Supabase:', error);
+                }
+            } catch (err) {
+                console.error('Unexpected error saving data:', err);
+            }
         }
 
         // LOGOUT
@@ -858,8 +887,9 @@
 
         // Initialize
         if (checkAuth()) {
-            loadData();
-            renderUnits();
+            loadData().then(() => {
+                renderUnits();
+            });
         }
     </script>
 </body>
