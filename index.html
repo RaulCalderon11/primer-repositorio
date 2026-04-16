@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,10 +26,24 @@
             background: linear-gradient(90deg, #00d4ff 0%, #ff006e 50%, #ffbe0b 100%);
             box-shadow: 0 4px 20px rgba(0, 212, 255, 0.4);
         }
-        header h1 { color: #000; }
-        header .container { align-items: center; }
-        nav a { color: #000; font-weight: 600; }
-        nav a:hover { color: #fff; text-shadow: 0 0 10px rgba(0, 212, 255, 0.8); }
+
+        header h1 {
+            color: #000;
+        }
+
+        header .container {
+            align-items: center;
+        }
+
+        nav a {
+            color: #000;
+            font-weight: 600;
+        }
+
+        nav a:hover {
+            color: #fff;
+            text-shadow: 0 0 10px rgba(0, 212, 255, 0.8);
+        }
 
         .content-card {
             position: relative;
@@ -41,14 +56,24 @@
             padding: 2rem;
             border: 2px solid rgba(0, 212, 255, 0.2);
         }
+
         .content-card:hover {
             transform: translateY(-6px);
             box-shadow: 0 15px 40px rgba(0, 212, 255, 0.3);
             border-color: rgba(255, 190, 11, 0.5);
         }
 
-        .content-card h2 { color: #00d4ff; margin-bottom: 0.5rem; text-shadow: 0 0 10px rgba(0, 212, 255, 0.3); }
-        .content-card p, .content-card li { color: #b0b0b0; line-height: 1.6; }
+        .content-card h2 {
+            color: #00d4ff;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
+        }
+
+        .content-card p,
+        .content-card li {
+            color: #b0b0b0;
+            line-height: 1.6;
+        }
 
         .btn-login {
             background: linear-gradient(90deg, #00d4ff 0%, #ff006e 100%);
@@ -62,6 +87,7 @@
             transition: all 0.3s;
             box-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
         }
+
         .btn-login:hover {
             transform: translateY(-2px);
             box-shadow: 0 0 25px rgba(255, 190, 11, 0.8);
@@ -74,13 +100,19 @@
             padding-left: 1rem;
             padding-right: 1rem;
         }
+
         .grid-main {
             display: grid;
             grid-template-columns: 1fr;
             gap: 1.5rem;
         }
+
         @media(min-width: 1024px) {
-            .grid-main { grid-template-columns: 2fr 1fr; gap: 2rem; align-items: start; }
+            .grid-main {
+                grid-template-columns: 2fr 1fr;
+                gap: 2rem;
+                align-items: start;
+            }
         }
 
         .sections-grid {
@@ -88,12 +120,18 @@
             grid-template-columns: 1fr;
             gap: 1.25rem;
         }
+
         @media(min-width: 1024px) {
-            .sections-grid { grid-template-columns: 1fr 1fr; }
+            .sections-grid {
+                grid-template-columns: 1fr 1fr;
+            }
         }
 
-        ul li { margin-bottom: .4rem; line-height: 1.5; }
-        
+        ul li {
+            margin-bottom: .4rem;
+            line-height: 1.5;
+        }
+
         /* MODAL PARA VER TAREAS */
         .modal {
             display: none;
@@ -107,11 +145,11 @@
             align-items: center;
             justify-content: center;
         }
-        
+
         .modal.show {
             display: flex;
         }
-        
+
         .modal-content {
             background: #1a1a2e;
             border-radius: 15px;
@@ -123,7 +161,7 @@
             border: 2px solid #00d4ff;
             box-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
         }
-        
+
         .modal-header {
             display: flex;
             justify-content: space-between;
@@ -132,13 +170,13 @@
             border-bottom: 2px solid #ff006e;
             padding-bottom: 15px;
         }
-        
+
         .modal-header h3 {
             margin: 0;
             color: #00d4ff;
             font-size: 24px;
         }
-        
+
         .close-btn {
             background: none;
             border: none;
@@ -147,17 +185,17 @@
             color: #ff006e;
             transition: color 0.3s;
         }
-        
+
         .close-btn:hover {
             color: #ffbe0b;
         }
-        
+
         .tasks-list {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             gap: 20px;
         }
-        
+
         .task-card-view {
             background: rgba(0, 212, 255, 0.05);
             padding: 15px;
@@ -165,26 +203,30 @@
             border-left: 4px solid #ff006e;
             box-shadow: 0 4px 15px rgba(255, 0, 110, 0.2);
         }
-        
+
         .task-card-view h4 {
             color: #ffbe0b;
             margin: 0 0 10px 0;
         }
-        
+
         .task-card-view p {
             color: #b0b0b0;
             font-size: 14px;
             margin: 5px 0;
         }
-        
+
         .task-card-view .week {
             color: #00d4ff;
             font-weight: bold;
         }
 
-        footer { color: #666; background: rgba(15, 52, 96, 0.8); }
+        footer {
+            color: #666;
+            background: rgba(15, 52, 96, 0.8);
+        }
     </style>
 </head>
+
 <body class="text-gray-800 flex flex-col min-h-screen">
 
     <!-- Sección de Encabezado -->
@@ -195,19 +237,29 @@
                 <h1 class="text-xl sm:text-2xl font-extrabold tracking-tight">Desarrollo de Aplicaciones</h1>
             </div>
             <div class="flex items-center space-x-6">
-                 <div class="flex items-center space-x-3">
-                    <img src="logoupla.png" alt="Logo de la Universidad Peruana Los Andes" class="w-12 h-12 rounded-full bg-gray-400 object-cover">
+                <div class="flex items-center space-x-3">
+                    <img src="logoupla.png" alt="Logo de la Universidad Peruana Los Andes"
+                        class="w-12 h-12 rounded-full bg-gray-400 object-cover">
                     <h2 class="text-lg">Raul A. Calderon Palacios</h2>
-                 </div>
-                 <nav class="hidden md:block">
-                     <ul class="flex space-x-3">
-                         <li><a href="#" onclick="openTasksModal(1); return false;" class="hover:underline transition-colors duration-300 font-semibold"><i class="fas fa-book mr-2"></i>Unidad 1</a></li>
-                         <li><a href="#" onclick="openTasksModal(2); return false;" class="hover:underline transition-colors duration-300 font-semibold"><i class="fas fa-book mr-2"></i>Unidad 2</a></li>
-                         <li><a href="#" onclick="openTasksModal(3); return false;" class="hover:underline transition-colors duration-300 font-semibold"><i class="fas fa-book mr-2"></i>Unidad 3</a></li>
-                         <li><a href="#" onclick="openTasksModal(4); return false;" class="hover:underline transition-colors duration-300 font-semibold"><i class="fas fa-book mr-2"></i>Unidad 4</a></li>
-                         <li><a href="login.html" class="btn-login"><i class="fas fa-sign-in-alt mr-2"></i>Iniciar Sesión</a></li>
-                     </ul>
-                 </nav>
+                </div>
+                <nav class="hidden md:block">
+                    <ul class="flex space-x-3">
+                        <li><a href="#" onclick="openTasksModal(1); return false;"
+                                class="hover:underline transition-colors duration-300 font-semibold"><i
+                                    class="fas fa-book mr-2"></i>Unidad 1</a></li>
+                        <li><a href="#" onclick="openTasksModal(2); return false;"
+                                class="hover:underline transition-colors duration-300 font-semibold"><i
+                                    class="fas fa-book mr-2"></i>Unidad 2</a></li>
+                        <li><a href="#" onclick="openTasksModal(3); return false;"
+                                class="hover:underline transition-colors duration-300 font-semibold"><i
+                                    class="fas fa-book mr-2"></i>Unidad 3</a></li>
+                        <li><a href="#" onclick="openTasksModal(4); return false;"
+                                class="hover:underline transition-colors duration-300 font-semibold"><i
+                                    class="fas fa-book mr-2"></i>Unidad 4</a></li>
+                        <li><a href="login.html" class="btn-login"><i class="fas fa-sign-in-alt mr-2"></i>Iniciar
+                                Sesión</a></li>
+                    </ul>
+                </nav>
             </div>
         </div>
     </header>
@@ -224,7 +276,15 @@
                             <h2 class="text-2xl font-bold">Introducción: ¿qué es Git?</h2>
                         </div>
                         <p class="text-lg leading-relaxed">
-                            Git es un sistema de control de versiones distribuido que funciona esencialmente como un historial de cambios avanzado para cualquier tipo de proyecto, aunque es especialmente popular en el desarrollo de software. Su principal utilidad es llevar un registro detallado de todas las modificaciones que se realizan en los archivos a lo largo del tiempo, permitiéndote saber exactamente quién cambió qué y cuándo. Esto te da la poderosa capacidad de volver atrás en el tiempo a una versión anterior si algo sale mal, de forma similar a tener infinitos puntos de guardado. Además, es fundamental para el trabajo en equipo, ya que permite que múltiples personas trabajen simultáneamente en el mismo proyecto sin interferir entre sí.
+                            Git es un sistema de control de versiones distribuido que funciona esencialmente como un
+                            historial de cambios avanzado para cualquier tipo de proyecto, aunque es especialmente
+                            popular en el desarrollo de software. Su principal utilidad es llevar un registro detallado
+                            de todas las modificaciones que se realizan en los archivos a lo largo del tiempo,
+                            permitiéndote saber exactamente quién cambió qué y cuándo. Esto te da la poderosa capacidad
+                            de volver atrás en el tiempo a una versión anterior si algo sale mal, de forma similar a
+                            tener infinitos puntos de guardado. Además, es fundamental para el trabajo en equipo, ya que
+                            permite que múltiples personas trabajen simultáneamente en el mismo proyecto sin interferir
+                            entre sí.
                         </p>
                     </section>
 
@@ -235,12 +295,15 @@
                             <h2 class="text-2xl font-bold">Cómo creé mi cuenta en GitHub</h2>
                         </div>
                         <ul class="list-disc pl-6 text-lg space-y-2">
-                            <li>Fui a ver un video que explicaba todo esto sobre Git y GitHub, y me quedé enganchado. Antes pensaba que era súper complicado.</li>
-                            <li>Lo primero que hice fue ir a la página de github.com en el navegador. Se ve un botón grande que dice Sign up.</li>
+                            <li>Fui a ver un video que explicaba todo esto sobre Git y GitHub, y me quedé enganchado.
+                                Antes pensaba que era súper complicado.</li>
+                            <li>Lo primero que hice fue ir a la página de github.com en el navegador. Se ve un botón
+                                grande que dice Sign up.</li>
                             <li>Me pidió mi correo electrónico y hacer una contraseña segura con mi usuario.</li>
                             <li>Abrí mi correo, copié el código de verificación y lo pegué en la página de GitHub.</li>
                             <li>Al final me hicieron preguntas sobre para qué iba a usar la cuenta.</li>
-                            <li>Te dan a elegir entre un plan gratis y uno de pago, pero con el gratis vas sobrado para empezar.</li>
+                            <li>Te dan a elegir entre un plan gratis y uno de pago, pero con el gratis vas sobrado para
+                                empezar.</li>
                         </ul>
                     </section>
                 </div>
@@ -263,7 +326,8 @@
 
                 <div class="content-card">
                     <h3 class="text-lg font-semibold mb-3">Recursos rápidos</h3>
-                    <a href="https://github.com/RaulCalderon11" target="_blank" class="btn-login inline-block">Mi GitHub</a>
+                    <a href="https://github.com/RaulCalderon11" target="_blank" class="btn-login inline-block">Mi
+                        GitHub</a>
                 </div>
             </aside>
         </div>
@@ -271,7 +335,8 @@
 
     <!-- Sección de Pie de página -->
     <footer class="py-6">
-        <div class="container mx-auto px-4 flex flex-col sm:flex-row justify-between items-center text-center sm:text-left">
+        <div
+            class="container mx-auto px-4 flex flex-col sm:flex-row justify-between items-center text-center sm:text-left">
             <p class="text-sm">© 2024 Desarrollo de Aplicaciones</p>
         </div>
     </footer>
@@ -291,7 +356,7 @@
         // Cliente de Supabase
         const supabaseUrl = 'https://nilgysffiuyjuguqcuij.supabase.co';
         const supabaseKey = 'sb_publishable_WhpTZyUFLdZhaqY54cEPew_VAuZMsSA';
-        const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+        const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
 
         // Data structure initial
         let data = {
@@ -306,7 +371,7 @@
         // Load data from Supabase
         async function loadData() {
             try {
-                const { data: appData, error } = await supabase
+                const { data: appData, error } = await supabaseClient
                     .from('app_state')
                     .select('data')
                     .eq('id', 1)
@@ -325,7 +390,7 @@
         function openTasksModal(unitId) {
             const unit = data.units[unitId];
             document.getElementById('modalTitle').textContent = unit.title;
-            
+
             const container = document.getElementById('modalTasks');
             if (unit.tasks.length === 0) {
                 container.innerHTML = '<p style="color: #999; text-align: center; padding: 40px;">No hay tareas en esta unidad aún.</p>';
@@ -373,4 +438,5 @@
     </script>
 
 </body>
+
 </html>
