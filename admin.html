@@ -481,9 +481,9 @@
         <div class="header-content">
             <h1><i class="fas fa-book"></i> Panel Administrativo - Desarrollo de Aplicaciones</h1>
             <div class="header-user">
+                <button class="add-task-btn" style="background: linear-gradient(90deg, #10b981 0%, #3b82f6 100%); margin-right: 15px;" onclick="saveData(true)"><i class="fas fa-cloud-upload-alt"></i> Forzar Guardado en Nube</button>
                 <span id="userName">Admin</span>
-                <button class="logout-btn" onclick="handleLogout()"><i class="fas fa-sign-out-alt"></i> Cerrar
-                    Sesión</button>
+                <button class="logout-btn" onclick="handleLogout()"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</button>
             </div>
         </div>
     </header>
@@ -640,17 +640,28 @@
         }
 
         // Save data to Supabase
-        async function saveData() {
+        async function saveData(showFeedback = false) {
             try {
+                // Mensaje si lo activó manualmente
+                if(showFeedback) {
+                    console.log('Subiendo a Supabase...');
+                }
+
                 const { error } = await supabaseClient
                     .from('app_state')
                     .upsert({ id: 1, data: data });
 
                 if (error) {
                     console.error('Error saving data to Supabase:', error);
+                    alert("Hubo un error al guardar en Supabase. Revisa Row Level Security (RLS) en sus políticas:\n" + error.message);
+                } else {
+                    if(showFeedback) {
+                        alert("✅ Tareas y Unidades guardadas exitosamente en tu base de datos Supabase.");
+                    }
                 }
             } catch (err) {
                 console.error('Unexpected error saving data:', err);
+                if(showFeedback) alert("Error inesperado de red.");
             }
         }
 
