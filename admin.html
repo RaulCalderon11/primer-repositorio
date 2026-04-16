@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -121,8 +122,13 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
 
         .unit-header {
@@ -468,6 +474,7 @@
         }
     </style>
 </head>
+
 <body>
     <!-- HEADER -->
     <header class="header">
@@ -475,7 +482,8 @@
             <h1><i class="fas fa-book"></i> Panel Administrativo - Desarrollo de Aplicaciones</h1>
             <div class="header-user">
                 <span id="userName">Admin</span>
-                <button class="logout-btn" onclick="handleLogout()"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</button>
+                <button class="logout-btn" onclick="handleLogout()"><i class="fas fa-sign-out-alt"></i> Cerrar
+                    Sesión</button>
             </div>
         </div>
     </header>
@@ -596,7 +604,7 @@
         // Cliente Supabase
         const supabaseUrl = 'https://nilgysffiuyjuguqcuij.supabase.co';
         const supabaseKey = 'sb_publishable_WhpTZyUFLdZhaqY54cEPew_VAuZMsSA';
-        const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+        const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
 
         // Data structure initial
         let currentUnit = 1;
@@ -612,12 +620,12 @@
         // Load data from Supabase
         async function loadData() {
             try {
-                const { data: appData, error } = await supabase
+                const { data: appData, error } = await supabaseClient
                     .from('app_state')
                     .select('data')
                     .eq('id', 1)
                     .single();
-                    
+
                 if (error && error.code !== 'PGRST116') {
                     console.error('Error fetching data from Supabase:', error);
                 } else if (appData && appData.data) {
@@ -631,10 +639,10 @@
         // Save data to Supabase
         async function saveData() {
             try {
-                const { error } = await supabase
+                const { error } = await supabaseClient
                     .from('app_state')
                     .upsert({ id: 1, data: data });
-                
+
                 if (error) {
                     console.error('Error saving data to Supabase:', error);
                 }
@@ -658,7 +666,7 @@
 
             Object.keys(data.units).forEach(unitId => {
                 const unit = data.units[unitId];
-                
+
                 // Navigation button
                 const btn = document.createElement('button');
                 btn.className = `unit-btn ${unitId == currentUnit ? 'active' : ''}`;
@@ -688,7 +696,7 @@
         // Switch unit
         function switchUnit(unitId) {
             currentUnit = unitId;
-            
+
             document.querySelectorAll('.unit-btn').forEach((btn, idx) => {
                 btn.classList.toggle('active', (idx + 1) == unitId);
             });
@@ -704,7 +712,7 @@
         function renderTasks() {
             const tasks = data.units[currentUnit].tasks;
             const container = document.getElementById(`tasks-${currentUnit}`);
-            
+
             if (tasks.length === 0) {
                 container.innerHTML = `
                     <div style="grid-column: 1/-1;">
@@ -893,4 +901,5 @@
         }
     </script>
 </body>
+
 </html>
