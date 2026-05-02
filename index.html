@@ -4,114 +4,241 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Base datos II</title>
-    <!-- Iconos de Font Awesome -->
+    <title>Base de Datos II </title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- Incluimos Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
-        /* Estilos personalizados para el cuerpo y fuentes */
+        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;600;700&display=swap');
+
+        :root {
+            --cyan: #00f5ff;
+            --magenta: #ff006e;
+            --yellow: #ffbe0b;
+            --purple: #bc13fe;
+            --dark-bg: #020814;
+            --card-bg: #050e1f;
+            --card-bg2: #07142a;
+            --text: #c8e6ff;
+            --text-muted: #6a9bc4;
+            --border: rgba(0, 245, 255, 0.25);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
-            font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-            background: linear-gradient(135deg, #0f3460 0%, #16213e 100%);
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            color: #e0e0e0;
+            font-family: 'Rajdhani', sans-serif;
+            background: var(--dark-bg);
+            color: var(--text);
             min-height: 100vh;
+            overflow-x: hidden;
         }
 
-        /* Header */
+        /* Animated scanlines overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 245, 255, 0.015) 2px, rgba(0, 245, 255, 0.015) 4px);
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        /* Grid background */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                linear-gradient(rgba(0, 245, 255, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 245, 255, 0.04) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* HEADER */
         header {
-            background: linear-gradient(90deg, #00d4ff 0%, #ff006e 50%, #ffbe0b 100%);
-            box-shadow: 0 4px 20px rgba(0, 212, 255, 0.4);
+            position: relative;
+            z-index: 10;
+            background: linear-gradient(180deg, #020814 0%, #050e1f 100%);
+            border-bottom: 1px solid var(--cyan);
+            padding: 0;
+            box-shadow: 0 0 30px rgba(0, 245, 255, 0.2), inset 0 -1px 0 rgba(0, 245, 255, 0.5);
         }
 
-        header h1 {
-            color: #000;
+        .header-bar {
+            background: linear-gradient(90deg, var(--cyan) 0%, var(--magenta) 50%, var(--yellow) 100%);
+            height: 3px;
         }
 
-        header .container {
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 44px;
+            height: 44px;
+            border: 2px solid var(--cyan);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--cyan);
+            font-size: 20px;
+            box-shadow: 0 0 10px rgba(0, 245, 255, 0.4), inset 0 0 10px rgba(0, 245, 255, 0.1);
+            animation: pulse-border 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-border {
+
+            0%,
+            100% {
+                box-shadow: 0 0 10px rgba(0, 245, 255, 0.4), inset 0 0 10px rgba(0, 245, 255, 0.1);
+            }
+
+            50% {
+                box-shadow: 0 0 20px rgba(0, 245, 255, 0.7), inset 0 0 15px rgba(0, 245, 255, 0.2);
+            }
+        }
+
+        .logo-text h1 {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.1rem;
+            font-weight: 900;
+            color: var(--cyan);
+            text-shadow: 0 0 10px rgba(0, 245, 255, 0.5);
+            letter-spacing: 2px;
+        }
+
+        .logo-text .subtitle {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+        }
+
+        /* STATUS INDICATOR */
+        .status-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--cyan);
+            box-shadow: 0 0 6px var(--cyan);
+            animation: blink 1.5s ease-in-out infinite;
+            margin-right: 4px;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1
+            }
+
+            50% {
+                opacity: 0.3
+            }
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
             align-items: center;
         }
 
-        nav a {
-            color: #000;
-            font-weight: 600;
+        .nav-unit {
+            font-family: 'Orbitron', monospace;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            padding: 6px 14px;
+            border: 1px solid rgba(0, 245, 255, 0.3);
+            border-radius: 3px;
+            text-decoration: none;
+            letter-spacing: 1px;
+            transition: all 0.2s;
+            cursor: pointer;
+            background: rgba(0, 245, 255, 0.05);
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
-        nav a:hover {
-            color: #fff;
-            text-shadow: 0 0 10px rgba(0, 212, 255, 0.8);
-        }
-
-        .content-card {
-            position: relative;
-            overflow: hidden;
-            border-radius: 1rem;
-            background: #1a1a2e;
-            color: #e0e0e0;
-            box-shadow: 0 8px 32px rgba(0, 212, 255, 0.15);
-            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s;
-            padding: 2rem;
-            border: 2px solid rgba(0, 212, 255, 0.2);
-        }
-
-        .content-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.3);
-            border-color: rgba(255, 190, 11, 0.5);
-        }
-
-        .content-card h2 {
-            color: #00d4ff;
-            margin-bottom: 0.5rem;
-            text-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
-        }
-
-        .content-card p,
-        .content-card li {
-            color: #b0b0b0;
-            line-height: 1.6;
+        .nav-unit:hover {
+            color: var(--cyan);
+            border-color: var(--cyan);
+            background: rgba(0, 245, 255, 0.12);
+            box-shadow: 0 0 12px rgba(0, 245, 255, 0.3);
+            text-shadow: 0 0 8px rgba(0, 245, 255, 0.5);
         }
 
         .btn-login {
-            background: linear-gradient(90deg, #00d4ff 0%, #ff006e 100%);
-            color: #000;
-            padding: 0.6rem 1rem;
-            border-radius: .75rem;
+            font-family: 'Orbitron', monospace;
+            font-size: 0.7rem;
             font-weight: 700;
+            color: #000;
+            background: linear-gradient(90deg, var(--cyan), var(--magenta));
+            padding: 6px 16px;
+            border-radius: 3px;
             text-decoration: none;
+            letter-spacing: 1px;
             border: none;
             cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
+            transition: all 0.2s;
+            box-shadow: 0 0 12px rgba(0, 245, 255, 0.4);
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
         .btn-login:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 0 25px rgba(255, 190, 11, 0.8);
+            box-shadow: 0 0 20px rgba(255, 0, 110, 0.6);
+            transform: translateY(-1px);
         }
 
-        /* Layout grid para main: centrado y con padding */
-        main.container {
+        /* MAIN */
+        main {
+            position: relative;
+            z-index: 2;
             max-width: 1200px;
-            margin: 2rem auto;
-            padding-left: 1rem;
-            padding-right: 1rem;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
         }
 
-        .grid-main {
+        .grid-layout {
             display: grid;
             grid-template-columns: 1fr;
             gap: 1.5rem;
         }
 
         @media(min-width: 1024px) {
-            .grid-main {
+            .grid-layout {
                 grid-template-columns: 2fr 1fr;
-                gap: 2rem;
-                align-items: start;
             }
         }
 
@@ -121,325 +248,985 @@
             gap: 1.25rem;
         }
 
-        @media(min-width: 1024px) {
+        @media(min-width: 768px) {
             .sections-grid {
                 grid-template-columns: 1fr 1fr;
             }
         }
 
-        ul li {
-            margin-bottom: .4rem;
-            line-height: 1.5;
+        /* CARDS */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
         }
 
-        /* MODAL PARA VER TAREAS */
-        .modal {
-            display: none;
-            position: fixed;
+        .card::before {
+            content: '';
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card:hover {
+            border-color: rgba(0, 245, 255, 0.5);
+            box-shadow: 0 0 20px rgba(0, 245, 255, 0.1), inset 0 0 20px rgba(0, 245, 255, 0.03);
+            transform: translateY(-3px);
+        }
+
+        /* Corner decorations */
+        .card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 20px;
+            height: 20px;
+            border-bottom: 2px solid var(--magenta);
+            border-right: 2px solid var(--magenta);
+            opacity: 0.5;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid rgba(0, 245, 255, 0.15);
+        }
+
+        .card-icon {
+            width: 36px;
+            height: 36px;
+            border: 1px solid var(--cyan);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--cyan);
+            font-size: 16px;
+            box-shadow: 0 0 8px rgba(0, 245, 255, 0.3);
+            flex-shrink: 0;
+        }
+
+        .card h2 {
+            font-family: 'Orbitron', monospace;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--cyan);
+            letter-spacing: 1px;
+            text-shadow: 0 0 8px rgba(0, 245, 255, 0.3);
+        }
+
+        .card h3 {
+            font-family: 'Orbitron', monospace;
+            font-size: 0.75rem;
+            color: var(--yellow);
+            letter-spacing: 1px;
+            margin-bottom: 0.75rem;
+        }
+
+        .card p,
+        .card li {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        .card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .card ul li {
+            padding: 4px 0 4px 16px;
+            position: relative;
+        }
+
+        .card ul li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--cyan);
+            font-size: 12px;
+        }
+
+        /* ASIDE */
+        aside {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .quick-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Orbitron', monospace;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: #000;
+            background: linear-gradient(90deg, var(--cyan), var(--purple));
+            padding: 8px 18px;
+            border-radius: 3px;
+            text-decoration: none;
+            letter-spacing: 1px;
+            transition: all 0.2s;
+            box-shadow: 0 0 12px rgba(0, 245, 255, 0.4);
+        }
+
+        .quick-link:hover {
+            box-shadow: 0 0 20px rgba(188, 19, 254, 0.6);
+            transform: translateY(-2px);
+        }
+
+        /* TAG LABEL */
+        .tag {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.65rem;
+            color: var(--yellow);
+            border: 1px solid rgba(255, 190, 11, 0.4);
+            padding: 2px 8px;
+            border-radius: 2px;
+            background: rgba(255, 190, 11, 0.08);
+            letter-spacing: 1px;
+        }
+
+        /* FOOTER */
+        footer {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 1.5rem;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            border-top: 1px solid rgba(0, 245, 255, 0.15);
+            background: var(--card-bg);
+        }
+
+        /* ==============================
+     MODAL — TAREAS
+  ============================== */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(2, 8, 20, 0.92);
             z-index: 1000;
             align-items: center;
             justify-content: center;
+            backdrop-filter: blur(4px);
         }
 
-        .modal.show {
+        .modal-overlay.show {
             display: flex;
         }
 
-        .modal-content {
-            background: #1a1a2e;
-            border-radius: 15px;
-            padding: 30px;
-            max-width: 800px;
+        .modal-box {
+            background: var(--card-bg);
+            border: 1px solid var(--cyan);
+            border-radius: 8px;
             width: 90%;
-            max-height: 80vh;
+            max-width: 860px;
+            max-height: 88vh;
             overflow-y: auto;
-            border: 2px solid #00d4ff;
-            box-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
+            box-shadow: 0 0 40px rgba(0, 245, 255, 0.3);
+            position: relative;
         }
 
-        .modal-header {
+        .modal-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--cyan), var(--magenta), var(--yellow));
+        }
+
+        .modal-head {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 25px;
-            border-bottom: 2px solid #ff006e;
-            padding-bottom: 15px;
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid rgba(0, 245, 255, 0.2);
         }
 
-        .modal-header h3 {
-            margin: 0;
-            color: #00d4ff;
-            font-size: 24px;
+        .modal-head h3 {
+            font-family: 'Orbitron', monospace;
+            font-size: 1rem;
+            color: var(--cyan);
+            text-shadow: 0 0 10px rgba(0, 245, 255, 0.5);
+            letter-spacing: 2px;
         }
 
-        .close-btn {
+        .modal-close {
             background: none;
-            border: none;
-            font-size: 28px;
+            border: 1px solid rgba(255, 0, 110, 0.5);
+            color: var(--magenta);
+            width: 32px;
+            height: 32px;
+            border-radius: 4px;
+            font-size: 18px;
             cursor: pointer;
-            color: #ff006e;
-            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
         }
 
-        .close-btn:hover {
-            color: #ffbe0b;
+        .modal-close:hover {
+            background: rgba(255, 0, 110, 0.15);
+            box-shadow: 0 0 10px rgba(255, 0, 110, 0.4);
         }
 
-        .tasks-list {
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .tasks-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 1rem;
         }
 
-        .task-card-view {
-            background: rgba(0, 212, 255, 0.05);
-            padding: 15px;
-            border-radius: 10px;
-            border-left: 4px solid #ff006e;
-            box-shadow: 0 4px 15px rgba(255, 0, 110, 0.2);
+        .task-card {
+            background: var(--card-bg2);
+            border: 1px solid rgba(0, 245, 255, 0.2);
+            border-left: 3px solid var(--magenta);
+            border-radius: 6px;
+            padding: 1rem;
+            transition: all 0.2s;
         }
 
-        .task-card-view h4 {
-            color: #ffbe0b;
-            margin: 0 0 10px 0;
+        .task-card:hover {
+            border-color: var(--magenta);
+            box-shadow: 0 0 15px rgba(255, 0, 110, 0.2);
         }
 
-        .task-card-view p {
-            color: #b0b0b0;
-            font-size: 14px;
-            margin: 5px 0;
+        .task-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 0.75rem;
+            color: var(--yellow);
+            margin-bottom: 8px;
+            letter-spacing: 1px;
         }
 
-        .task-card-view .week {
-            color: #00d4ff;
-            font-weight: bold;
+        .task-week {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--cyan);
+            margin-bottom: 6px;
         }
 
-        footer {
-            color: #666;
-            background: rgba(15, 52, 96, 0.8);
+        .task-desc {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+
+        .task-date {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.7rem;
+            color: rgba(0, 245, 255, 0.6);
+            margin-bottom: 10px;
+        }
+
+        /* DOCS SECTION inside task */
+        .docs-label {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.65rem;
+            color: var(--yellow);
+            margin-bottom: 6px;
+            letter-spacing: 1px;
+            border-top: 1px solid rgba(0, 245, 255, 0.15);
+            padding-top: 8px;
+        }
+
+        .doc-item {
+            background: rgba(0, 245, 255, 0.04);
+            border: 1px solid rgba(0, 245, 255, 0.15);
+            border-radius: 4px;
+            padding: 6px 8px;
+            margin-bottom: 6px;
+        }
+
+        .doc-name {
+            font-size: 0.78rem;
+            color: var(--cyan);
+            margin-bottom: 3px;
+        }
+
+        .doc-desc {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        .doc-buttons {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .btn-view-pdf {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.65rem;
+            color: #000;
+            background: var(--cyan);
+            border: none;
+            padding: 4px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            letter-spacing: 0.5px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .btn-view-pdf:hover {
+            box-shadow: 0 0 10px rgba(0, 245, 255, 0.5);
+            transform: translateY(-1px);
+        }
+
+        .btn-download {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.65rem;
+            color: #000;
+            background: var(--yellow);
+            border: none;
+            padding: 4px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            letter-spacing: 0.5px;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .btn-download:hover {
+            box-shadow: 0 0 10px rgba(255, 190, 11, 0.5);
+            transform: translateY(-1px);
+        }
+
+        /* EMPTY STATE */
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            font-family: 'Share Tech Mono', monospace;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .empty-state .empty-icon {
+            font-size: 2rem;
+            color: rgba(0, 245, 255, 0.3);
+            margin-bottom: 0.75rem;
+        }
+
+        /* ==============================
+     PDF VIEWER MODAL
+  ============================== */
+        .pdf-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(2, 8, 20, 0.97);
+            z-index: 2000;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            backdrop-filter: blur(6px);
+        }
+
+        .pdf-overlay.show {
+            display: flex;
+        }
+
+        .pdf-toolbar {
+            width: 100%;
+            background: var(--card-bg);
+            border-bottom: 1px solid var(--cyan);
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            box-shadow: 0 0 20px rgba(0, 245, 255, 0.2);
+        }
+
+        .pdf-toolbar-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .pdf-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 0.75rem;
+            color: var(--cyan);
+            letter-spacing: 1px;
+        }
+
+        .pdf-toolbar-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .pdf-frame-wrap {
+            flex: 1;
+            width: 100%;
+            max-width: 1100px;
+            padding: 1rem;
+            overflow: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .pdf-frame-wrap iframe {
+            width: 100%;
+            height: calc(100vh - 110px);
+            border: 1px solid rgba(0, 245, 255, 0.3);
+            border-radius: 6px;
+            background: #fff;
+            box-shadow: 0 0 30px rgba(0, 245, 255, 0.2);
+        }
+
+        .pdf-error-msg {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+            font-family: 'Share Tech Mono', monospace;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .pdf-error-msg .open-tab-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 1rem;
+            font-family: 'Orbitron', monospace;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: #000;
+            background: linear-gradient(90deg, var(--cyan), var(--purple));
+            padding: 8px 20px;
+            border-radius: 3px;
+            text-decoration: none;
+            letter-spacing: 1px;
+            transition: all 0.2s;
+            box-shadow: 0 0 12px rgba(0, 245, 255, 0.4);
+            cursor: pointer;
+            border: none;
+        }
+
+        /* GLITCH TITLE EFFECT */
+        .glitch {
+            position: relative;
+            display: inline-block;
+        }
+
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            font-family: 'Orbitron', monospace;
+            font-size: inherit;
+            font-weight: inherit;
+            letter-spacing: inherit;
+        }
+
+        .glitch::before {
+            color: var(--cyan);
+            animation: glitch1 3s infinite;
+            clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
+        }
+
+        .glitch::after {
+            color: var(--magenta);
+            animation: glitch2 3s infinite;
+            clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
+        }
+
+        @keyframes glitch1 {
+
+            0%,
+            95%,
+            100% {
+                transform: translate(0);
+            }
+
+            96% {
+                transform: translate(-2px, 1px);
+            }
+
+            97% {
+                transform: translate(2px, -1px);
+            }
+
+            98% {
+                transform: translate(-1px, 2px);
+            }
+        }
+
+        @keyframes glitch2 {
+
+            0%,
+            93%,
+            100% {
+                transform: translate(0);
+            }
+
+            94% {
+                transform: translate(2px, 1px);
+            }
+
+            95% {
+                transform: translate(-2px, -1px);
+            }
+
+            96% {
+                transform: translate(1px, -2px);
+            }
+        }
+
+        /* PROFILE PIC */
+        .profile-ring {
+            width: 48px;
+            height: 48px;
+            border: 2px solid var(--cyan);
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 245, 255, 0.3);
+            flex-shrink: 0;
+            background: var(--card-bg2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--cyan);
+            font-size: 22px;
+        }
+
+        /* SCROLLBAR */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--dark-bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(0, 245, 255, 0.4);
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--cyan);
         }
     </style>
 </head>
 
-<body class="text-gray-800 flex flex-col min-h-screen">
+<body>
 
-    <!-- Sección de Encabezado -->
-    <header class="text-white shadow-lg py-6 sm:py-8">
-        <div class="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-6 md:gap-0">
-            <div class="flex items-center space-x-4">
-                <i class="fas fa-book text-3xl text-white"></i>
-                <h1 class="text-xl sm:text-2xl font-extrabold tracking-tight">Base datos II</h1>
-            </div>
-            <div class="flex flex-col md:flex-row items-center gap-4 md:gap-0 md:space-x-6">
-                <div class="flex items-center space-x-3">
-                    <img src="logoupla.png" alt="Logo de la Universidad Peruana Los Andes"
-                        class="w-12 h-12 rounded-full bg-gray-400 object-cover">
-                    <h2 class="text-lg">Raul A. Calderon Palacios</h2>
+    <!-- HEADER -->
+    <header>
+        <div class="header-bar"></div>
+        <div class="header-inner">
+            <div class="logo-area">
+                <div class="logo-icon"><i class="fas fa-database"></i></div>
+                <div class="logo-text">
+                    <h1 class="glitch" data-text="BASE DE DATOS II">BASE DE DATOS II</h1>
+                    <div class="subtitle"><span class="status-dot"></span>SISTEMA EN LÍNEA // UPLA v2.0</div>
                 </div>
+            </div>
+
+            <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
+                <div style="display:flex;align-items:center;gap:10px;">
+                    <div class="profile-ring"><i class="fas fa-user-circle"></i></div>
+                    <div>
+                        <div
+                            style="font-family:'Orbitron',monospace;font-size:0.7rem;color:var(--cyan);letter-spacing:1px;">
+                            R.A. Calderon Palacios</div>
+                        <div style="font-family:'Share Tech Mono',monospace;font-size:0.6rem;color:var(--text-muted);">
+                            Ing. Sistemas // UPLA</div>
+                    </div>
+                </div>
+
                 <nav>
-                    <ul class="flex flex-wrap justify-center gap-3 md:space-x-3">
-                        <li><a href="#" onclick="openTasksModal(1); return false;"
-                                class="hover:underline transition-colors duration-300 font-semibold"><i
-                                    class="fas fa-book mr-2"></i>Unidad 1</a></li>
-                        <li><a href="#" onclick="openTasksModal(2); return false;"
-                                class="hover:underline transition-colors duration-300 font-semibold"><i
-                                    class="fas fa-book mr-2"></i>Unidad 2</a></li>
-                        <li><a href="#" onclick="openTasksModal(3); return false;"
-                                class="hover:underline transition-colors duration-300 font-semibold"><i
-                                    class="fas fa-book mr-2"></i>Unidad 3</a></li>
-                        <li><a href="#" onclick="openTasksModal(4); return false;"
-                                class="hover:underline transition-colors duration-300 font-semibold"><i
-                                    class="fas fa-book mr-2"></i>Unidad 4</a></li>
-                        <li><a href="login.html" class="btn-login"><i class="fas fa-sign-in-alt mr-2"></i>Iniciar
-                                Sesión</a></li>
+                    <ul>
+                        <li><a class="nav-unit" onclick="openModal(1);return false;" href="#"><i
+                                    class="fas fa-microchip" style="font-size:10px;"></i>UNIDAD 1</a></li>
+                        <li><a class="nav-unit" onclick="openModal(2);return false;" href="#"><i
+                                    class="fas fa-microchip" style="font-size:10px;"></i>UNIDAD 2</a></li>
+                        <li><a class="nav-unit" onclick="openModal(3);return false;" href="#"><i
+                                    class="fas fa-microchip" style="font-size:10px;"></i>UNIDAD 3</a></li>
+                        <li><a class="nav-unit" onclick="openModal(4);return false;" href="#"><i
+                                    class="fas fa-microchip" style="font-size:10px;"></i>UNIDAD 4</a></li>
+                        <li><a class="btn-login" href="login.html"><i class="fas fa-terminal"
+                                    style="font-size:10px;"></i>ACCESO</a></li>
                     </ul>
                 </nav>
             </div>
         </div>
     </header>
 
-    <main class="flex-grow container mx-auto px-4 py-10 sm:py-16">
-        <div class="grid-main">
-            <!-- Columna principal: secciones  -->
-            <div>
-                <div class="sections-grid">
-                    <!-- Sección de Introducción -->
-                    <section id="introduccion" class="content-card">
-                        <div class="flex items-center space-x-4 mb-4">
-                            <i class="fas fa-info-circle text-2xl" style="color: #667eea;"></i>
-                            <h2 class="text-2xl font-bold">Introducción: ¿qué es Git?</h2>
+    <!-- MAIN -->
+    <main>
+        <div class="grid-layout">
+            <!-- LEFT: info sections -->
+            <div class="sections-grid">
+                <section class="card">
+                    <div class="card-header">
+                        <div class="card-icon"><i class="fas fa-code-branch"></i></div>
+                        <div>
+                            <h2>¿QUÉ ES GIT?</h2>
+                            <span class="tag">INTRO // v1.0</span>
                         </div>
-                        <p class="text-lg leading-relaxed">
-                            Git es un sistema de control de versiones distribuido que funciona esencialmente como un
-                            historial de cambios avanzado para cualquier tipo de proyecto, aunque es especialmente
-                            popular en el desarrollo de software. Su principal utilidad es llevar un registro detallado
-                            de todas las modificaciones que se realizan en los archivos a lo largo del tiempo,
-                            permitiéndote saber exactamente quién cambió qué y cuándo. Esto te da la poderosa capacidad
-                            de volver atrás en el tiempo a una versión anterior si algo sale mal, de forma similar a
-                            tener infinitos puntos de guardado. Además, es fundamental para el trabajo en equipo, ya que
-                            permite que múltiples personas trabajen simultáneamente en el mismo proyecto sin interferir
-                            entre sí.
-                        </p>
-                    </section>
+                    </div>
+                    <p>Git es un sistema de control de versiones distribuido que funciona como un historial avanzado de
+                        cambios para cualquier proyecto. Permite registrar modificaciones, saber quién cambió qué y
+                        cuándo, volver a versiones anteriores cuando algo falla, y trabajar en equipo sin
+                        interferencias. Es el estándar en el desarrollo de software moderno.</p>
+                </section>
 
-                    <!-- Sección de Objetivos -->
-                    <section id="objetivos" class="content-card">
-                        <div class="flex items-center space-x-4 mb-4">
-                            <i class="fas fa-bullseye text-2xl" style="color: #667eea;"></i>
-                            <h2 class="text-2xl font-bold">Cómo creé mi cuenta en GitHub</h2>
+                <section class="card">
+                    <div class="card-header">
+                        <div class="card-icon"><i class="fas fa-github"></i></div>
+                        <div>
+                            <h2>CREÉ MI CUENTA EN GITHUB</h2>
+                            <span class="tag">PROCESO // PASO A PASO</span>
                         </div>
-                        <ul class="list-disc pl-6 text-lg space-y-2">
-                            <li>Fui a ver un video que explicaba todo esto sobre Git y GitHub, y me quedé enganchado.
-                                Antes pensaba que era súper complicado.</li>
-                            <li>Lo primero que hice fue ir a la página de github.com en el navegador. Se ve un botón
-                                grande que dice Sign up.</li>
-                            <li>Me pidió mi correo electrónico y hacer una contraseña segura con mi usuario.</li>
-                            <li>Abrí mi correo, copié el código de verificación y lo pegué en la página de GitHub.</li>
-                            <li>Al final me hicieron preguntas sobre para qué iba a usar la cuenta.</li>
-                            <li>Te dan a elegir entre un plan gratis y uno de pago, pero con el gratis vas sobrado para
-                                empezar.</li>
-                        </ul>
-                    </section>
-                </div>
+                    </div>
+                    <ul>
+                        <li>Vi un video explicativo sobre Git y GitHub — mucho más claro de lo esperado.</li>
+                        <li>Ingresé a github.com y pulsé el botón Sign up visible en la pantalla principal.</li>
+                        <li>Registré mi correo, creé una contraseña segura y elegí mi nombre de usuario.</li>
+                        <li>Verifiqué la cuenta copiando el código enviado a mi correo.</li>
+                        <li>Respondí preguntas de personalización del uso de la plataforma.</li>
+                        <li>Seleccioné el plan gratuito — más que suficiente para comenzar.</li>
+                    </ul>
+                </section>
             </div>
 
-            <!-- Columna secundaria: info breve / contacto -->
-            <aside class="space-y-6">
-                <div class="content-card">
-                    <div class="flex items-center space-x-4 mb-4">
-                        <i class="fas fa-user text-2xl" style="color: #667eea;"></i>
-                        <h2 class="text-2xl font-bold">Quién soy</h2>
+            <!-- RIGHT: aside -->
+            <aside>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon"><i class="fas fa-id-card"></i></div>
+                        <h2>PERFIL // OPERADOR</h2>
                     </div>
-                    <ul class="list-disc pl-6 text-lg space-y-2">
-                        <li>Soy Calderon Palacios Lazo Raul A.</li>
-                        <li>Estudio en la Universidad Peruana Los Andes en la carrera de Ingeniería de Sistemas</li>
-                        <li>Me gusta aprender sobre nuevas tecnologías y su aplicación en desarrollo.</li>
-                        <li>Tengo habilidades en lógica y me gusta estudiar de todo un poco</li>
+                    <ul>
+                        <li>Calderon Palacios Lazo, Raul A.</li>
+                        <li>Ingeniería de Sistemas — UPLA</li>
+                        <li>Orientado a nuevas tecnologías y desarrollo.</li>
+                        <li>Fuerte en lógica y aprendizaje continuo.</li>
                     </ul>
                 </div>
 
-                <div class="content-card">
-                    <h3 class="text-lg font-semibold mb-3">Recursos rápidos</h3>
-                    <a href="https://github.com/RaulCalderon11" target="_blank" class="btn-login inline-block">Mi
-                        GitHub</a>
+                <div class="card">
+                    <h3>ACCESO EXTERNO</h3>
+                    <a class="quick-link" href="https://github.com/RaulCalderon11" target="_blank">
+                        <i class="fab fa-github" style="font-size:14px;"></i>GITHUB REPO
+                    </a>
+                </div>
+
+                <div class="card" style="border-color:rgba(255,190,11,0.3);">
+                    <h3 style="color:var(--magenta);">INSTRUCCIONES</h3>
+                    <p style="font-family:'Share Tech Mono',monospace;font-size:0.72rem;line-height:1.8;">
+                        &gt; CLIC en UNIDAD para ver tareas<br>
+                        &gt; CLIC en <span style="color:var(--cyan);">[VER PDF]</span> para visor integrado<br>
+                        &gt; CLIC en <span style="color:var(--yellow);">[DESCARGAR]</span> para guardar el archivo
+                    </p>
                 </div>
             </aside>
         </div>
     </main>
 
-    <!-- Sección de Pie de página -->
-    <footer class="py-6">
-        <div
-            class="container mx-auto px-4 flex flex-col sm:flex-row justify-between items-center text-center sm:text-left">
-            <p class="text-sm">© 2024 Desarrollo de Aplicaciones</p>
-        </div>
+    <footer>
+        <span style="color:var(--magenta);">//</span> &copy; 2024 BASE DE DATOS II — UPLA <span
+            style="color:var(--magenta);">//</span> DESARROLLADO POR RAUL A. CALDERON PALACIOS <span
+            style="color:var(--cyan);">//</span>
     </footer>
 
-    <!-- MODAL PARA VER TAREAS -->
-    <div class="modal" id="tasksModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 id="modalTitle">Unidad 1</h3>
-                <button class="close-btn" onclick="closeTasksModal()">&times;</button>
+    <!-- =============================
+     MODAL: TAREAS DE UNIDAD
+============================= -->
+    <div class="modal-overlay" id="tasksModal">
+        <div class="modal-box">
+            <div class="modal-head">
+                <h3 id="modalTitle">UNIDAD 1</h3>
+                <button class="modal-close" onclick="closeModal()">✕</button>
             </div>
-            <div id="modalTasks" class="tasks-list"></div>
+            <div class="modal-body">
+                <div id="modalTasks"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- =============================
+     PDF VIEWER OVERLAY
+============================= -->
+    <div class="pdf-overlay" id="pdfOverlay">
+        <div class="pdf-toolbar">
+            <div class="pdf-toolbar-left">
+                <div class="card-icon" style="width:28px;height:28px;font-size:12px;"><i class="fas fa-file-pdf"></i>
+                </div>
+                <span class="pdf-title" id="pdfTitle">DOCUMENTO.PDF</span>
+            </div>
+            <div class="pdf-toolbar-right">
+                <a id="pdfDownloadBtn" href="#" download class="btn-download">
+                    <i class="fas fa-download" style="font-size:10px;"></i>DESCARGAR
+                </a>
+                <button class="modal-close" onclick="closePdf()">✕</button>
+            </div>
+        </div>
+        <div class="pdf-frame-wrap">
+            <iframe id="pdfFrame" src="" title="Visor de PDF" onload="handleIframeLoad()"></iframe>
+            <img id="imgFrame" src="" alt="Visor de Imagen" style="display:none; max-width:100%; max-height:100%; object-fit:contain; margin:auto;" />
+            <div class="pdf-error-msg" id="pdfErrorMsg">
+                <div style="font-size:2rem;color:rgba(0,245,255,0.3);margin-bottom:0.75rem;"><i
+                        class="fas fa-exclamation-triangle"></i></div>
+                <div>// El visor integrado no pudo cargar este archivo //</div>
+                <div style="margin-top:0.5rem;color:rgba(0,245,255,0.5);font-size:0.75rem;">Abre el PDF en una pestaña
+                    nueva para verlo</div>
+                <button class="open-tab-btn" id="openTabBtn" onclick="openCurrentPdfInTab()">
+                    <i class="fas fa-external-link-alt" style="font-size:10px;"></i>ABRIR EN NUEVA PESTAÑA
+                </button>
+            </div>
         </div>
     </div>
 
     <script>
-        // Cliente de Supabase
-        const supabaseUrl = 'https://nilgysffiuyjuguqcuij.supabase.co';
-        const supabaseKey = 'sb_publishable_WhpTZyUFLdZhaqY54cEPew_VAuZMsSA';
-        const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
-
-        // Data structure initial
-        let data = {
+        let appData = {
             units: {
-                1: { title: 'Unidad 1', tasks: [] },
-                2: { title: 'Unidad 2', tasks: [] },
-                3: { title: 'Unidad 3', tasks: [] },
-                4: { title: 'Unidad 4', tasks: [] }
+                1: {
+                    title: 'UNIDAD 1',
+                    tasks: [
+                        {
+                            title: 'Tarea Semana 1',
+                            week: 1,
+                            description: 'Introducción a Base de Datos',
+                            dueDate: '2026-05-10',
+                            documents: [
+                                { name: 'tarea 1 base de datos .pdf', description: 'PDF de la primera tarea', link: 'unidad1/semana1/tarea 1 base de datos .pdf' }
+                            ]
+                        },
+                        {
+                            title: 'Tarea Semana 2',
+                            week: 2,
+                            description: 'Arquitecturas y Modelos',
+                            dueDate: '2026-05-17',
+                            documents: [
+                                { name: 'Arquitecturas de Base de Datos.pdf', description: 'Lectura de Arquitecturas', link: 'unidad1/semana2/Arquitecturas de Base de Datos.pdf' },
+                                { name: 'MODELO ENTIDAD RELACION.pdf', description: 'Modelo Entidad Relación', link: 'unidad1/semana2/MODELO ENTIDAD RELACION.pdf' },
+                                { name: 'Manual de Instalación SQL Server 2025.pptx', description: 'Instalación SQL Server', link: 'unidad1/semana2/Manual de Instalación SQL Server 2025.pptx' },
+                                { name: 'tabla coparativa.jpeg', description: 'Tabla Comparativa', link: 'unidad1/semana2/tabla coparativa.jpeg' }
+                            ]
+                        },
+                        {
+                            title: 'Tarea Semana 3',
+                            week: 3,
+                            description: 'Diagramas',
+                            dueDate: '2026-05-24',
+                            documents: [
+                                { name: 'Diagramas.png', description: 'Diagramas', link: 'unidad1/semana 3/Diagramas.png' }
+                            ]
+                        }
+                    ]
+                },
+                2: { title: 'UNIDAD 2', tasks: [] },
+                3: { title: 'UNIDAD 3', tasks: [] },
+                4: { title: 'UNIDAD 4', tasks: [] }
             }
         };
 
-        // Load data from Supabase
-        async function loadData() {
+        function openModal(unitId) {
             try {
-                const { data: appData, error } = await supabaseClient
-                    .from('app_state')
-                    .select('data')
-                    .eq('id', 1)
-                    .single();
-                    
-                if (error && error.code !== 'PGRST116') {
-                    console.error('Error fetching data from Supabase:', error);
-                } else if (appData && appData.data && appData.data.units) {
-                    // Validar que el JSON realmente contenga units
-                    data = appData.data;
-                } else if (appData && (!appData.data || !appData.data.units)) {
-                    console.warn('Datos en Supabase incompletos o vacíos. Usando plantilla local por defecto.');
+                // Ensure appData and units exist, even if Supabase returned garbage
+                if (!appData) appData = { units: {} };
+                if (!appData.units) appData.units = {};
+
+                // Get the unit safely
+                const unit = appData.units[unitId] || { title: `UNIDAD ${unitId}`, tasks: [] };
+
+                // Safely set the title
+                const titleEl = document.getElementById('modalTitle');
+                if (titleEl) titleEl.textContent = unit.title || `UNIDAD ${unitId}`;
+
+                const container = document.getElementById('modalTasks');
+                if (!container) return; // Prevent crash if element is missing
+
+                // Check tasks safely
+                const tasks = Array.isArray(unit.tasks) ? unit.tasks : [];
+
+                if (tasks.length === 0) {
+                    container.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-icon"><i class="fas fa-inbox"></i></div>
+            <div>// SIN TAREAS REGISTRADAS EN ESTA UNIDAD //</div>
+          </div>`;
+                } else {
+                    // Wrap map in try/catch in case buildTaskCard fails on malformed task
+                    container.innerHTML = `<div class="tasks-grid">${tasks.map(task => {
+                        try { return buildTaskCard(task); } catch (e) { return ''; }
+                    }).join('')}</div>`;
                 }
-            } catch (err) {
-                console.error('Unexpected error loading data:', err);
+
+                const modal = document.getElementById('tasksModal');
+                if (modal) modal.classList.add('show');
+
+            } catch (error) {
+                console.error("Error al abrir el modal:", error);
+                // Fallback de emergencia
+                const modal = document.getElementById('tasksModal');
+                if (modal) {
+                    const container = document.getElementById('modalTasks');
+                    if (container) container.innerHTML = `<div class="empty-state"><div>// ERROR CARGANDO DATOS //</div></div>`;
+                    modal.classList.add('show');
+                }
             }
         }
 
-        function openTasksModal(unitId) {
-            const unit = data.units[unitId];
-            document.getElementById('modalTitle').textContent = unit.title;
+        function buildTaskCard(task) {
+            const dateStr = task.dueDate ? new Date(task.dueDate).toLocaleDateString('es-ES') : 'N/A';
 
-            const container = document.getElementById('modalTasks');
-            if (unit.tasks.length === 0) {
-                container.innerHTML = '<p style="color: #999; text-align: center; padding: 40px;">No hay tareas en esta unidad aún.</p>';
-            } else {
-                container.innerHTML = unit.tasks.map(task => `
-                    <div class="task-card-view">
-                        <h4>${task.title}</h4>
-                        <p class="week">📅 Semana ${task.week}</p>
-                        <p>${task.description || 'Sin descripción'}</p>
-                        <p style="margin-top: 10px; color: #00d4ff;">Entrega: ${new Date(task.dueDate).toLocaleDateString('es-ES')}</p>
-                        ${task.documents && task.documents.length > 0 ? `
-                            <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(0, 212, 255, 0.3);">
-                                <p style="color: #ffbe0b; font-size: 12px; margin-bottom: 8px;">📄 Documentos:</p>
-                                ${task.documents.map(doc => `
-                                    <div style="margin-bottom: 6px;">
-                                        <a href="${doc.link}" target="_blank" style="color: #00d4ff; text-decoration: none; font-size: 12px;">
-                                            <i class="fas fa-download"></i> ${doc.name}
-                                        </a>
-                                        <p style="color: #888; font-size: 11px; margin: 2px 0 0 0;">${doc.description}</p>
-                                    </div>
-                                `).join('')}
-                            </div>
-                        ` : ''}
-                    </div>
-                `).join('');
+            let docsHtml = '';
+            if (task.documents && task.documents.length > 0) {
+                const docItems = task.documents.map(doc => `
+      <div class="doc-item">
+        <div class="doc-name"><i class="fas fa-file-pdf" style="font-size:11px;color:var(--magenta);margin-right:5px;"></i>${doc.name || 'Documento'}</div>
+        ${doc.description ? `<div class="doc-desc">${doc.description}</div>` : ''}
+        <div class="doc-buttons">
+          ${doc.link ? `<button class="btn-view-pdf" onclick="openPdf('${escapeAttr(doc.link)}','${escapeAttr(doc.name || 'Documento')}')">
+            <i class="fas fa-eye" style="font-size:10px;"></i>VER PDF
+          </button>
+          <button class="btn-download" onclick="forceDownload('${escapeAttr(doc.link)}','${escapeAttr(doc.name || 'documento')}')">
+            <i class="fas fa-download" style="font-size:10px;"></i>DESCARGAR
+          </button>` : `<span style="font-family:'Share Tech Mono',monospace;font-size:0.65rem;color:var(--text-muted);">// SIN ENLACE //</span>`}
+        </div>
+      </div>`).join('');
+                docsHtml = `<div class="docs-label">📄 DOCUMENTOS ADJUNTOS:</div>${docItems}`;
             }
-            document.getElementById('tasksModal').classList.add('show');
+
+            return `
+    <div class="task-card">
+      <div class="task-title">${task.title || 'Sin título'}</div>
+      <div class="task-week">◈ SEMANA ${task.week || '?'}</div>
+      <div class="task-desc">${task.description || 'Sin descripción'}</div>
+      <div class="task-date">ENTREGA: ${dateStr}</div>
+      ${docsHtml}
+    </div>`;
         }
 
-        function closeTasksModal() {
+        function escapeAttr(str) {
+            return String(str).replace(/'/g, "\\'").replace(/"/g, '&quot;');
+        }
+
+        function closeModal() {
             document.getElementById('tasksModal').classList.remove('show');
         }
 
-        // Close modal on background click
-        document.getElementById('tasksModal').addEventListener('click', (e) => {
-            if (e.target.id === 'tasksModal') {
-                closeTasksModal();
+        let currentPdfUrl = '';
+
+        function openPdf(url, name) {
+            currentPdfUrl = url;
+            document.getElementById('pdfTitle').textContent = name.toUpperCase();
+            document.getElementById('pdfErrorMsg').style.display = 'none';
+            document.getElementById('pdfOverlay').classList.add('show');
+
+            const frame = document.getElementById('pdfFrame');
+            const img = document.getElementById('imgFrame');
+            
+            frame.style.display = 'none';
+            img.style.display = 'none';
+
+            const lowerUrl = url.toLowerCase();
+            if (lowerUrl.endsWith('.png') || lowerUrl.endsWith('.jpg') || lowerUrl.endsWith('.jpeg') || lowerUrl.endsWith('.gif')) {
+                img.src = url;
+                img.style.display = 'block';
+            } else if (lowerUrl.endsWith('.pptx') || lowerUrl.endsWith('.ppt') || lowerUrl.endsWith('.docx') || lowerUrl.endsWith('.doc')) {
+                showPdfError();
+            } else {
+                frame.src = url;
+                frame.style.display = 'block';
             }
+
+            // Botón de descarga en la barra del modal
+            const dlBtn = document.getElementById('pdfDownloadBtn');
+            dlBtn.href = url;
+            dlBtn.download = name;
+            dlBtn.onclick = null;
+        }
+
+        function handleIframeLoad() {
+            try {
+                const frame = document.getElementById('pdfFrame');
+                const doc = frame.contentDocument || frame.contentWindow.document;
+                if (doc && doc.body && doc.body.innerHTML === '') {
+                    showPdfError();
+                }
+            } catch (e) {
+                // Ignore cross-origin error
+            }
+        }
+
+        function showPdfError() {
+            document.getElementById('pdfFrame').style.display = 'none';
+            document.getElementById('imgFrame').style.display = 'none';
+            document.getElementById('pdfErrorMsg').style.display = 'block';
+        }
+
+        function openCurrentPdfInTab() {
+            if (currentPdfUrl) window.open(currentPdfUrl, '_blank');
+        }
+
+        function forceDownload(url, filename) {
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename || 'documento';
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+        }
+
+        function closePdf() {
+            document.getElementById('pdfOverlay').classList.remove('show');
+            document.getElementById('pdfFrame').src = '';
+            document.getElementById('imgFrame').src = '';
+            document.getElementById('pdfErrorMsg').style.display = 'none';
+        }
+
+        document.getElementById('tasksModal').addEventListener('click', e => {
+            if (e.target.id === 'tasksModal') closeModal();
         });
 
-        // Initialize
-        loadData().then(() => {
-            console.log('Datos cargados de Supabase para lectura');
+        document.getElementById('pdfOverlay').addEventListener('click', e => {
+            if (e.target.id === 'pdfOverlay') closePdf();
         });
-    </script>
-
-</body>
-
-</html>
