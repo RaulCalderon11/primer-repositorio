@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión - Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Spectral:ital,wght@0,400;0,600;1,400&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --hk-bg-dark: #020611;
+            --hk-bg-light: #0a1128;
+            --hk-cyan: #00e5ff;
+            --hk-cyan-dim: rgba(0, 229, 255, 0.3);
+            --hk-soul: #e2f1f8;
+            --hk-border: #4da8da;
+            --hk-panel: rgba(13, 27, 42, 0.75);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Spectral', serif;
+            background: linear-gradient(135deg, var(--hk-bg-dark) 0%, var(--hk-bg-light) 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: var(--hk-soul);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .login-container {
+            background: var(--hk-panel);
+            border-radius: 8px;
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
+            padding: 50px 40px;
+            max-width: 450px;
+            width: 100%;
+            text-align: center;
+            border: 1px solid var(--hk-cyan);
+            backdrop-filter: blur(5px);
+        }
+
+        .login-container h1 {
+            color: var(--hk-soul);
+            margin-bottom: 10px;
+            font-size: 28px;
+            font-family: 'Cinzel Decorative', serif;
+            text-shadow: 0 0 15px var(--hk-cyan);
+            letter-spacing: 1px;
+        }
+
+        .login-container p {
+            color: #b0c4de;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            color: var(--hk-cyan);
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-family: 'Cinzel Decorative', serif;
+            letter-spacing: 1px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--hk-border);
+            border-radius: 4px;
+            font-size: 16px;
+            background: rgba(2, 6, 17, 0.8);
+            color: var(--hk-soul);
+            transition: all 0.3s;
+            font-family: 'Spectral', serif;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--hk-cyan);
+            box-shadow: 0 0 15px var(--hk-cyan-dim);
+        }
+
+        .form-group input::placeholder {
+            color: #4da8da;
+            opacity: 0.6;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 14px;
+            background: transparent;
+            color: var(--hk-cyan);
+            border: 1px solid var(--hk-cyan);
+            border-radius: 4px;
+            font-size: 18px;
+            font-family: 'Cinzel Decorative', serif;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 0 15px var(--hk-cyan-dim) inset;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            background: var(--hk-cyan-dim);
+            color: #fff;
+            box-shadow: 0 0 20px var(--hk-cyan);
+        }
+
+        .back-link {
+            margin-top: 20px;
+            display: block;
+            color: var(--hk-cyan);
+            text-decoration: none;
+            font-family: 'Cinzel Decorative', serif;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .back-link:hover {
+            color: var(--hk-soul);
+            text-shadow: 0 0 10px var(--hk-cyan);
+        }
+
+        .error {
+            color: var(--hk-cyan);
+            font-size: 15px;
+            margin-bottom: 15px;
+            display: none;
+            padding: 12px;
+            background: rgba(2, 6, 17, 0.8);
+            border-radius: 4px;
+            border-left: 3px solid var(--hk-cyan);
+            font-family: 'Spectral', serif;
+            box-shadow: 0 0 15px var(--hk-cyan-dim);
+        }
+
+        .info {
+            background: rgba(0, 229, 255, 0.1);
+            padding: 12px;
+            border-radius: 4px;
+            border-left: 2px solid var(--hk-cyan);
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #b0c4de;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-container">
+        <h1><i class="fas fa-lock"></i> Panel Administrativo</h1>
+        <p>Inicia sesión para acceder al panel de control</p>
+        <div class="info">
+        </div>
+        <div class="error" id="error"></div>
+        <form onsubmit="handleLogin(event)">
+            <div class="form-group">
+                <label for="username">Usuario</label>
+                <input type="text" id="username" placeholder="Ingresa tu usuario" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Contraseña</label>
+                <input type="password" id="password" placeholder="Ingresa tu contraseña" required>
+            </div>
+            <button type="submit" class="login-btn">Iniciar Sesión</button>
+        </form>
+        <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Volver al inicio</a>
+    </div>
+
+    <script>
+        function handleLogin(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const errorDiv = document.getElementById('error');
+
+            // Validación de credenciales fijas
+            if (username === 'admin' && password === 'admin123') {
+                sessionStorage.setItem('adminUser', username);
+                window.location.href = 'admin.html';
+            } else {
+                errorDiv.textContent = '❌ Usuario o contraseña incorrectos';
+                errorDiv.style.display = 'block';
+                document.getElementById('password').value = '';
+            }
+        }
+    </script>
+</body>
+
+</html>

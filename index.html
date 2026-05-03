@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Base datos II</title>
+    <!-- Iconos de Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Incluimos Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Spectral:ital,wght@0,400;0,600;1,400&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --hk-bg-dark: #020611;
+            --hk-bg-light: #0a1128;
+            --hk-cyan: #00e5ff;
+            --hk-cyan-dim: rgba(0, 229, 255, 0.3);
+            --hk-soul: #e2f1f8;
+            --hk-border: #4da8da;
+            --hk-panel: rgba(13, 27, 42, 0.75);
+        }
+
+        body {
+            font-family: 'Spectral', serif;
+            background: linear-gradient(135deg, var(--hk-bg-dark) 0%, var(--hk-bg-light) 100%);
+            -webkit-font-smoothing: antialiased;
+            color: var(--hk-soul);
+            min-height: 100vh;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        .cinzel {
+            font-family: 'Cinzel Decorative', serif;
+            letter-spacing: 1px;
+        }
+
+        /* Header */
+        header {
+            background: rgba(2, 6, 17, 0.85);
+            border-bottom: 1px solid var(--hk-cyan);
+            box-shadow: 0 0 20px var(--hk-cyan-dim);
+            backdrop-filter: blur(8px);
+        }
+
+        header h1 {
+            color: var(--hk-soul);
+            text-shadow: 0 0 10px var(--hk-cyan);
+        }
+
+        header .container {
+            align-items: center;
+        }
+
+        nav a {
+            color: var(--hk-soul);
+            font-family: 'Cinzel Decorative', serif;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--hk-cyan);
+            text-shadow: 0 0 15px var(--hk-cyan);
+        }
+
+        .content-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            background: var(--hk-panel);
+            color: var(--hk-soul);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s;
+            padding: 2rem;
+            border: 1px solid var(--hk-border);
+            backdrop-filter: blur(4px);
+        }
+
+        .content-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 0 25px var(--hk-cyan-dim);
+            border-color: var(--hk-cyan);
+        }
+
+        .content-card h2 {
+            color: var(--hk-cyan);
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 8px var(--hk-cyan-dim);
+        }
+
+        .content-card p,
+        .content-card li {
+            color: #b0c4de;
+            line-height: 1.7;
+            font-size: 1.1rem;
+        }
+
+        .btn-login {
+            background: transparent;
+            color: var(--hk-cyan);
+            padding: 0.6rem 1.2rem;
+            border-radius: 4px;
+            font-family: 'Cinzel Decorative', serif;
+            font-weight: 700;
+            text-decoration: none;
+            border: 1px solid var(--hk-cyan);
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 0 10px var(--hk-cyan-dim) inset;
+        }
+
+        .btn-login:hover {
+            background: var(--hk-cyan-dim);
+            color: #fff;
+            box-shadow: 0 0 20px var(--hk-cyan);
+            transform: translateY(-2px);
+        }
+
+        /* Layout grid para main: centrado y con padding */
+        main.container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+
+        .grid-main {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        @media(min-width: 1024px) {
+            .grid-main {
+                grid-template-columns: 2fr 1fr;
+                gap: 2rem;
+                align-items: start;
+            }
+        }
+
+        .sections-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.25rem;
+        }
+
+        @media(min-width: 1024px) {
+            .sections-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        ul li {
+            margin-bottom: .6rem;
+        }
+
+        /* MODAL PARA VER TAREAS */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(2, 6, 17, 0.9);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--hk-bg-light);
+            border-radius: 8px;
+            padding: 30px;
+            max-width: 800px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            border: 1px solid var(--hk-cyan);
+            box-shadow: 0 0 40px var(--hk-cyan-dim);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            border-bottom: 1px solid var(--hk-border);
+            padding-bottom: 15px;
+        }
+
+        .modal-header h3 {
+            margin: 0;
+            color: var(--hk-soul);
+            font-size: 24px;
+            text-shadow: 0 0 10px var(--hk-cyan);
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 32px;
+            cursor: pointer;
+            color: var(--hk-border);
+            transition: all 0.3s;
+            font-family: 'Spectral', serif;
+        }
+
+        .close-btn:hover {
+            color: var(--hk-cyan);
+            text-shadow: 0 0 15px var(--hk-cyan);
+        }
+
+        .tasks-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .task-card-view {
+            background: var(--hk-panel);
+            padding: 20px;
+            border-radius: 6px;
+            border-left: 2px solid var(--hk-cyan);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s;
+        }
+
+        .task-card-view:hover {
+            box-shadow: 0 0 15px var(--hk-cyan-dim);
+        }
+
+        .task-card-view h4 {
+            color: var(--hk-soul);
+            margin: 0 0 10px 0;
+            font-size: 1.2rem;
+            text-shadow: 0 0 5px var(--hk-cyan-dim);
+        }
+
+        .task-card-view p {
+            color: #b0c4de;
+            font-size: 15px;
+            margin: 5px 0;
+        }
+
+        .task-card-view .week {
+            color: var(--hk-cyan);
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 0.9rem;
+        }
+
+        /* VISOR DE PDF E IMAGENES */
+        .viewer-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(2, 6, 17, 0.95);
+            z-index: 2000;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .viewer-modal.show {
+            display: flex;
+        }
+
+        .viewer-toolbar {
+            width: 100%;
+            padding: 15px 30px;
+            background: var(--hk-bg-dark);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--hk-cyan);
+            box-shadow: 0 0 20px var(--hk-cyan-dim);
+        }
+
+        .viewer-title {
+            color: var(--hk-soul);
+            font-size: 1.2rem;
+            font-family: 'Cinzel Decorative', serif;
+            text-shadow: 0 0 8px var(--hk-cyan);
+        }
+
+        .viewer-actions button,
+        .viewer-actions a {
+            background: transparent;
+            color: var(--hk-cyan);
+            padding: 6px 15px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-family: 'Cinzel Decorative', serif;
+            font-weight: bold;
+            margin-left: 10px;
+            border: 1px solid var(--hk-cyan);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .viewer-actions button:hover,
+        .viewer-actions a:hover {
+            background: var(--hk-cyan-dim);
+            color: #fff;
+            box-shadow: 0 0 15px var(--hk-cyan);
+        }
+
+        .viewer-actions .close-viewer {
+            color: #4da8da;
+            border-color: #4da8da;
+        }
+
+        .viewer-actions .close-viewer:hover {
+            background: transparent;
+            color: var(--hk-cyan);
+            border-color: var(--hk-cyan);
+            text-shadow: 0 0 10px var(--hk-cyan);
+            box-shadow: none;
+        }
+
+        .viewer-content {
+            width: 100%;
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .viewer-content iframe {
+            width: 90%;
+            height: 90%;
+            border: 1px solid var(--hk-cyan);
+            border-radius: 4px;
+            background: #fff;
+            box-shadow: 0 0 30px var(--hk-cyan-dim);
+        }
+
+        .viewer-content img {
+            max-width: 90%;
+            max-height: 90%;
+            border: 1px solid var(--hk-cyan);
+            border-radius: 4px;
+            object-fit: contain;
+            box-shadow: 0 0 30px var(--hk-cyan-dim);
+        }
+
+        .viewer-error {
+            color: var(--hk-cyan);
+            font-size: 1.5rem;
+            text-align: center;
+            display: none;
+            font-family: 'Cinzel Decorative', serif;
+            text-shadow: 0 0 10px var(--hk-cyan);
+        }
+
+        footer {
+            color: #4da8da;
+            background: rgba(2, 6, 17, 0.9);
+            border-top: 1px solid rgba(0, 229, 255, 0.2);
+            font-family: 'Cinzel Decorative', serif;
+        }
+    </style>
+</head>
+
+<body class="text-gray-800 flex flex-col min-h-screen">
+
+    <!-- Sección de Encabezado -->
+    <header class="text-white shadow-lg py-6 sm:py-8">
+        <div class="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-6 md:gap-0">
+            <div class="flex items-center space-x-4">
+                <i class="fas fa-book text-3xl text-white"></i>
+                <h1 class="text-xl sm:text-2xl font-extrabold tracking-tight">Base datos II</h1>
+            </div>
+            <div class="flex flex-col md:flex-row items-center gap-4 md:gap-0 md:space-x-6">
+                <div class="flex items-center space-x-3">
+                    <img src="logoupla.png" alt="Logo de la Universidad Peruana Los Andes"
+                        class="w-12 h-12 rounded-full bg-gray-400 object-cover">
+                    <h2 class="text-lg">Raul A. Calderon Palacios</h2>
+                </div>
+                <nav>
+                    <ul class="flex flex-wrap justify-center gap-3 md:space-x-3">
+                        <li><a href="#" onclick="openTasksModal(1); return false;"
+                                class="hover:underline transition-colors duration-300 font-semibold"><i
+                                    class="fas fa-book mr-2"></i>Unidad 1</a></li>
+                        <li><a href="#" onclick="openTasksModal(2); return false;"
+                                class="hover:underline transition-colors duration-300 font-semibold"><i
+                                    class="fas fa-book mr-2"></i>Unidad 2</a></li>
+                        <li><a href="#" onclick="openTasksModal(3); return false;"
+                                class="hover:underline transition-colors duration-300 font-semibold"><i
+                                    class="fas fa-book mr-2"></i>Unidad 3</a></li>
+                        <li><a href="#" onclick="openTasksModal(4); return false;"
+                                class="hover:underline transition-colors duration-300 font-semibold"><i
+                                    class="fas fa-book mr-2"></i>Unidad 4</a></li>
+                        <li><a href="login.html" class="btn-login"><i class="fas fa-sign-in-alt mr-2"></i>Iniciar
+                                Sesión</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow container mx-auto px-4 py-10 sm:py-16">
+        <div class="grid-main">
+            <!-- Columna principal: secciones  -->
+            <div>
+                <div class="sections-grid">
+                    <!-- Sección de Introducción -->
+                    <section id="introduccion" class="content-card">
+                        <div class="flex items-center space-x-4 mb-4">
+                            <i class="fas fa-info-circle text-2xl" style="color: #667eea;"></i>
+                            <h2 class="text-2xl font-bold">Introducción: ¿qué es Git?</h2>
+                        </div>
+                        <p class="text-lg leading-relaxed">
+                            Git es un sistema de control de versiones distribuido que funciona esencialmente como un
+                            historial de cambios avanzado para cualquier tipo de proyecto, aunque es especialmente
+                            popular en el desarrollo de software. Su principal utilidad es llevar un registro detallado
+                            de todas las modificaciones que se realizan en los archivos a lo largo del tiempo,
+                            permitiéndote saber exactamente quién cambió qué y cuándo. Esto te da la poderosa capacidad
+                            de volver atrás en el tiempo a una versión anterior si algo sale mal, de forma similar a
+                            tener infinitos puntos de guardado. Además, es fundamental para el trabajo en equipo, ya que
+                            permite que múltiples personas trabajen simultáneamente en el mismo proyecto sin interferir
+                            entre sí.
+                        </p>
+                    </section>
+
+                    <!-- Sección de Objetivos -->
+                    <section id="objetivos" class="content-card">
+                        <div class="flex items-center space-x-4 mb-4">
+                            <i class="fas fa-bullseye text-2xl" style="color: #667eea;"></i>
+                            <h2 class="text-2xl font-bold">Cómo creé mi cuenta en GitHub</h2>
+                        </div>
+                        <ul class="list-disc pl-6 text-lg space-y-2">
+                            <li>Fui a ver un video que explicaba todo esto sobre Git y GitHub, y me quedé enganchado.
+                                Antes pensaba que era súper complicado.</li>
+                            <li>Lo primero que hice fue ir a la página de github.com en el navegador. Se ve un botón
+                                grande que dice Sign up.</li>
+                            <li>Me pidió mi correo electrónico y hacer una contraseña segura con mi usuario.</li>
+                            <li>Abrí mi correo, copié el código de verificación y lo pegué en la página de GitHub.</li>
+                            <li>Al final me hicieron preguntas sobre para qué iba a usar la cuenta.</li>
+                            <li>Te dan a elegir entre un plan gratis y uno de pago, pero con el gratis vas sobrado para
+                                empezar.</li>
+                        </ul>
+                    </section>
+                </div>
+            </div>
+
+            <!-- Columna secundaria: info breve / contacto -->
+            <aside class="space-y-6">
+                <div class="content-card">
+                    <div class="flex items-center space-x-4 mb-4">
+                        <i class="fas fa-user text-2xl" style="color: #667eea;"></i>
+                        <h2 class="text-2xl font-bold">Quién soy</h2>
+                    </div>
+                    <ul class="list-disc pl-6 text-lg space-y-2">
+                        <li>Soy Calderon Palacios Lazo Raul A.</li>
+                        <li>Estudio en la Universidad Peruana Los Andes en la carrera de Ingeniería de Sistemas</li>
+                        <li>Me gusta aprender sobre nuevas tecnologías y su aplicación en desarrollo.</li>
+                        <li>Tengo habilidades en lógica y me gusta estudiar de todo un poco</li>
+                    </ul>
+                </div>
+
+                <div class="content-card">
+                    <h3 class="text-lg font-semibold mb-3">Recursos rápidos</h3>
+                    <a href="https://github.com/RaulCalderon11" target="_blank" class="btn-login inline-block">Mi
+                        GitHub</a>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <!-- Sección de Pie de página -->
+    <footer class="py-6">
+        <div
+            class="container mx-auto px-4 flex flex-col sm:flex-row justify-between items-center text-center sm:text-left">
+            <p class="text-sm">© 2024 Desarrollo de Aplicaciones</p>
+        </div>
+    </footer>
+
+    <!-- MODAL PARA VER TAREAS -->
+    <div class="modal" id="tasksModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Unidad 1</h3>
+                <button class="close-btn" onclick="closeTasksModal()">&times;</button>
+            </div>
+            <div id="modalTasks" class="tasks-list"></div>
+        </div>
+    </div>
+
+    <!-- MODAL PARA PREVISUALIZAR ARCHIVOS -->
+    <div class="viewer-modal" id="viewerModal">
+        <div class="viewer-toolbar">
+            <div class="viewer-title" id="viewerTitle">Documento</div>
+            <div class="viewer-actions">
+                <a id="viewerDownloadBtn" href="#" download>Descargar</a>
+                <button class="close-viewer" onclick="closeViewer()">Cerrar</button>
+            </div>
+        </div>
+        <div class="viewer-content">
+            <iframe id="viewerIframe" src=""></iframe>
+            <img id="viewerImg" src="" alt="Vista previa">
+            <div id="viewerError" class="viewer-error">
+                <i class="fas fa-exclamation-triangle"></i><br>
+                Este tipo de archivo no se puede previsualizar en el navegador.<br>
+                Por favor, descárgalo para verlo.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // DATOS LOCALES DUROS SIN BASE DE DATOS
+        let data = {
+            units: {
+                1: {
+                    title: 'Unidad 1: Fundamentos y Modelo Relacional',
+                    tasks: [
+                        {
+                            title: 'Introducción a la arquitectura de BD',
+                            week: 1,
+                            description: 'la primera sema es un informa sobre un trabajo modelo canva formal',
+                            dueDate: '2026-04-13',
+                            documents: [
+                                { name: 'Resumen seman 1.pdf', description: 'Resumen Semana 1', link: 'unidad1/semana1/Resumen seman 1.pdf' },
+                                { name: 'tarea 1 base de datos.pdf', description: 'Tarea 1', link: 'unidad1/semana1/tarea 1 base de datos.pdf' }
+                            ]
+                        },
+                        {
+                            title: 'Gestores de BD',
+                            week: 2,
+                            description: 'resolución de 3 actividades manual resumen de la clase con cuadro comparativo y la resolución de los ejercicios propuestos entidad relacion',
+                            dueDate: '2026-04-20',
+                            documents: [
+                                { name: 'Arquitecturas de Base de Datos.pdf', description: 'Lectura de Arquitecturas', link: 'unidad1/semana2/Arquitecturas de Base de Datos.pdf' },
+                                { name: 'MODELO ENTIDAD RELACION.pdf', description: 'Modelo Entidad Relación', link: 'unidad1/semana2/MODELO ENTIDAD RELACION.pdf' },
+                                { name: 'Manual de Instalación SQL Server 2025.pdf', description: 'Instalación SQL', link: 'unidad1/semana2/Manual de Instalación SQL Server 2025.pdf' },
+                                { name: 'tabla coparativa.jpeg', description: 'Tabla Comparativa', link: 'unidad1/semana2/tabla coparativa.jpeg' }
+                            ]
+                        },
+                        {
+                            title: 'Diseño de Arquitectura de BD',
+                            week: 3,
+                            description: 'Sin descripción',
+                            dueDate: '2026-04-29',
+                            documents: [
+                                { name: 'Arquitecturas de Base de Datos.pdf', description: 'Lectura', link: 'unidad1/semana3/Arquitecturas de Base de Datos.pdf' },
+                                { name: 'Diagramas.png', description: 'Diagramas', link: 'unidad1/semana3/Diagramas.png' },
+                                { name: 'Relacion_Data_Arquitectura.pdf', description: 'Relación Data', link: 'unidad1/semana3/Relacion_Data_Arquitectura.pdf' }
+                            ]
+                        },
+                        {
+                            title: 'Tipos de Arquitectura de BD',
+                            week: 4,
+                            description: 'Sin descripción',
+                            dueDate: '2026-05-06',
+                            documents: [
+                                { name: 'Database_Architecture_Roadmap.pdf', description: 'Roadmap', link: 'unidad1/semana4/Database_Architecture_Roadmap.pdf' },
+                                { name: 'Normalización_de_Bases_de_Datos.pdf', description: 'Normalización', link: 'unidad1/semana4/Normalización_de_Bases_de_Datos.pdf' },
+                                { name: 'tarea de nromalizacion.pdf', description: 'Tarea', link: 'unidad1/semana4/tarea de nromalizacion.pdf' }
+                            ]
+                        }
+                    ]
+                },
+                2: { title: 'Unidad 2: Diseño Avanzado de Bases de Datos', tasks: [] },
+                3: { title: 'Unidad 3: Programación en Base de Datos', tasks: [] },
+                4: { title: 'Unidad 4: Administración y Seguridad', tasks: [] }
+            }
+        };
+
+        const weekNames = {
+            1: "Introducción a la arquitectura de BD",
+            2: "Gestores de BD",
+            3: "Diseño de Arquitectura de BD",
+            4: "Tipos de Arquitectura de BD"
+        };
+
+        function escapeAttr(str) {
+            return String(str).replace(/'/g, "\\'").replace(/"/g, '&quot;');
+        }
+
+        function openTasksModal(unitId) {
+            const unit = data.units[unitId];
+            document.getElementById('modalTitle').textContent = unit.title;
+
+            const container = document.getElementById('modalTasks');
+            if (unit.tasks.length === 0) {
+                container.innerHTML = '<p style="color: #999; text-align: center; padding: 40px; grid-column: 1 / -1;">No hay tareas en esta unidad aún.</p>';
+            } else {
+                container.innerHTML = unit.tasks.map(task => `
+                    <div class="task-card-view">
+                        <h4>${weekNames[task.week] ? 'S' + task.week + ': ' + weekNames[task.week] : task.title}</h4>
+                        <p class="week">📅 Semana ${task.week}</p>
+                        <p>${task.description || 'Sin descripción'}</p>
+                        <p style="margin-top: 10px; color: #00d4ff;">Entrega: ${new Date(task.dueDate).toLocaleDateString('es-ES')}</p>
+                        ${task.documents && task.documents.length > 0 ? `
+                            <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(0, 212, 255, 0.3);">
+                                <p style="color: #ffbe0b; font-size: 12px; margin-bottom: 8px;">📄 Documentos:</p>
+                                ${task.documents.map(doc => `
+                                    <div style="margin-bottom: 8px; display: flex; flex-direction: column; gap: 5px;">
+                                        <div style="display: flex; gap: 8px;">
+                                            <button onclick="openViewer('${escapeAttr(doc.link)}', '${escapeAttr(doc.name)}')" style="background: #00d4ff; color: #000; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 11px; font-weight: bold;">
+                                                <i class="fas fa-eye"></i> Ver
+                                            </button>
+                                            <button onclick="forceDownload('${escapeAttr(doc.link)}', '${escapeAttr(doc.name)}')" style="background: #ff006e; color: #fff; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 11px; font-weight: bold;">
+                                                <i class="fas fa-download"></i> Bajar
+                                            </button>
+                                        </div>
+                                        <span style="color: #c8e6ff; font-size: 12px;">${doc.name}</span>
+                                        <p style="color: #888; font-size: 11px; margin: 0;">${doc.description || ''}</p>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        ` : ''}
+                    </div>
+                `).join('');
+            }
+            document.getElementById('tasksModal').classList.add('show');
+        }
+
+        function closeTasksModal() {
+            document.getElementById('tasksModal').classList.remove('show');
+        }
+
+        document.getElementById('tasksModal').addEventListener('click', (e) => {
+            if (e.target.id === 'tasksModal') {
+                closeTasksModal();
+            }
+        });
+
+        // ══════════════════════════════════════════════════
+        // LÓGICA DE VISOR Y DESCARGA
+        // ══════════════════════════════════════════════════
+        function openViewer(url, name) {
+            document.getElementById('viewerTitle').textContent = name;
+            document.getElementById('viewerDownloadBtn').href = url;
+            document.getElementById('viewerDownloadBtn').download = name;
+
+            const modal = document.getElementById('viewerModal');
+            const iframe = document.getElementById('viewerIframe');
+            const img = document.getElementById('viewerImg');
+            const err = document.getElementById('viewerError');
+
+            iframe.style.display = 'none';
+            img.style.display = 'none';
+            err.style.display = 'none';
+
+            const lowerUrl = url.toLowerCase();
+            if (lowerUrl.endsWith('.png') || lowerUrl.endsWith('.jpg') || lowerUrl.endsWith('.jpeg') || lowerUrl.endsWith('.gif')) {
+                img.src = url;
+                img.style.display = 'block';
+            } else if (lowerUrl.endsWith('.pptx') || lowerUrl.endsWith('.ppt') || lowerUrl.endsWith('.docx') || lowerUrl.endsWith('.doc')) {
+                err.style.display = 'block';
+            } else {
+                iframe.src = url;
+                iframe.style.display = 'block';
+            }
+
+            modal.classList.add('show');
+        }
+
+        function closeViewer() {
+            document.getElementById('viewerModal').classList.remove('show');
+            document.getElementById('viewerIframe').src = '';
+            document.getElementById('viewerImg').src = '';
+        }
+
+        function forceDownload(url, filename) {
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename || 'documento';
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+        }
+
+    </script>
+</body>
+
+</html>
