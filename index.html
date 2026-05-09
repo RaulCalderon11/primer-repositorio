@@ -54,6 +54,7 @@
             -webkit-font-smoothing: antialiased;
             color: var(--hk-soul);
             min-height: 100vh;
+            overflow-x: hidden;
         }
 
         h1,
@@ -409,6 +410,492 @@
             font-family: 'Cinzel Decorative', serif;
         }
 
+        /* ORNAMENTOS HOLLOW KNIGHT */
+        .content-card::before, .content-card::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--hk-cyan);
+            opacity: 0.3;
+            transition: all 0.3s;
+            pointer-events: none;
+        }
+
+        .content-card::before {
+            top: 5px;
+            left: 5px;
+            border-right: none;
+            border-bottom: none;
+        }
+
+        .content-card::after {
+            bottom: 5px;
+            right: 5px;
+            border-left: none;
+            border-top: none;
+        }
+
+        .content-card:hover::before, .content-card:hover::after {
+            opacity: 1;
+            width: 30px;
+            height: 30px;
+            border-color: var(--hk-purple);
+        }
+
+        /* ESCENARIO DE FONDO (LAGO Y RAMAS) */
+        .hk-background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+            transition: opacity 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            will-change: opacity;
+        }
+
+        .hk-lake {
+            position: absolute;
+            bottom: -15vh;
+            left: 0;
+            width: 100vw;
+            height: 40vh;
+            background: radial-gradient(ellipse at top, rgba(0, 229, 255, 0.4) 0%, rgba(0, 80, 128, 0.3) 40%, transparent 80%);
+            border-radius: 50% 50% 0 0;
+            filter: blur(10px);
+        }
+
+        .hk-lake-surface {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100vw;
+            height: 15vh;
+            background: linear-gradient(to bottom, rgba(0, 229, 255, 0.2), rgba(2, 6, 17, 1));
+        }
+
+        .hk-branch {
+            position: absolute;
+            opacity: 0.9;
+            filter: drop-shadow(0 0 10px rgba(0, 229, 255, 0.15));
+        }
+
+        .hk-branch-left {
+            bottom: -20px;
+            left: -5vw;
+            height: 85vh;
+            width: 30vw;
+            max-width: 350px;
+        }
+
+        .hk-branch-right {
+            bottom: -20px;
+            right: -5vw;
+            height: 85vh;
+            width: 30vw;
+            max-width: 350px;
+            transform: scaleX(-1);
+        }
+
+        /* ESCENARIO DE FONDO 2 (CIUDAD DE LÁGRIMAS) */
+        .hk-bg-city {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            pointer-events: none;
+            overflow: hidden;
+            background: linear-gradient(to bottom, #030815 0%, #0a1b35 50%, #020a17 100%);
+            opacity: 0; /* Empieza oculto */
+            transition: opacity 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            will-change: opacity;
+        }
+
+        .city-arches {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100vw;
+            height: 65vh;
+            opacity: 0.85;
+        }
+
+        .city-moon {
+            position: absolute;
+            top: 10vh;
+            left: 50%;
+            width: 180px;
+            height: 180px;
+            background: #e2f1f8;
+            border-radius: 50%;
+            box-shadow: 0 0 60px 20px rgba(226, 241, 248, 0.4), 0 0 120px 40px rgba(0, 229, 255, 0.2);
+            animation: moonPulse 6s infinite alternate ease-in-out;
+            transform: translateX(-50%) translateY(0); /* Inicial para el JS */
+        }
+
+        @keyframes moonPulse {
+            0% { box-shadow: 0 0 60px 20px rgba(226, 241, 248, 0.4), 0 0 120px 40px rgba(0, 229, 255, 0.2); }
+            100% { box-shadow: 0 0 90px 30px rgba(226, 241, 248, 0.6), 0 0 180px 60px rgba(0, 229, 255, 0.4); }
+        }
+
+        .city-lamp {
+            position: absolute;
+            background: #e2f1f8;
+            border-radius: 50%;
+            box-shadow: 0 0 30px 10px rgba(226, 241, 248, 0.6), 0 0 60px 20px rgba(0, 229, 255, 0.4);
+            animation: lampFlicker 4s infinite alternate;
+        }
+
+        @keyframes lampFlicker {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; box-shadow: 0 0 15px 5px rgba(226, 241, 248, 0.4), 0 0 30px 10px rgba(0, 229, 255, 0.2); }
+            80% { opacity: 0.9; }
+        }
+
+        .city-lamp-1 { bottom: 45vh; left: 15vw; width: 40px; height: 40px; animation-delay: 0s; }
+        .city-lamp-2 { bottom: 35vh; right: 20vw; width: 50px; height: 50px; animation-delay: 1.5s; }
+        .city-lamp-3 { bottom: 50vh; right: 40vw; width: 30px; height: 30px; animation-delay: 0.7s; }
+
+        .city-rain {
+            position: absolute;
+            top: -50vh;
+            left: -50vw;
+            width: 200vw;
+            height: 200vh;
+            background: transparent url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="150"><rect x="0" y="0" width="1" height="40" fill="rgba(255,255,255,0.15)"/><rect x="10" y="75" width="1" height="30" fill="rgba(255,255,255,0.1)"/></svg>') repeat;
+            animation: rainDrop 0.6s linear infinite;
+            transform: rotate(10deg);
+            opacity: 0.6;
+        }
+
+        @keyframes rainDrop {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 150px; }
+        }
+
+        /* ESCENARIO DE FONDO 3 (SENDERO VERDE / JARDINES) */
+        .hk-bg-overgrown {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -2;
+            pointer-events: none;
+            overflow: hidden;
+            background: radial-gradient(circle at center, #0f2b23 0%, #030a08 100%);
+            opacity: 0;
+            transition: opacity 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            will-change: opacity;
+        }
+
+        .overgrown-waterfall {
+            position: absolute;
+            top: 0;
+            left: 30%;
+            width: 15vw;
+            height: 100vh;
+            background: linear-gradient(to bottom, rgba(150, 255, 150, 0.4) 0%, rgba(50, 200, 100, 0.1) 100%);
+            filter: blur(20px);
+            opacity: 0.7;
+        }
+
+        .overgrown-spores {
+            position: absolute;
+            top: -50vh;
+            left: -50vw;
+            width: 200vw;
+            height: 200vh;
+            background: transparent url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200"><circle cx="50" cy="50" r="2" fill="rgba(150,255,100,0.6)" filter="blur(1px)"/><circle cx="150" cy="120" r="3" fill="rgba(100,255,150,0.4)" filter="blur(2px)"/><circle cx="80" cy="180" r="1.5" fill="rgba(200,255,100,0.8)"/></svg>') repeat;
+            animation: sporeDrift 20s linear infinite;
+        }
+
+        @keyframes sporeDrift {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(200px) rotate(5deg); }
+        }
+
+        .overgrown-vines {
+            position: absolute;
+            top: -10vh;
+            left: -5vw;
+            width: 110vw;
+            height: 110vh;
+            opacity: 0.95;
+        }
+
+        .overgrown-lamp {
+            position: absolute;
+            bottom: 20vh;
+            right: 15vw;
+            width: 80px;
+            height: 150px;
+        }
+
+        .overgrown-lamp-bulb {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 50px;
+            height: 50px;
+            background: #d4ffd4;
+            border-radius: 50%;
+            box-shadow: 0 0 30px 10px rgba(100, 255, 150, 0.6), 0 0 80px 30px rgba(50, 255, 100, 0.3);
+            animation: greenLampPulse 3s infinite alternate;
+            transform: translateX(-50%) scale(1);
+            will-change: box-shadow, transform;
+        }
+
+        @keyframes greenLampPulse {
+            0% { box-shadow: 0 0 20px 5px rgba(100, 255, 150, 0.4), 0 0 60px 20px rgba(50, 255, 100, 0.2); transform: translateX(-50%) scale(0.95); }
+            100% { box-shadow: 0 0 40px 15px rgba(100, 255, 150, 0.8), 0 0 100px 40px rgba(50, 255, 100, 0.5); transform: translateX(-50%) scale(1.05); }
+        }
+
+        /* Partículas de Alma (Soul) */
+
+        /* Partículas de Alma (Soul) */
+        .soul-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            bottom: -10px;
+            width: 4px;
+            height: 4px;
+            background: #fff;
+            border-radius: 50%;
+            box-shadow: 0 0 8px 2px #fff, 0 0 15px 4px var(--hk-cyan);
+            animation: floatUp linear infinite;
+            opacity: 0;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) scale(1); opacity: 0; }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% { transform: translateY(-100vh) scale(0.5); opacity: 0; }
+        }
+
+        /* BOT DEL CABALLERO (HOLLOW KNIGHT) */
+        .chatbot-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .chatbot-toggle {
+            width: 65px;
+            height: 65px;
+            background: var(--hk-bg-dark);
+            border: 2px solid var(--hk-cyan);
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(0, 229, 255, 0.5);
+            transition: all 0.3s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 12px;
+        }
+
+        .chatbot-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px var(--hk-cyan);
+            border-color: var(--hk-purple);
+        }
+
+        .chatbot-toggle svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 0 5px var(--hk-soul));
+        }
+
+        .chatbot-window {
+            width: 350px;
+            height: 450px;
+            background: rgba(2, 6, 17, 0.95);
+            border: 1px solid var(--hk-cyan);
+            border-radius: 12px;
+            margin-bottom: 15px;
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(0, 229, 255, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .chatbot-window.show {
+            display: flex;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .chatbot-header {
+            background: var(--hk-bg-light);
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid var(--hk-cyan);
+        }
+
+        .chatbot-avatar {
+            width: 45px;
+            height: 45px;
+            background: var(--hk-bg-dark);
+            border-radius: 50%;
+            border: 1px solid var(--hk-cyan);
+            padding: 6px;
+            margin-right: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 10px var(--hk-cyan-dim);
+        }
+
+        .chatbot-avatar svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .chatbot-title {
+            color: var(--hk-soul);
+            font-family: 'Cinzel Decorative', serif;
+            font-weight: bold;
+            font-size: 1.2rem;
+            flex-grow: 1;
+            text-shadow: 0 0 8px var(--hk-cyan);
+        }
+
+        .chatbot-close {
+            background: none;
+            border: none;
+            color: var(--hk-cyan);
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: color 0.3s;
+            line-height: 1;
+        }
+
+        .chatbot-close:hover {
+            color: var(--hk-purple);
+            text-shadow: 0 0 10px var(--hk-purple);
+        }
+
+        .chatbot-messages {
+            flex-grow: 1;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            font-family: 'Spectral', serif;
+        }
+
+        .chatbot-messages::-webkit-scrollbar {
+            width: 6px;
+        }
+        .chatbot-messages::-webkit-scrollbar-track {
+            background: var(--hk-bg-dark);
+        }
+        .chatbot-messages::-webkit-scrollbar-thumb {
+            background: var(--hk-cyan);
+            border-radius: 3px;
+        }
+
+        .chat-message {
+            max-width: 85%;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            line-height: 1.4;
+            word-wrap: break-word;
+            position: relative;
+        }
+
+        .bot-message {
+            background: rgba(10, 17, 40, 0.8);
+            color: var(--hk-soul);
+            border: 1px solid rgba(0, 229, 255, 0.4);
+            align-self: flex-start;
+            border-bottom-left-radius: 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .user-message {
+            background: rgba(176, 38, 255, 0.2);
+            color: #fff;
+            border: 1px solid var(--hk-purple-dim);
+            align-self: flex-end;
+            border-bottom-right-radius: 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .chatbot-input-area {
+            padding: 15px;
+            background: var(--hk-bg-light);
+            border-top: 1px solid var(--hk-cyan);
+            display: flex;
+            gap: 10px;
+        }
+
+        .chatbot-input-area input {
+            flex-grow: 1;
+            background: var(--hk-bg-dark);
+            border: 1px solid var(--hk-border);
+            color: var(--hk-soul);
+            padding: 10px 15px;
+            border-radius: 4px;
+            font-family: 'Spectral', serif;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .chatbot-input-area input:focus {
+            border-color: var(--hk-cyan);
+            box-shadow: 0 0 10px var(--hk-cyan-dim);
+        }
+
+        .chatbot-input-area button {
+            background: var(--hk-bg-dark);
+            color: var(--hk-cyan);
+            border: 1px solid var(--hk-cyan);
+            width: 45px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+        }
+
+        .chatbot-input-area button:hover {
+            background: rgba(0, 229, 255, 0.2);
+            box-shadow: 0 0 15px var(--hk-cyan);
+            color: #fff;
+        }
+
         /* ===== RESPONSIVE PARA MÓVILES ===== */
         @media (max-width: 768px) {
             html {
@@ -443,14 +930,93 @@
                 text-align: center;
             }
         }
+
+        /* LÓGICA DE TEMAS POR INTERSECCIÓN (CERO LAG) */
+        body.theme-nature #bgNature { opacity: 1; }
+        body.theme-nature #bgCity, body.theme-nature #bgOvergrown { opacity: 0; }
+        
+        body.theme-city #bgCity { opacity: 1; }
+        body.theme-city #bgNature, body.theme-city #bgOvergrown { opacity: 0; }
+        
+        body.theme-overgrown #bgOvergrown { opacity: 1; }
+        body.theme-overgrown #bgNature, body.theme-overgrown #bgCity { opacity: 0; }
+
+        #bgNature, #bgCity, #bgOvergrown {
+            transition: opacity 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            will-change: opacity;
+        }
     </style>
 </head>
 
 <body class="text-gray-800 flex flex-col min-h-screen">
 
+    <!-- Contenedor de partículas de alma -->
+    <div class="soul-particles" id="soulParticles"></div>
+
+    <!-- Escenario de Fondo: Lago y Ramas -->
+    <div class="hk-background-container" id="bgNature">
+        <div class="hk-lake"></div>
+        <div class="hk-lake-surface"></div>
+        <svg class="hk-branch hk-branch-left" viewBox="0 0 200 600" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M 0 600 C 50 500, 80 400, 60 200 C 50 100, 20 50, 0 0 L 0 600 Z" fill="#02050f" stroke="#003b5c" stroke-width="2"/>
+            <path d="M 70 350 C 120 300, 180 280, 200 200 C 180 250, 120 280, 60 300 Z" fill="#02050f" stroke="#003b5c" stroke-width="1"/>
+            <path d="M 50 150 C 100 120, 150 100, 180 20 C 150 70, 100 100, 40 120 Z" fill="#02050f" stroke="#003b5c" stroke-width="1"/>
+            <ellipse cx="180" cy="190" rx="4" ry="12" fill="#00e5ff" transform="rotate(45 180 190)" filter="drop-shadow(0 0 5px #00e5ff)"/>
+            <ellipse cx="150" cy="260" rx="6" ry="15" fill="#4da8da" transform="rotate(30 150 260)" filter="drop-shadow(0 0 8px #4da8da)"/>
+            <ellipse cx="160" cy="50" rx="4" ry="10" fill="#00e5ff" transform="rotate(60 160 50)" filter="drop-shadow(0 0 5px #00e5ff)"/>
+            <ellipse cx="190" cy="350" rx="3" ry="8" fill="#00e5ff" transform="rotate(20 190 350)" filter="drop-shadow(0 0 5px #00e5ff)"/>
+        </svg>
+        <svg class="hk-branch hk-branch-right" viewBox="0 0 200 600" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M 0 600 C 50 500, 80 400, 60 200 C 50 100, 20 50, 0 0 L 0 600 Z" fill="#02050f" stroke="#003b5c" stroke-width="2"/>
+            <path d="M 70 350 C 120 300, 180 280, 200 200 C 180 250, 120 280, 60 300 Z" fill="#02050f" stroke="#003b5c" stroke-width="1"/>
+            <path d="M 50 150 C 100 120, 150 100, 180 20 C 150 70, 100 100, 40 120 Z" fill="#02050f" stroke="#003b5c" stroke-width="1"/>
+            <ellipse cx="180" cy="190" rx="4" ry="12" fill="#00e5ff" transform="rotate(45 180 190)" filter="drop-shadow(0 0 5px #00e5ff)"/>
+            <ellipse cx="150" cy="260" rx="6" ry="15" fill="#4da8da" transform="rotate(30 150 260)" filter="drop-shadow(0 0 8px #4da8da)"/>
+            <ellipse cx="160" cy="50" rx="4" ry="10" fill="#00e5ff" transform="rotate(60 160 50)" filter="drop-shadow(0 0 5px #00e5ff)"/>
+            <ellipse cx="190" cy="350" rx="3" ry="8" fill="#00e5ff" transform="rotate(20 190 350)" filter="drop-shadow(0 0 5px #00e5ff)"/>
+        </svg>
+    </div>
+
+    <!-- Escenario de Fondo 2: Ciudad de Lágrimas -->
+    <div class="hk-bg-city" id="bgCity">
+        <div class="city-moon"></div>
+        <div class="city-rain"></div>
+        <div class="city-lamp city-lamp-1"></div>
+        <div class="city-lamp city-lamp-2"></div>
+        <div class="city-lamp city-lamp-3"></div>
+        <svg class="city-arches" viewBox="0 0 1000 500" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M 0 500 L 0 150 
+                     L 50 150 C 50 350, 200 350, 200 150
+                     L 250 150 C 250 350, 400 350, 400 150
+                     L 450 150 C 450 350, 600 350, 600 150
+                     L 650 150 C 650 350, 800 350, 800 150
+                     L 850 150 C 850 350, 1000 350, 1000 150
+                     L 1000 500 Z" fill="#08142a"/>
+            <rect x="0" y="140" width="1000" height="15" fill="#050a15"/>
+        </svg>
+    </div>
+
+    <!-- Escenario de Fondo 3: Sendero Verde / Jardines (Overgrown) -->
+    <div class="hk-bg-overgrown" id="bgOvergrown">
+        <div class="overgrown-waterfall"></div>
+        <div class="overgrown-spores"></div>
+        <div class="overgrown-lamp">
+            <div class="overgrown-lamp-bulb"></div>
+        </div>
+        <svg class="overgrown-vines" viewBox="0 0 1000 500" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M 0 0 L 1000 0 L 1000 100 C 850 250, 700 80, 500 150 C 300 200, 150 100, 0 200 Z" fill="#081a10"/>
+            <path d="M 0 0 L 1000 0 L 1000 50 C 800 150, 650 50, 450 100 C 250 150, 100 50, 0 100 Z" fill="#103320"/>
+            <path d="M -50 0 C 100 150, 50 350, -50 500 L -100 500 L -100 0 Z" fill="#0c2618"/>
+            <!-- Espinas -->
+            <polygon points="20,100 80,120 30,140" fill="#a05020"/>
+            <polygon points="35,200 90,210 40,240" fill="#a05020"/>
+            <polygon points="10,300 60,330 15,350" fill="#a05020"/>
+            <path d="M 1050 0 C 900 200, 950 400, 1050 500 L 1100 500 L 1100 0 Z" fill="#082015"/>
+        </svg>
+    </div>
+
     <!-- Sección de Encabezado -->
-    <header class="text-white shadow-lg py-4 sm:py-6 relative z-10"
-        style="background: rgba(2, 6, 17, 0.65);">
+    <header class="text-white shadow-lg py-4 sm:py-6 relative z-10" style="background: rgba(2, 6, 17, 0.65);">
         <div class="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-6">
 
             <!-- Izquierda: Título y Nombre -->
@@ -499,7 +1065,7 @@
             <div>
                 <div class="sections-grid">
                     <!-- Sección de Introducción -->
-                    <section id="introduccion" class="content-card">
+                    <section id="introduccion" class="content-card theme-trigger" data-theme="nature">
                         <div class="flex items-center space-x-4 mb-4">
                             <i class="fas fa-info-circle text-2xl" style="color: #667eea;"></i>
                             <h2 class="text-2xl font-bold">Introducción: ¿qué es Git?</h2>
@@ -518,7 +1084,7 @@
                     </section>
 
                     <!-- Sección de Objetivos -->
-                    <section id="objetivos" class="content-card">
+                    <section id="objetivos" class="content-card theme-trigger" data-theme="nature">
                         <div class="flex items-center space-x-4 mb-4">
                             <i class="fas fa-bullseye text-2xl" style="color: #667eea;"></i>
                             <h2 class="text-2xl font-bold">Cómo creé mi cuenta en GitHub</h2>
@@ -562,7 +1128,7 @@
         </div>
 
         <!-- Nueva sección: Ecosistema de Base de Datos -->
-        <div class="mt-20">
+        <div class="mt-20 theme-trigger" data-theme="city">
             <h2 class="text-3xl font-extrabold text-center mb-10"
                 style="color: var(--hk-cyan); text-shadow: 0 0 15px var(--hk-cyan-dim); font-family: 'Cinzel Decorative', serif;">
                 Ecosistema de Bases de Datos</h2>
@@ -590,6 +1156,25 @@
                         style="color: var(--hk-soul); font-family: 'Cinzel Decorative', serif;">Cloud Storage</h3>
                     <p style="font-size: 0.95rem; color: #b0c4de;">Almacenamiento distribuido, seguro y accesible desde
                         cualquier lugar con sincronización en la nube (Supabase, AWS).</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Nueva sección: Banco de Descanso (Lore Hollow Knight) -->
+        <div class="mt-20 theme-trigger" data-theme="overgrown" style="margin-top: 150px; margin-bottom: 50px;">
+            <div class="content-card text-center relative overflow-hidden" style="padding: 4rem 2rem; border-color: #32c864; box-shadow: 0 0 40px rgba(50, 200, 100, 0.1);">
+                <div class="absolute inset-0" style="background: radial-gradient(circle at center, rgba(50, 200, 100, 0.05) 0%, transparent 70%); pointer-events: none;"></div>
+                <i class="fas fa-campground text-6xl mb-6" style="color: #64ff96; filter: drop-shadow(0 0 15px #32c864);"></i>
+                <h2 class="text-3xl font-extrabold mb-4" style="color: #d4ffd4; font-family: 'Cinzel Decorative', serif; text-shadow: 0 0 15px #32c864;">Banco de Descanso</h2>
+                <p class="text-lg leading-relaxed max-w-2xl mx-auto" style="color: #b0c4de;">
+                    Has viajado lejos a través de los senderos de datos, pequeño explorador. 
+                    Tómate un momento para sentarte, escuchar el goteo del ácido y ordenar tus pensamientos.<br><br>
+                    <em>"No importa cuán oscuras sean las cavernas del conocimiento, siempre habrá un banco esperando, y una lámpara brillando en la oscuridad."</em>
+                </p>
+                <div class="mt-8">
+                    <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="btn-login" style="background: rgba(50, 200, 100, 0.1); border-color: #32c864; color: #d4ffd4; box-shadow: 0 0 15px rgba(50, 200, 100, 0.2);">
+                        <i class="fas fa-arrow-up mr-2"></i>Volver a la Superficie
+                    </button>
                 </div>
             </div>
         </div>
@@ -631,6 +1216,65 @@
                 Este tipo de archivo no se puede previsualizar en el navegador.<br>
                 Por favor, descárgalo para verlo.
             </div>
+        </div>
+    </div>
+
+    <!-- Chatbot del Caballero (Hollow Knight) -->
+    <div class="chatbot-container" id="chatbotContainer">
+        <div class="chatbot-window" id="chatbotWindow">
+            <div class="chatbot-header">
+                <div class="chatbot-avatar">
+                    <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="maskGrad1" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" stop-color="#fff" />
+                                <stop offset="50%" stop-color="#ffe6f2" />
+                                <stop offset="100%" stop-color="#cda4c4" />
+                            </linearGradient>
+                        </defs>
+                        <path d="M 50 95 C 25 95, 15 65, 22 45 C 15 30, 5 10, 15 5 C 20 15, 25 15, 25 15 L 20 25 C 20 30, 35 32, 50 32 C 65 32, 80 30, 80 25 L 75 15 C 75 15, 80 15, 85 5 C 95 10, 85 30, 78 45 C 85 65, 75 95, 50 95 Z" fill="url(#maskGrad1)"/>
+                        <path d="M 28 55 C 28 45, 38 45, 42 55 C 44 65, 38 75, 33 75 C 28 75, 28 65, 28 55 Z" fill="#020611" transform="rotate(-15 35 60)"/>
+                        <path d="M 72 55 C 72 45, 62 45, 58 55 C 56 65, 62 75, 67 75 C 72 75, 72 65, 72 55 Z" fill="#020611" transform="rotate(15 65 60)"/>
+                        <rect x="48" y="0" width="4" height="85" fill="#fff" filter="drop-shadow(0 0 8px #ffb3ff)"/>
+                        <rect x="49" y="0" width="2" height="85" fill="#fff"/>
+                        <circle cx="50" cy="85" r="14" fill="none" stroke="#fff" stroke-width="2.5" filter="drop-shadow(0 0 6px #ffb3ff)"/>
+                        <circle cx="50" cy="85" r="10" fill="none" stroke="#fff" stroke-width="1.5"/>
+                        <path d="M 50 71 L 50 99 M 36 85 L 64 85 M 40 75 L 60 95 M 40 95 L 60 75" stroke="#fff" stroke-width="1.5" filter="drop-shadow(0 0 4px #ffb3ff)"/>
+                        <circle cx="50" cy="85" r="3" fill="#fff" filter="drop-shadow(0 0 5px #fff)"/>
+                    </svg>
+                </div>
+                <div class="chatbot-title">El Caballero</div>
+                <button class="chatbot-close" onclick="toggleChatbot()">&times;</button>
+            </div>
+            <div class="chatbot-messages" id="chatbotMessages">
+                <div class="chat-message bot-message">
+                    ... <em>(El Caballero te observa en silencio, con el aguijón listo para la aventura)</em> ...
+                </div>
+            </div>
+            <div class="chatbot-input-area">
+                <input type="text" id="chatInput" placeholder="Habla con el Caballero..." onkeypress="handleChatKeyPress(event)">
+                <button onclick="sendChatMessage()"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+        <div class="chatbot-toggle" onclick="toggleChatbot()">
+            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="maskGrad2" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" stop-color="#fff" />
+                        <stop offset="50%" stop-color="#ffe6f2" />
+                        <stop offset="100%" stop-color="#cda4c4" />
+                    </linearGradient>
+                </defs>
+                <path d="M 50 95 C 25 95, 15 65, 22 45 C 15 30, 5 10, 15 5 C 20 15, 25 15, 25 15 L 20 25 C 20 30, 35 32, 50 32 C 65 32, 80 30, 80 25 L 75 15 C 75 15, 80 15, 85 5 C 95 10, 85 30, 78 45 C 85 65, 75 95, 50 95 Z" fill="url(#maskGrad2)"/>
+                <path d="M 28 55 C 28 45, 38 45, 42 55 C 44 65, 38 75, 33 75 C 28 75, 28 65, 28 55 Z" fill="#020611" transform="rotate(-15 35 60)"/>
+                <path d="M 72 55 C 72 45, 62 45, 58 55 C 56 65, 62 75, 67 75 C 72 75, 72 65, 72 55 Z" fill="#020611" transform="rotate(15 65 60)"/>
+                <rect x="48" y="0" width="4" height="85" fill="#fff" filter="drop-shadow(0 0 8px #ffb3ff)"/>
+                <rect x="49" y="0" width="2" height="85" fill="#fff"/>
+                <circle cx="50" cy="85" r="14" fill="none" stroke="#fff" stroke-width="2.5" filter="drop-shadow(0 0 6px #ffb3ff)"/>
+                <circle cx="50" cy="85" r="10" fill="none" stroke="#fff" stroke-width="1.5"/>
+                <path d="M 50 71 L 50 99 M 36 85 L 64 85 M 40 75 L 60 95 M 40 95 L 60 75" stroke="#fff" stroke-width="1.5" filter="drop-shadow(0 0 4px #ffb3ff)"/>
+                <circle cx="50" cy="85" r="3" fill="#fff" filter="drop-shadow(0 0 5px #fff)"/>
+            </svg>
         </div>
     </div>
 
@@ -746,6 +1390,7 @@
         // Cargar datos al iniciar
         document.addEventListener('DOMContentLoaded', () => {
             loadData();
+            createParticles();
         });
 
         function escapeAttr(str) {
@@ -846,6 +1491,139 @@
             a.click();
             a.remove();
         }
+
+        // LÓGICA DE PARTÍCULAS
+        function createParticles() {
+            const container = document.getElementById('soulParticles');
+            if (!container) return;
+            for (let i = 0; i < 40; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                particle.style.left = Math.random() * 100 + 'vw';
+                particle.style.animationDuration = (Math.random() * 10 + 8) + 's';
+                particle.style.animationDelay = (Math.random() * 5) + 's';
+                
+                const scale = Math.random() * 0.6 + 0.4;
+                particle.style.transform = `scale(${scale})`;
+                
+                container.appendChild(particle);
+            }
+        }
+
+        // LÓGICA DEL CHATBOT
+        function toggleChatbot() {
+            const window = document.getElementById('chatbotWindow');
+            window.classList.toggle('show');
+            if (window.classList.contains('show')) {
+                document.getElementById('chatInput').focus();
+            }
+        }
+
+        function handleChatKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendChatMessage();
+            }
+        }
+
+        function sendChatMessage() {
+            const input = document.getElementById('chatInput');
+            const messageRaw = input.value.trim();
+            if (messageRaw === '') return;
+            const message = messageRaw.toLowerCase();
+
+            const messagesContainer = document.getElementById('chatbotMessages');
+            
+            // Mensaje del usuario
+            const userMsg = document.createElement('div');
+            userMsg.className = 'chat-message user-message';
+            userMsg.textContent = messageRaw;
+            messagesContainer.appendChild(userMsg);
+            
+            input.value = '';
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+            // Respuesta del Bot explicando tareas
+            setTimeout(() => {
+                const botMsg = document.createElement('div');
+                botMsg.className = 'chat-message bot-message';
+                
+                let reply = "";
+                let foundWeek = null;
+                for(let i=1; i<=4; i++) {
+                    if (message.includes("semana " + i) || message.includes("semana" + i)) {
+                        foundWeek = i;
+                        break;
+                    }
+                }
+
+                // Asegurar que exista data.units
+                let unit1Tasks = (data && data.units && data.units[1] && data.units[1].tasks) ? data.units[1].tasks : [];
+
+                if (foundWeek) {
+                    let task = unit1Tasks.find(t => t.week === foundWeek);
+                    if (task) {
+                        reply = `<em>(El Caballero lee tus recuerdos de la semana ${task.week} con su Aguijón Onírico)</em><br><br>
+                                 <strong>${task.title}</strong><br>
+                                 <span style="color: #b0c4de;">Acción:</span> ${task.description}<br>
+                                 <span style="color: #00d4ff;">Entrega: ${new Date(task.dueDate).toLocaleDateString('es-ES')}</span>`;
+                        if (task.documents && task.documents.length > 0) {
+                            reply += `<br><span style="color: #ffbe0b;">Documentos:</span> ` + task.documents.map(d => d.name).join(", ");
+                        }
+                    } else {
+                        reply = `<em>(El Caballero explora tus recuerdos, pero no halla tareas para la Semana ${foundWeek})</em>`;
+                    }
+                } else if (message.includes("tarea") || message.includes("que hice") || message.includes("resumen")) {
+                    reply = "<em>(Usa el Aguijón Onírico para mostrarte un resumen de tus esfuerzos)</em><br><br>";
+                    unit1Tasks.forEach(task => {
+                        reply += `<strong>Sem. ${task.week}</strong>: ${task.title}<br>`;
+                    });
+                    reply += "<br><span style='color: #4da8da; font-size: 0.9rem;'>Pregúntame por una 'semana X' para más detalles.</span>";
+                } else if (message.includes("hola") || message.includes("saludos") || message.includes("ayuda")) {
+                    reply = "<em>(El Caballero levanta su Aguijón Onírico, listo para ayudarte a recordar)</em><br><br>Puedo mostrarte el progreso de tus estudios. Pregúntame <strong>'¿qué tareas hice?'</strong> o por una semana específica (ej. <strong>'semana 1'</strong>).";
+                } else {
+                    const responses = [
+                        "... <em>(El Caballero brilla con Esencia, esperando que le preguntes sobre tus 'tareas' o alguna 'semana')</em>",
+                        "... <em>(Prepara su Aguijón Onírico. Te invita a preguntarle '¿qué hice?')</em>",
+                        "... <em>(Te observa en silencio. Intenta pedirle un resumen de tareas)</em>"
+                    ];
+                    reply = responses[Math.floor(Math.random() * responses.length)];
+                }
+
+                botMsg.innerHTML = reply;
+                messagesContainer.appendChild(botMsg);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }, 600 + Math.random() * 500); // Retraso rápido
+        }
+
+        // LÓGICA DE TRANSICIÓN DE FONDO (CERO LAG - INTERSECTION OBSERVER)
+        document.addEventListener("DOMContentLoaded", () => {
+            const sections = document.querySelectorAll('.theme-trigger');
+            
+            const observerOptions = {
+                root: null,
+                rootMargin: '-30% 0px -30% 0px',
+                threshold: 0
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const theme = entry.target.dataset.theme;
+                        if (theme) {
+                            // Actualizar la clase del body para cambiar fondos mediante CSS puro
+                            document.body.className = `text-gray-800 flex flex-col min-h-screen theme-${theme}`;
+                        }
+                    }
+                });
+            }, observerOptions);
+            
+            sections.forEach(section => observer.observe(section));
+            
+            // Si la pantalla es muy corta y no cruza ningún trigger al inicio, forzamos el primero
+            if(sections.length > 0) {
+                document.body.className = `text-gray-800 flex flex-col min-h-screen theme-${sections[0].dataset.theme}`;
+            }
+        });
 
     </script>
 </body>
