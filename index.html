@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
-
+ 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,26 +26,26 @@
             --hk-purple: #b026ff;
             --hk-purple-dim: rgba(176, 38, 255, 0.4);
         }
-
+ 
         @keyframes ambientLight {
             0% {
                 background-position: 0% 50%;
             }
-
+ 
             50% {
                 background-position: 100% 50%;
             }
-
+ 
             100% {
                 background-position: 0% 50%;
             }
         }
-
+ 
         html {
             font-size: 22px;
             /* Un poco más grande pero sin romper el layout */
         }
-
+ 
         body {
             font-family: 'Spectral', serif;
             background: linear-gradient(135deg, var(--hk-bg-dark) 0%, #1a0a2e 50%, var(--hk-bg-light) 100%);
@@ -56,7 +56,7 @@
             min-height: 100vh;
             overflow-x: hidden;
         }
-
+ 
         h1,
         h2,
         h3,
@@ -65,7 +65,7 @@
             font-family: 'Cinzel Decorative', serif;
             letter-spacing: 1px;
         }
-
+ 
         /* Header */
         header {
             background: rgba(2, 6, 17, 0.85);
@@ -73,17 +73,17 @@
             box-shadow: 0 0 20px var(--hk-cyan-dim);
             backdrop-filter: blur(8px);
         }
-
+ 
         header h1 {
             color: var(--hk-soul);
             text-shadow: 0 0 10px var(--hk-cyan);
         }
-
+ 
         header .container {
             max-width: 90%;
             align-items: center;
         }
-
+ 
         nav a {
             color: var(--hk-soul);
             font-family: 'Cinzel Decorative', serif;
@@ -91,12 +91,12 @@
             letter-spacing: 1px;
             transition: all 0.3s;
         }
-
+ 
         nav a:hover {
             color: var(--hk-purple);
             text-shadow: 0 0 15px var(--hk-purple);
         }
-
+ 
         .content-card {
             position: relative;
             overflow: hidden;
@@ -109,13 +109,13 @@
             border: 1px solid var(--hk-border);
             backdrop-filter: blur(4px);
         }
-
+ 
         .content-card:hover {
             transform: translateY(-4px);
             box-shadow: 0 0 30px var(--hk-purple-dim), 0 0 15px var(--hk-cyan-dim);
             border-color: var(--hk-purple);
         }
-
+ 
         .content-card h2 {
             color: var(--hk-cyan);
             margin-bottom: 0.5rem;
@@ -124,14 +124,14 @@
             line-height: 1.3;
             word-wrap: break-word;
         }
-
+ 
         .content-card p,
         .content-card li {
             color: #b0c4de;
             line-height: 1.5;
             font-size: 0.95rem !important;
         }
-
+ 
         .btn-login {
             background: transparent;
             color: var(--hk-cyan);
@@ -145,7 +145,7 @@
             transition: all 0.3s;
             box-shadow: 0 0 10px var(--hk-cyan-dim) inset;
         }
-
+ 
         .btn-login:hover {
             background: rgba(176, 38, 255, 0.15);
             color: #fff;
@@ -153,7 +153,7 @@
             border-color: var(--hk-purple);
             transform: translateY(-2px);
         }
-
+ 
         /* Layout grid para main: centrado y con padding */
         main.container {
             max-width: 90%;
@@ -162,13 +162,13 @@
             padding-left: 1rem;
             padding-right: 1rem;
         }
-
+ 
         .grid-main {
             display: grid;
             grid-template-columns: 1fr;
             gap: 1.5rem;
         }
-
+ 
         @media(min-width: 1024px) {
             .grid-main {
                 grid-template-columns: 2fr 1fr;
@@ -176,23 +176,70 @@
                 align-items: start;
             }
         }
-
+ 
         .sections-grid {
             display: grid;
             grid-template-columns: 1fr;
             gap: 1.25rem;
         }
-
+ 
         @media(min-width: 1024px) {
             .sections-grid {
                 grid-template-columns: 1fr 1fr;
             }
         }
-
+ 
         ul li {
             margin-bottom: .6rem;
         }
-
+ 
+        /* PERFIL: foto + datos */
+        .profile-row {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.25rem;
+            text-align: center;
+        }
+ 
+        @media(min-width: 640px) {
+            .profile-row {
+                flex-direction: row;
+                align-items: flex-start;
+                text-align: left;
+            }
+        }
+ 
+        .profile-photo {
+            flex-shrink: 0;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 2px solid var(--hk-cyan);
+            box-shadow: 0 0 20px var(--hk-cyan-dim);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 229, 255, 0.05);
+        }
+ 
+        .profile-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+ 
+        .profile-photo .placeholder-icon {
+            font-size: 2.2rem;
+            color: var(--hk-border);
+        }
+ 
+        .profile-info {
+            flex: 1;
+            min-width: 0;
+        }
+ 
         /* MODAL PARA VER TAREAS */
         .modal {
             display: none;
@@ -207,11 +254,11 @@
             justify-content: center;
             backdrop-filter: blur(5px);
         }
-
+ 
         .modal.show {
             display: flex;
         }
-
+ 
         .modal-content {
             background: var(--hk-bg-light);
             border-radius: 8px;
@@ -223,7 +270,7 @@
             border: 1px solid var(--hk-cyan);
             box-shadow: 0 0 40px var(--hk-cyan-dim);
         }
-
+ 
         .modal-header {
             display: flex;
             justify-content: space-between;
@@ -232,14 +279,14 @@
             border-bottom: 1px solid var(--hk-border);
             padding-bottom: 15px;
         }
-
+ 
         .modal-header h3 {
             margin: 0;
             color: var(--hk-soul);
             font-size: 24px;
             text-shadow: 0 0 10px var(--hk-cyan);
         }
-
+ 
         .close-btn {
             background: none;
             border: none;
@@ -249,18 +296,18 @@
             transition: all 0.3s;
             font-family: 'Spectral', serif;
         }
-
+ 
         .close-btn:hover {
             color: var(--hk-cyan);
             text-shadow: 0 0 15px var(--hk-cyan);
         }
-
+ 
         .tasks-list {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             gap: 20px;
         }
-
+ 
         .task-card-view {
             background: var(--hk-panel);
             padding: 20px;
@@ -269,11 +316,11 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
             transition: all 0.3s;
         }
-
+ 
         .task-card-view:hover {
             box-shadow: 0 0 15px var(--hk-cyan-dim);
         }
-
+ 
         .task-card-view h4 {
             color: var(--hk-soul);
             margin: 0 0 8px 0;
@@ -281,21 +328,21 @@
             /* Aumentado */
             text-shadow: 0 0 5px var(--hk-cyan-dim);
         }
-
+ 
         .task-card-view p {
             color: #b0c4de;
             font-size: 1.1rem;
             /* Aumentado */
             margin: 5px 0;
         }
-
+ 
         .task-card-view .week {
             color: var(--hk-cyan);
             font-family: 'Cinzel Decorative', serif;
             font-size: 1rem;
             /* Aumentado */
         }
-
+ 
         /* VISOR DE PDF E IMAGENES */
         .viewer-modal {
             display: none;
@@ -309,11 +356,11 @@
             flex-direction: column;
             align-items: center;
         }
-
+ 
         .viewer-modal.show {
             display: flex;
         }
-
+ 
         .viewer-toolbar {
             width: 100%;
             padding: 15px 30px;
@@ -324,14 +371,14 @@
             border-bottom: 1px solid var(--hk-cyan);
             box-shadow: 0 0 20px var(--hk-cyan-dim);
         }
-
+ 
         .viewer-title {
             color: var(--hk-soul);
             font-size: 1.2rem;
             font-family: 'Cinzel Decorative', serif;
             text-shadow: 0 0 8px var(--hk-cyan);
         }
-
+ 
         .viewer-actions button,
         .viewer-actions a {
             background: transparent;
@@ -346,19 +393,19 @@
             cursor: pointer;
             transition: all 0.3s;
         }
-
+ 
         .viewer-actions button:hover,
         .viewer-actions a:hover {
             background: var(--hk-cyan-dim);
             color: #fff;
             box-shadow: 0 0 15px var(--hk-cyan);
         }
-
+ 
         .viewer-actions .close-viewer {
             color: #4da8da;
             border-color: #4da8da;
         }
-
+ 
         .viewer-actions .close-viewer:hover {
             background: transparent;
             color: var(--hk-cyan);
@@ -366,7 +413,7 @@
             text-shadow: 0 0 10px var(--hk-cyan);
             box-shadow: none;
         }
-
+ 
         .viewer-content {
             width: 100%;
             flex-grow: 1;
@@ -375,7 +422,7 @@
             align-items: center;
             padding: 20px;
         }
-
+ 
         .viewer-content iframe {
             width: 90%;
             height: 90%;
@@ -384,7 +431,7 @@
             background: #fff;
             box-shadow: 0 0 30px var(--hk-cyan-dim);
         }
-
+ 
         .viewer-content img {
             max-width: 90%;
             max-height: 90%;
@@ -393,7 +440,7 @@
             object-fit: contain;
             box-shadow: 0 0 30px var(--hk-cyan-dim);
         }
-
+ 
         .viewer-error {
             color: var(--hk-cyan);
             font-size: 1.5rem;
@@ -402,14 +449,14 @@
             font-family: 'Cinzel Decorative', serif;
             text-shadow: 0 0 10px var(--hk-cyan);
         }
-
+ 
         footer {
             color: #4da8da;
             background: rgba(2, 6, 17, 0.9);
             border-top: 1px solid rgba(0, 229, 255, 0.2);
             font-family: 'Cinzel Decorative', serif;
         }
-
+ 
         /* ORNAMENTOS HOLLOW KNIGHT */
         .content-card::before, .content-card::after {
             content: '';
@@ -421,28 +468,28 @@
             transition: all 0.3s;
             pointer-events: none;
         }
-
+ 
         .content-card::before {
             top: 5px;
             left: 5px;
             border-right: none;
             border-bottom: none;
         }
-
+ 
         .content-card::after {
             bottom: 5px;
             right: 5px;
             border-left: none;
             border-top: none;
         }
-
+ 
         .content-card:hover::before, .content-card:hover::after {
             opacity: 1;
             width: 30px;
             height: 30px;
             border-color: var(--hk-purple);
         }
-
+ 
         /* ESCENARIO DE FONDO (LAGO Y RAMAS) */
         .hk-background-container {
             position: fixed;
@@ -456,7 +503,7 @@
             transition: opacity 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             will-change: opacity;
         }
-
+ 
         .hk-lake {
             position: absolute;
             bottom: -15vh;
@@ -467,7 +514,7 @@
             border-radius: 50% 50% 0 0;
             filter: blur(10px);
         }
-
+ 
         .hk-lake-surface {
             position: absolute;
             bottom: 0;
@@ -476,13 +523,13 @@
             height: 15vh;
             background: linear-gradient(to bottom, rgba(0, 229, 255, 0.2), rgba(2, 6, 17, 1));
         }
-
+ 
         .hk-branch {
             position: absolute;
             opacity: 0.9;
             filter: drop-shadow(0 0 10px rgba(0, 229, 255, 0.15));
         }
-
+ 
         .hk-branch-left {
             bottom: -20px;
             left: -5vw;
@@ -490,7 +537,7 @@
             width: 30vw;
             max-width: 350px;
         }
-
+ 
         .hk-branch-right {
             bottom: -20px;
             right: -5vw;
@@ -499,7 +546,7 @@
             max-width: 350px;
             transform: scaleX(-1);
         }
-
+ 
         /* ESCENARIO DE FONDO 2 (CIUDAD DE LÁGRIMAS) */
         .hk-bg-city {
             position: fixed;
@@ -515,7 +562,7 @@
             transition: opacity 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             will-change: opacity;
         }
-
+ 
         .city-arches {
             position: absolute;
             bottom: 0;
@@ -524,7 +571,7 @@
             height: 65vh;
             opacity: 0.85;
         }
-
+ 
         .city-moon {
             position: absolute;
             top: 10vh;
@@ -537,12 +584,12 @@
             animation: moonPulse 6s infinite alternate ease-in-out;
             transform: translateX(-50%) translateY(0); /* Inicial para el JS */
         }
-
+ 
         @keyframes moonPulse {
             0% { box-shadow: 0 0 60px 20px rgba(226, 241, 248, 0.4), 0 0 120px 40px rgba(0, 229, 255, 0.2); }
             100% { box-shadow: 0 0 90px 30px rgba(226, 241, 248, 0.6), 0 0 180px 60px rgba(0, 229, 255, 0.4); }
         }
-
+ 
         .city-lamp {
             position: absolute;
             background: #e2f1f8;
@@ -550,17 +597,17 @@
             box-shadow: 0 0 30px 10px rgba(226, 241, 248, 0.6), 0 0 60px 20px rgba(0, 229, 255, 0.4);
             animation: lampFlicker 4s infinite alternate;
         }
-
+ 
         @keyframes lampFlicker {
             0%, 100% { opacity: 1; }
             50% { opacity: 0.7; box-shadow: 0 0 15px 5px rgba(226, 241, 248, 0.4), 0 0 30px 10px rgba(0, 229, 255, 0.2); }
             80% { opacity: 0.9; }
         }
-
+ 
         .city-lamp-1 { bottom: 45vh; left: 15vw; width: 40px; height: 40px; animation-delay: 0s; }
         .city-lamp-2 { bottom: 35vh; right: 20vw; width: 50px; height: 50px; animation-delay: 1.5s; }
         .city-lamp-3 { bottom: 50vh; right: 40vw; width: 30px; height: 30px; animation-delay: 0.7s; }
-
+ 
         .city-rain {
             position: absolute;
             top: -50vh;
@@ -572,12 +619,12 @@
             transform: rotate(10deg);
             opacity: 0.6;
         }
-
+ 
         @keyframes rainDrop {
             0% { background-position: 0 0; }
             100% { background-position: 0 150px; }
         }
-
+ 
         /* ESCENARIO DE FONDO 3 (SENDERO VERDE / JARDINES) */
         .hk-bg-overgrown {
             position: fixed;
@@ -593,7 +640,7 @@
             transition: opacity 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             will-change: opacity;
         }
-
+ 
         .overgrown-waterfall {
             position: absolute;
             top: 0;
@@ -604,7 +651,7 @@
             filter: blur(20px);
             opacity: 0.7;
         }
-
+ 
         .overgrown-spores {
             position: absolute;
             top: -50vh;
@@ -614,12 +661,12 @@
             background: transparent url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200"><circle cx="50" cy="50" r="2" fill="rgba(150,255,100,0.6)" filter="blur(1px)"/><circle cx="150" cy="120" r="3" fill="rgba(100,255,150,0.4)" filter="blur(2px)"/><circle cx="80" cy="180" r="1.5" fill="rgba(200,255,100,0.8)"/></svg>') repeat;
             animation: sporeDrift 20s linear infinite;
         }
-
+ 
         @keyframes sporeDrift {
             0% { transform: translateY(0) rotate(0deg); }
             100% { transform: translateY(200px) rotate(5deg); }
         }
-
+ 
         .overgrown-vines {
             position: absolute;
             top: -10vh;
@@ -628,7 +675,7 @@
             height: 110vh;
             opacity: 0.95;
         }
-
+ 
         .overgrown-lamp {
             position: absolute;
             bottom: 20vh;
@@ -636,7 +683,7 @@
             width: 80px;
             height: 150px;
         }
-
+ 
         .overgrown-lamp-bulb {
             position: absolute;
             bottom: 0;
@@ -650,14 +697,14 @@
             transform: translateX(-50%) scale(1);
             will-change: box-shadow, transform;
         }
-
+ 
         @keyframes greenLampPulse {
             0% { box-shadow: 0 0 20px 5px rgba(100, 255, 150, 0.4), 0 0 60px 20px rgba(50, 255, 100, 0.2); transform: translateX(-50%) scale(0.95); }
             100% { box-shadow: 0 0 40px 15px rgba(100, 255, 150, 0.8), 0 0 100px 40px rgba(50, 255, 100, 0.5); transform: translateX(-50%) scale(1.05); }
         }
-
+ 
         /* Partículas de Alma (Soul) */
-
+ 
         /* Partículas de Alma (Soul) */
         .soul-particles {
             position: fixed;
@@ -669,7 +716,7 @@
             z-index: 0;
             overflow: hidden;
         }
-
+ 
         .particle {
             position: absolute;
             bottom: -10px;
@@ -681,14 +728,14 @@
             animation: floatUp linear infinite;
             opacity: 0;
         }
-
+ 
         @keyframes floatUp {
             0% { transform: translateY(0) scale(1); opacity: 0; }
             10% { opacity: 0.6; }
             90% { opacity: 0.6; }
             100% { transform: translateY(-100vh) scale(0.5); opacity: 0; }
         }
-
+ 
         /* BOT DEL CABALLERO (HOLLOW KNIGHT) */
         .chatbot-container {
             position: fixed;
@@ -699,7 +746,7 @@
             flex-direction: column;
             align-items: flex-end;
         }
-
+ 
         .chatbot-toggle {
             width: 65px;
             height: 65px;
@@ -714,19 +761,19 @@
             align-items: center;
             padding: 12px;
         }
-
+ 
         .chatbot-toggle:hover {
             transform: scale(1.1);
             box-shadow: 0 0 30px var(--hk-cyan);
             border-color: var(--hk-purple);
         }
-
+ 
         .chatbot-toggle svg {
             width: 100%;
             height: 100%;
             filter: drop-shadow(0 0 5px var(--hk-soul));
         }
-
+ 
         .chatbot-window {
             width: 350px;
             height: 450px;
@@ -740,17 +787,17 @@
             box-shadow: 0 0 30px rgba(0, 229, 255, 0.3);
             backdrop-filter: blur(10px);
         }
-
+ 
         .chatbot-window.show {
             display: flex;
             animation: slideUp 0.3s ease-out;
         }
-
+ 
         @keyframes slideUp {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
+ 
         .chatbot-header {
             background: var(--hk-bg-light);
             padding: 15px;
@@ -758,7 +805,7 @@
             align-items: center;
             border-bottom: 1px solid var(--hk-cyan);
         }
-
+ 
         .chatbot-avatar {
             width: 45px;
             height: 45px;
@@ -772,12 +819,12 @@
             align-items: center;
             box-shadow: 0 0 10px var(--hk-cyan-dim);
         }
-
+ 
         .chatbot-avatar svg {
             width: 100%;
             height: 100%;
         }
-
+ 
         .chatbot-title {
             color: var(--hk-soul);
             font-family: 'Cinzel Decorative', serif;
@@ -786,7 +833,7 @@
             flex-grow: 1;
             text-shadow: 0 0 8px var(--hk-cyan);
         }
-
+ 
         .chatbot-close {
             background: none;
             border: none;
@@ -796,12 +843,12 @@
             transition: color 0.3s;
             line-height: 1;
         }
-
+ 
         .chatbot-close:hover {
             color: var(--hk-purple);
             text-shadow: 0 0 10px var(--hk-purple);
         }
-
+ 
         .chatbot-messages {
             flex-grow: 1;
             padding: 15px;
@@ -811,7 +858,7 @@
             gap: 12px;
             font-family: 'Spectral', serif;
         }
-
+ 
         .chatbot-messages::-webkit-scrollbar {
             width: 6px;
         }
@@ -822,7 +869,7 @@
             background: var(--hk-cyan);
             border-radius: 3px;
         }
-
+ 
         .chat-message {
             max-width: 85%;
             padding: 12px 16px;
@@ -832,7 +879,7 @@
             word-wrap: break-word;
             position: relative;
         }
-
+ 
         .bot-message {
             background: rgba(10, 17, 40, 0.8);
             color: var(--hk-soul);
@@ -841,7 +888,7 @@
             border-bottom-left-radius: 0;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
         }
-
+ 
         .user-message {
             background: rgba(176, 38, 255, 0.2);
             color: #fff;
@@ -850,7 +897,7 @@
             border-bottom-right-radius: 0;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
         }
-
+ 
         .chatbot-input-area {
             padding: 15px;
             background: var(--hk-bg-light);
@@ -858,7 +905,7 @@
             display: flex;
             gap: 10px;
         }
-
+ 
         .chatbot-input-area input {
             flex-grow: 1;
             background: var(--hk-bg-dark);
@@ -870,12 +917,12 @@
             outline: none;
             transition: all 0.3s;
         }
-
+ 
         .chatbot-input-area input:focus {
             border-color: var(--hk-cyan);
             box-shadow: 0 0 10px var(--hk-cyan-dim);
         }
-
+ 
         .chatbot-input-area button {
             background: var(--hk-bg-dark);
             color: var(--hk-cyan);
@@ -889,40 +936,40 @@
             align-items: center;
             font-size: 1.2rem;
         }
-
+ 
         .chatbot-input-area button:hover {
             background: rgba(0, 229, 255, 0.2);
             box-shadow: 0 0 15px var(--hk-cyan);
             color: #fff;
         }
-
+ 
         /* ===== RESPONSIVE PARA MÓVILES ===== */
         @media (max-width: 768px) {
             html {
                 font-size: 18px;
                 /* En celulares reducimos un poco para que no colapse */
             }
-
+ 
             body {
                 font-size: 17px;
             }
-
+ 
             .content-card p,
             .content-card li {
                 font-size: 1.2rem;
             }
-
+ 
             .modal-content {
                 width: 95%;
                 padding: 20px;
                 max-height: 90vh;
             }
-
+ 
             .tasks-list {
                 grid-template-columns: 1fr;
                 /* Una columna en celulares */
             }
-
+ 
             .viewer-toolbar {
                 padding: 15px;
                 flex-direction: column;
@@ -930,7 +977,7 @@
                 text-align: center;
             }
         }
-
+ 
         /* LÓGICA DE TEMAS POR INTERSECCIÓN (CERO LAG) */
         body.theme-nature #bgNature { opacity: 1; }
         body.theme-nature #bgCity, body.theme-nature #bgOvergrown { opacity: 0; }
@@ -940,19 +987,19 @@
         
         body.theme-overgrown #bgOvergrown { opacity: 1; }
         body.theme-overgrown #bgNature, body.theme-overgrown #bgCity { opacity: 0; }
-
+ 
         #bgNature, #bgCity, #bgOvergrown {
             transition: opacity 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             will-change: opacity;
         }
     </style>
 </head>
-
+ 
 <body class="text-gray-800 flex flex-col min-h-screen">
-
+ 
     <!-- Contenedor de partículas de alma -->
     <div class="soul-particles" id="soulParticles"></div>
-
+ 
     <!-- Escenario de Fondo: Lago y Ramas -->
     <div class="hk-background-container" id="bgNature">
         <div class="hk-lake"></div>
@@ -976,7 +1023,7 @@
             <ellipse cx="190" cy="350" rx="3" ry="8" fill="#00e5ff" transform="rotate(20 190 350)" filter="drop-shadow(0 0 5px #00e5ff)"/>
         </svg>
     </div>
-
+ 
     <!-- Escenario de Fondo 2: Ciudad de Lágrimas -->
     <div class="hk-bg-city" id="bgCity">
         <div class="city-moon"></div>
@@ -995,7 +1042,7 @@
             <rect x="0" y="140" width="1000" height="15" fill="#050a15"/>
         </svg>
     </div>
-
+ 
     <!-- Escenario de Fondo 3: Sendero Verde / Jardines (Overgrown) -->
     <div class="hk-bg-overgrown" id="bgOvergrown">
         <div class="overgrown-waterfall"></div>
@@ -1014,11 +1061,11 @@
             <path d="M 1050 0 C 900 200, 950 400, 1050 500 L 1100 500 L 1100 0 Z" fill="#082015"/>
         </svg>
     </div>
-
+ 
     <!-- Sección de Encabezado -->
     <header class="text-white shadow-lg py-4 sm:py-6 relative z-10" style="background: rgba(2, 6, 17, 0.65);">
         <div class="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-6">
-
+ 
             <!-- Izquierda: Título y Nombre -->
             <div class="flex flex-col flex-none justify-center items-center md:items-start">
                 <div class="flex items-center space-x-3">
@@ -1031,7 +1078,7 @@
                     </h2>
                 </div>
             </div>
-
+ 
             <!-- Centro: Unidades -->
             <nav class="flex-grow flex justify-center overflow-x-auto pb-2 md:pb-0 mx-4">
                 <ul class="flex flex-row justify-center space-x-4 whitespace-nowrap">
@@ -1049,16 +1096,16 @@
                                 class="fas fa-book mr-1"></i>Unidad 4</a></li>
                 </ul>
             </nav>
-
+ 
             <!-- Derecha: Iniciar Sesión -->
             <div class="flex-none flex justify-center md:justify-end">
                 <a href="login.html" class="btn-login text-xs whitespace-nowrap"><i
                         class="fas fa-sign-in-alt mr-2"></i>Iniciar Sesión</a>
             </div>
-
+ 
         </div>
     </header>
-
+ 
     <main class="flex-grow container mx-auto px-4 py-10 sm:py-16">
         <div class="grid-main">
             <!-- Columna principal: secciones  -->
@@ -1082,7 +1129,7 @@
                             entre sí.
                         </p>
                     </section>
-
+ 
                     <!-- Sección de Objetivos -->
                     <section id="objetivos" class="content-card theme-trigger" data-theme="nature">
                         <div class="flex items-center space-x-4 mb-4">
@@ -1103,22 +1150,30 @@
                     </section>
                 </div>
             </div>
-
+ 
             <!-- Columna secundaria: info breve / contacto -->
             <aside class="space-y-6">
                 <div class="content-card">
-                    <div class="flex items-center space-x-4 mb-4">
-                        <i class="fas fa-user text-2xl" style="color: #667eea;"></i>
-                        <h2 class="text-2xl font-bold">Quién soy</h2>
+                    <div class="profile-row">
+                        <div class="profile-photo">
+                            <img src="yo.png" alt="Foto de perfil"
+                                 onerror="this.style.display='none'; this.parentElement.innerHTML='<i class=\'fas fa-user placeholder-icon\'></i>';">
+                        </div>
+                        <div class="profile-info">
+                            <div class="flex items-center space-x-4 mb-4">
+                                <i class="fas fa-user text-2xl" style="color: #667eea;"></i>
+                                <h2 class="text-2xl font-bold">Quién soy</h2>
+                            </div>
+                            <ul class="list-disc pl-6 text-lg space-y-2">
+                                <li>Soy Calderon Palacios Lazo Raul A.</li>
+                                <li>Estudio en la Universidad Peruana Los Andes en la carrera de Ingeniería de Sistemas</li>
+                                <li>Me gusta aprender sobre nuevas tecnologías y su aplicación en desarrollo.</li>
+                                <li>Tengo habilidades en lógica y me gusta estudiar de todo un poco</li>
+                            </ul>
+                        </div>
                     </div>
-                    <ul class="list-disc pl-6 text-lg space-y-2">
-                        <li>Soy Calderon Palacios Lazo Raul A.</li>
-                        <li>Estudio en la Universidad Peruana Los Andes en la carrera de Ingeniería de Sistemas</li>
-                        <li>Me gusta aprender sobre nuevas tecnologías y su aplicación en desarrollo.</li>
-                        <li>Tengo habilidades en lógica y me gusta estudiar de todo un poco</li>
-                    </ul>
                 </div>
-
+ 
                 <div class="content-card">
                     <h3 class="text-lg font-semibold mb-3">Recursos rápidos</h3>
                     <a href="https://github.com/RaulCalderon11" target="_blank" class="btn-login inline-block">Mi
@@ -1126,7 +1181,7 @@
                 </div>
             </aside>
         </div>
-
+ 
         <!-- Nueva sección: Ecosistema de Base de Datos -->
         <div class="mt-20 theme-trigger" data-theme="city">
             <h2 class="text-3xl font-extrabold text-center mb-10"
@@ -1159,7 +1214,7 @@
                 </div>
             </div>
         </div>
-
+ 
         <!-- Nueva sección: Banco de Descanso (Lore Hollow Knight) -->
         <div class="mt-20 theme-trigger" data-theme="overgrown" style="margin-top: 150px; margin-bottom: 50px;">
             <div class="content-card text-center relative overflow-hidden" style="padding: 4rem 2rem; border-color: #32c864; box-shadow: 0 0 40px rgba(50, 200, 100, 0.1);">
@@ -1179,7 +1234,7 @@
             </div>
         </div>
     </main>
-
+ 
     <!-- Sección de Pie de página -->
     <footer class="py-6">
         <div
@@ -1187,7 +1242,7 @@
             <p class="text-sm">© 2024 Desarrollo de Aplicaciones</p>
         </div>
     </footer>
-
+ 
     <!-- MODAL PARA VER TAREAS -->
     <div class="modal" id="tasksModal">
         <div class="modal-content">
@@ -1198,7 +1253,7 @@
             <div id="modalTasks" class="tasks-list"></div>
         </div>
     </div>
-
+ 
     <!-- MODAL PARA PREVISUALIZAR ARCHIVOS -->
     <div class="viewer-modal" id="viewerModal">
         <div class="viewer-toolbar">
@@ -1218,7 +1273,7 @@
             </div>
         </div>
     </div>
-
+ 
     <!-- Chatbot del Caballero (Hollow Knight) -->
     <div class="chatbot-container" id="chatbotContainer">
         <div class="chatbot-window" id="chatbotWindow">
@@ -1277,9 +1332,11 @@
             </svg>
         </div>
     </div>
-
+ 
     <script>
-        // DATOS LOCALES DUROS SIN BASE DE DATOS
+        // ══════════════════════════════════════════════════
+        // 1. DATOS Y CONFIGURACIÓN
+        // ══════════════════════════════════════════════════
         let data = {
             units: {
                 1: {
@@ -1336,32 +1393,35 @@
                 4: { title: 'Unidad 4: Administración y Seguridad', tasks: [] }
             }
         };
-
+ 
         const weekNames = {
             1: "Introducción a la arquitectura de BD",
             2: "Gestores de BD",
             3: "Diseño de Arquitectura de BD",
             4: "Tipos de Arquitectura de BD"
         };
-
+ 
         // Cliente Supabase
         const supabaseUrl = 'https://nilgysffiuyjuguqcuij.supabase.co';
         const supabaseKey = 'sb_publishable_WhpTZyUFLdZhaqY54cEPew_VAuZMsSA';
         const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
-
+ 
+        // ══════════════════════════════════════════════════
+        // 2. CARGA DE DATOS (SUPABASE)
+        // ══════════════════════════════════════════════════
         async function loadData() {
             // Limpiamos las tareas actuales del objeto local
             Object.keys(data.units).forEach(u => data.units[u].tasks = []);
-
+ 
             const { data: tareasBD, error } = await supabaseClient
                 .from('tareas')
                 .select('*, documentos(*)');
-
+ 
             if (error) {
                 console.error("Error cargando datos:", error);
                 return;
             }
-
+ 
             if (tareasBD) {
                 tareasBD.forEach(t => {
                     if (data.units[t.unidad_id]) {
@@ -1380,27 +1440,24 @@
                         });
                     }
                 });
-
+ 
                 Object.keys(data.units).forEach(u => {
                     data.units[u].tasks.sort((a, b) => a.week - b.week);
                 });
             }
         }
-
-        // Cargar datos al iniciar
-        document.addEventListener('DOMContentLoaded', () => {
-            loadData();
-            createParticles();
-        });
-
+ 
         function escapeAttr(str) {
             return String(str).replace(/'/g, "\\'").replace(/"/g, '&quot;');
         }
-
+ 
+        // ══════════════════════════════════════════════════
+        // 3. MODAL DE TAREAS POR UNIDAD
+        // ══════════════════════════════════════════════════
         function openTasksModal(unitId) {
             const unit = data.units[unitId];
             document.getElementById('modalTitle').textContent = unit.title;
-
+ 
             const container = document.getElementById('modalTasks');
             if (unit.tasks.length === 0) {
                 container.innerHTML = '<p style="color: #999; text-align: center; padding: 40px; grid-column: 1 / -1;">No hay tareas en esta unidad aún.</p>';
@@ -1435,34 +1492,28 @@
             }
             document.getElementById('tasksModal').classList.add('show');
         }
-
+ 
         function closeTasksModal() {
             document.getElementById('tasksModal').classList.remove('show');
         }
-
-        document.getElementById('tasksModal').addEventListener('click', (e) => {
-            if (e.target.id === 'tasksModal') {
-                closeTasksModal();
-            }
-        });
-
+ 
         // ══════════════════════════════════════════════════
-        // LÓGICA DE VISOR Y DESCARGA
+        // 4. VISOR DE ARCHIVOS Y DESCARGA
         // ══════════════════════════════════════════════════
         function openViewer(url, name) {
             document.getElementById('viewerTitle').textContent = name;
             document.getElementById('viewerDownloadBtn').href = url;
             document.getElementById('viewerDownloadBtn').download = name;
-
+ 
             const modal = document.getElementById('viewerModal');
             const iframe = document.getElementById('viewerIframe');
             const img = document.getElementById('viewerImg');
             const err = document.getElementById('viewerError');
-
+ 
             iframe.style.display = 'none';
             img.style.display = 'none';
             err.style.display = 'none';
-
+ 
             const lowerUrl = url.toLowerCase();
             if (lowerUrl.endsWith('.png') || lowerUrl.endsWith('.jpg') || lowerUrl.endsWith('.jpeg') || lowerUrl.endsWith('.gif')) {
                 img.src = url;
@@ -1473,16 +1524,16 @@
                 iframe.src = url;
                 iframe.style.display = 'block';
             }
-
+ 
             modal.classList.add('show');
         }
-
+ 
         function closeViewer() {
             document.getElementById('viewerModal').classList.remove('show');
             document.getElementById('viewerIframe').src = '';
             document.getElementById('viewerImg').src = '';
         }
-
+ 
         function forceDownload(url, filename) {
             const a = document.createElement('a');
             a.href = url;
@@ -1491,8 +1542,10 @@
             a.click();
             a.remove();
         }
-
-        // LÓGICA DE PARTÍCULAS
+ 
+        // ══════════════════════════════════════════════════
+        // 5. PARTÍCULAS DE ALMA (FONDO)
+        // ══════════════════════════════════════════════════
         function createParticles() {
             const container = document.getElementById('soulParticles');
             if (!container) return;
@@ -1502,63 +1555,65 @@
                 particle.style.left = Math.random() * 100 + 'vw';
                 particle.style.animationDuration = (Math.random() * 10 + 8) + 's';
                 particle.style.animationDelay = (Math.random() * 5) + 's';
-                
+ 
                 const scale = Math.random() * 0.6 + 0.4;
                 particle.style.transform = `scale(${scale})`;
-                
+ 
                 container.appendChild(particle);
             }
         }
-
-        // LÓGICA DEL CHATBOT
+ 
+        // ══════════════════════════════════════════════════
+        // 6. CHATBOT "EL CABALLERO"
+        // ══════════════════════════════════════════════════
         function toggleChatbot() {
-            const window = document.getElementById('chatbotWindow');
-            window.classList.toggle('show');
-            if (window.classList.contains('show')) {
+            const win = document.getElementById('chatbotWindow');
+            win.classList.toggle('show');
+            if (win.classList.contains('show')) {
                 document.getElementById('chatInput').focus();
             }
         }
-
+ 
         function handleChatKeyPress(event) {
             if (event.key === 'Enter') {
                 sendChatMessage();
             }
         }
-
+ 
         function sendChatMessage() {
             const input = document.getElementById('chatInput');
             const messageRaw = input.value.trim();
             if (messageRaw === '') return;
             const message = messageRaw.toLowerCase();
-
+ 
             const messagesContainer = document.getElementById('chatbotMessages');
-            
+ 
             // Mensaje del usuario
             const userMsg = document.createElement('div');
             userMsg.className = 'chat-message user-message';
             userMsg.textContent = messageRaw;
             messagesContainer.appendChild(userMsg);
-            
+ 
             input.value = '';
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
-
+ 
             // Respuesta del Bot explicando tareas
             setTimeout(() => {
                 const botMsg = document.createElement('div');
                 botMsg.className = 'chat-message bot-message';
-                
+ 
                 let reply = "";
                 let foundWeek = null;
-                for(let i=1; i<=4; i++) {
+                for (let i = 1; i <= 4; i++) {
                     if (message.includes("semana " + i) || message.includes("semana" + i)) {
                         foundWeek = i;
                         break;
                     }
                 }
-
+ 
                 // Asegurar que exista data.units
                 let unit1Tasks = (data && data.units && data.units[1] && data.units[1].tasks) ? data.units[1].tasks : [];
-
+ 
                 if (foundWeek) {
                     let task = unit1Tasks.find(t => t.week === foundWeek);
                     if (task) {
@@ -1588,44 +1643,54 @@
                     ];
                     reply = responses[Math.floor(Math.random() * responses.length)];
                 }
-
+ 
                 botMsg.innerHTML = reply;
                 messagesContainer.appendChild(botMsg);
                 messagesContainer.scrollTop = messagesContainer.scrollHeight;
             }, 600 + Math.random() * 500); // Retraso rápido
         }
-
-        // LÓGICA DE TRANSICIÓN DE FONDO (CERO LAG - INTERSECTION OBSERVER)
-        document.addEventListener("DOMContentLoaded", () => {
+ 
+        // ══════════════════════════════════════════════════
+        // 7. TRANSICIÓN DE FONDO SEGÚN SCROLL (INTERSECTION OBSERVER)
+        // ══════════════════════════════════════════════════
+        function initThemeObserver() {
             const sections = document.querySelectorAll('.theme-trigger');
-            
+ 
             const observerOptions = {
                 root: null,
                 rootMargin: '-30% 0px -30% 0px',
                 threshold: 0
             };
-            
+ 
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         const theme = entry.target.dataset.theme;
                         if (theme) {
-                            // Actualizar la clase del body para cambiar fondos mediante CSS puro
                             document.body.className = `text-gray-800 flex flex-col min-h-screen theme-${theme}`;
                         }
                     }
                 });
             }, observerOptions);
-            
+ 
             sections.forEach(section => observer.observe(section));
-            
+ 
             // Si la pantalla es muy corta y no cruza ningún trigger al inicio, forzamos el primero
-            if(sections.length > 0) {
+            if (sections.length > 0) {
                 document.body.className = `text-gray-800 flex flex-col min-h-screen theme-${sections[0].dataset.theme}`;
             }
+        }
+ 
+        // ══════════════════════════════════════════════════
+        // 8. INICIALIZACIÓN
+        // ══════════════════════════════════════════════════
+        document.addEventListener('DOMContentLoaded', () => {
+            loadData();
+            createParticles();
+            initThemeObserver();
         });
-
     </script>
 </body>
-
+ 
 </html>
+ 
